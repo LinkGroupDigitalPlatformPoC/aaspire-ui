@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>PrimeNG - ULTIMA</title>
+
+    <!-- Layout CSS -->
+    <link id="theme-css" rel="stylesheet" type="text/css" href="resources/theme/theme-indigo.css">
+    <link id="layout-css" rel="stylesheet" type="text/css" href="resources/layout/css/layout-indigo.css">
+    
+    <!-- PrimeNG CSS -->
+    <link rel="stylesheet" type="text/css" href="node_modules/primeng/resources/primeng.min.css" />
+
+    <!-- 1. Load libraries -->
+    
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/chart.js/dist/Chart.js"></script>
+    
+    <script src="js/jquery.deps.js"></script>    <!-- Calendar -->
+    
+    <!-- layout.js must be loaded after jquery.dep.js -->
+    <script src="resources/layout/js/layout.js"></script>       <!-- Menu -->
+
+    <script src="js/JSOG.js"></script>
+
+    <!-- 2. Configure SystemJS -->
+    <script src="js/systemjs.config.js"></script>
+
+    <script>
+      System.import('app').catch(function(err){ console.error(err); });
+    </script>
+  </head>
+
+  <!-- 3. Display the application -->
+  <body>
+      <my-app>
+          <div class="splash-screen">
+              <div class="splash-container">
+                  <div class="logo"></div>
+                  <div class="load-bar">
+                      <div class="bar"></div>
+                      <div class="bar"></div>
+                      <div class="bar"></div>
+                  </div>
+              </div>
+          </div>
+      </my-app>
+  </body>
+
+</html>
