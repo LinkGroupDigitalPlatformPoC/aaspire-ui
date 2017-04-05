@@ -1,0 +1,70 @@
+<h1>Member Central</h1>
+<hr
+	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+<div class="ui-g form-group">
+	<div class="ui-g-12 ui-md-4">
+		<span class="md-inputfield"> <input type="text" pInputText><label>Member#</label>
+		</span>
+	</div>
+	<div class="ui-g-12 ui-md-4">
+		<span class="md-inputfield"> <input type="text" pInputText><label>Firstname</label>
+		</span>
+	</div>
+	<div class="ui-g-12 ui-md-4">
+		<span class="md-inputfield"> <input type="text" pInputText><label>Lastname</label>
+		</span>
+	</div>
+
+	<div class="ui-g-12 ui-md-12"></div>
+
+	<div class="ui-g-12 ui-md-4">
+		<span class="md-inputfield"> <p-calendar
+				[monthNavigator]="true" [yearNavigator]="true" [showIcon]="true"></p-calendar>
+			<label>D.O.B</label>
+		</span>
+	</div>
+	<div class="ui-g-12 ui-md-8"></div>
+
+	<div class="ui-g-12 ui-md-12"></div>
+
+	<div class="ui-g-12 ui-md-4">
+		<span class="md-inputfield"> <p-dropdown id="dropdown"
+				[autoWidth]="false" placeholder="Select a State"></p-dropdown>
+		</span>
+	</div>
+	<div class="ui-g-12 ui-md-4">
+		<span class="md-inputfield"> <input type="text" pInputText><label>Postcode</label>
+		</span>
+	</div>
+	<div class="ui-g-12 ui-md-4">
+		<span class="md-inputfield"> <input type="text" pInputText><label>Suburb</label>
+		</span>
+	</div>
+
+	<div class="ui-g-12 ui-md-12"></div>
+
+	<div class="ui-g-12 ui-md-8"></div>
+	<div class="ui-g-12 ui-md-4" style="text-align: right">
+		<button pButton type="button" label="Search" class="cyan-btn"></button>
+	</div>
+
+</div>
+
+<hr
+	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+
+<div class="ui-g form-group">
+	<div class="ui-g-12">
+		<p-dataTable selectionMode="single" [paginator]="true" [rows]="10"
+			[responsive]="true"> <p-header>Results</p-header> <p-column
+			field="membernum" header="Member#" [sortable]="true"></p-column> <p-column
+			field="name" header="Name" [sortable]="true"></p-column> <p-column
+			field="plan" header="Plan" [sortable]="true"></p-column> <p-column
+			field="dob" header="D.O.B" [sortable]="true"></p-column> </p-dataTable>
+	</div>
+</div>
+
+
+
+
+

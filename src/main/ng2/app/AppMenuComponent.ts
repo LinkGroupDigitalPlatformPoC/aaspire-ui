@@ -21,7 +21,7 @@ export class AppMenuComponent implements OnInit {
     ngOnInit() {
         this.model = [
             {
-            	label: 'Dashboard', icon: 'dashboard', routerLink: ['/']
+            	label: 'Member Central', icon: 'dashboard', routerLink: ['/']
             },
             {
             	label: 'Admin', icon:'menu',

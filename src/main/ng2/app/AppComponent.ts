@@ -43,7 +43,22 @@ declare var jQuery: any;
 		            
                     <p-growl [value]="msgs"></p-growl>
 
-		            <router-outlet></router-outlet>            
+                    <div class="ui-fluid">
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-lg-8">
+                                <div class="card card-w-title">
+                                    <router-outlet></router-outlet> 
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-lg-4">
+                                <div class="card card-w-title">
+                                    <h1>Context</h1>
+                                    <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+		                       
 		            
 		        </div>
 		        

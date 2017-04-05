@@ -1,10 +1,10 @@
 import {ModuleWithProviders} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import { DashboardComponent } from './modules/views/DashboardComponent';
+import { MemberCentralComponent } from './modules/views/MemberCentralComponent';
 
 const appRoutes: Routes = [
-    {path: '', component: DashboardComponent}
+    {path: '', component: MemberCentralComponent}
 ];
 
 export const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);

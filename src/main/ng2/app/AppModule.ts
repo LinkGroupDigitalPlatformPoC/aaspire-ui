@@ -8,7 +8,7 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { ButtonModule, ToolbarModule, TabViewModule, InputTextareaModule, 
          InputTextModule, GrowlModule, DialogModule, MenubarModule, DataTableModule,
          SharedModule, PanelModule, TreeModule, CalendarModule, DropdownModule, CarouselModule, DataGridModule,
-         InputSwitchModule,ConfirmDialogModule,ConfirmationService,BlockUIModule, ChartModule} from 'primeng/primeng';
+         InputSwitchModule,ConfirmDialogModule,ConfirmationService,BlockUIModule, ChartModule, ScheduleModule, DataListModule} from 'primeng/primeng';
 
 // framework classes
 import { AppComponent }  from './AppComponent';
@@ -22,7 +22,7 @@ import { AppFooterComponent }  from './AppFooterComponent';
 import { appRouting }  from './AppRoutes';
 
 // components
-import { DashboardComponent }  from './modules/views/DashboardComponent';
+import { MemberCentralComponent }  from './modules/views/MemberCentralComponent';
         
 @NgModule({
     imports: [
@@ -51,6 +51,8 @@ import { DashboardComponent }  from './modules/views/DashboardComponent';
         InputSwitchModule,
         HttpModule,
         JsonpModule,
+        ScheduleModule,
+        DataListModule,
         appRouting
     ],
     providers: [
@@ -63,7 +65,7 @@ import { DashboardComponent }  from './modules/views/DashboardComponent';
     	AppSubMenuComponent,
     	AppFooterComponent,
     	AppProfileComponent,
-    	DashboardComponent
+    	MemberCentralComponent
     ],
     bootstrap: [
     	AppComponent
