@@ -3,7 +3,7 @@ import { TreeNode } from 'primeng/primeng';
 
 import { ActivatedRoute } from '@angular/router';
 import './../common/RxJsOperators';
-import {IdentityCheck} from './../models/Member';
+import {Member} from './../models/Member';
 
 @Component({
     moduleId: module.id,

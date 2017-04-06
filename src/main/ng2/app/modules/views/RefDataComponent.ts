@@ -4,7 +4,7 @@ import { TreeNode } from 'primeng/primeng';
 import { ActivatedRoute } from '@angular/router';
 import './../common/RxJsOperators';
 import {RefData} from './../models/RefData';
-import {RefDataValue} from './../models/RefData';
+import {RefDataValue} from './../models/RefDataValue';
 
 @Component({
     moduleId: module.id,

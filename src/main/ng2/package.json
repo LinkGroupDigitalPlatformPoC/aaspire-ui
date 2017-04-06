@@ -49,8 +49,9 @@
     "rollup-plugin-commonjs": "^7.0.0",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-uglify": "^1.0.1",
-    "ts-node": "1.2.1",
-    "tslint": "^4.0.2",
-    "typescript": "~2.0.3"
+    "ts-node": "3.0.2",
+    "tsc": "1.20150623.0",
+    "tslint": "5.0.0",
+    "typescript": "2.2.2"
   }
 }
