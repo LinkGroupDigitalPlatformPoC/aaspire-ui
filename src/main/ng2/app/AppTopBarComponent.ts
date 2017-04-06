@@ -6,7 +6,7 @@ import {AppComponent} from './AppComponent';
     template: `
         <div class="topbar clearfix">
             <div class="topbar-left">            
-                <div class="logo"></div>
+                <div></div>
             </div>
 
             <div class="topbar-right">
