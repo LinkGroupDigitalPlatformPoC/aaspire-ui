@@ -14,7 +14,7 @@ import { MemberDetails } from '../models/MemberDetails.interface';
 
 @Injectable()
 
-export class MemberSearchService {
+export class MemberSearch {
 
     boxToken: string;
 
