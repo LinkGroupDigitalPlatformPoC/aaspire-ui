@@ -29,7 +29,7 @@ export class MemberCentralComponent {
         
         this.subscriptionToMemberSearch = 
         this.memberSearchService.getTokenForAppUser("iancraig@au1.ibm.com", "AIC Offerings").subscribe(
-            memberObj => this.consumeMemberDetails("abc"),
+            memberObj => this.consumeMemberDetails(memberObj),
             error => console.error("ERROR: " + <any>error)
         );
         
@@ -48,23 +48,16 @@ export class MemberCentralComponent {
      * @param fetchedFromServer: whether this was a fresh fetch from Box (or cached data)
      */
     
-    private consumeMemberDetails(memberDetails: string) {        
+    private consumeMemberDetails(memberDetails: MemberDetails) {
+
+        console.log('consumeMemberDetails: got a result: ' + JSON.stringify(memberDetails));
+        console.log('consumeMemberDetails: token: ' + memberDetails.token);
+
         /*
-        let currentTopic: string = deckForRoute.Category; // eg: casestudies
-        
-        // reset the "fetching data"" indicator
-        var idx: number = 0;
-        for (let aTopic of this.topicList) {
-            if (aTopic[0] == currentTopic) {
-                this.topicList[idx][2] = 'false'; // index 2 => fetching data
-                break;
-            }
-            idx++;
-        }
 
         // console.log("consumeBoxDeckForRoute(): selection: " + deckForRoute.Selection + "; category: " + deckForRoute.Category + "; " + deckForRoute.Content.toString() + "; fetched from server: " + fetchedFromServer);
 
-        if (deckForRoute.Content == undefined) {
+        if (memberDetails == undefined) {
             // console.log("consumeBoxDeckForRoute(): current topic: " + currentTopic) + "; has undefined content";
             let emptyDeck: BoxDeckItem[] = [];
             this.contentList[currentTopic].box = emptyDeck;
