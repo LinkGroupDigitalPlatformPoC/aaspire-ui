@@ -14,7 +14,7 @@ import { MemberSearch } from '../services/MemberSearch.service';
 })
 export class MemberCentralComponent {
 
-    searchResults : any;
+    searchResults : any; // [MemberDetails];  @ICtodo
     private subscriptionToMemberSearch: any;
       
     /**
@@ -32,45 +32,30 @@ export class MemberCentralComponent {
             memberObj => this.consumeMemberDetails(memberObj),
             error => console.error("ERROR: " + <any>error)
         );
-        
 
-        // mock up search result data should make a call to an api
-        this.searchResults = [
-            {'membernum':'123456789','name':'John Doe','plan':'Standard','dob':'03-07-1979'},
-            {'membernum':'123456777','name':'John Smith','plan':'Standard','dob':'03-07-1959'}
-        ];
     }
 
     /**
-     * Consume the deck description, setting up the data for the HTML template
-     * 
-     * @param deckForRoute: JSON structure describing the Box content for a route
-     * @param fetchedFromServer: whether this was a fresh fetch from Box (or cached data)
+     * Consume member list from the member search
+     * Update the UI
      */
-    
-    private consumeMemberDetails(memberDetails: MemberDetails) {
+    private consumeMemberDetails(memberDetails: [MemberDetails]) {
+        // console.log('consumeMemberDetails: got a result: ' + JSON.stringify(memberDetails));
 
-        console.log('consumeMemberDetails: got a result: ' + JSON.stringify(memberDetails));
-        console.log('consumeMemberDetails: token: ' + memberDetails.token);
+        this.searchResults = new Array();
 
-        /*
-
-        // console.log("consumeBoxDeckForRoute(): selection: " + deckForRoute.Selection + "; category: " + deckForRoute.Category + "; " + deckForRoute.Content.toString() + "; fetched from server: " + fetchedFromServer);
-
-        if (memberDetails == undefined) {
-            // console.log("consumeBoxDeckForRoute(): current topic: " + currentTopic) + "; has undefined content";
-            let emptyDeck: BoxDeckItem[] = [];
-            this.contentList[currentTopic].box = emptyDeck;
+        // loop through array of members
+        for (var member of memberDetails) {
+            console.log("member is: " + JSON.stringify(member));
+            this.searchResults.push({'membernum':'123456789','name':'John Doe','plan':'Standard','dob':'03-07-1979'});
+            console.log("________");
         }
-        else {
-            console.log("consumeBoxDeckForRoute(): setting box content for area " + this.area + " and topic " + currentTopic);
-            this.contentList[currentTopic].box = deckForRoute.Content;
-        }
+        // mock up search result data should make a call to an api
+        // this.searchResults = [
+        //     {'membernum':'123456789','name':'John Doe','plan':'Standard','dob':'03-07-1979'},
+        //     {'membernum':'123456777','name':'John Smith','plan':'Standard','dob':'03-07-1959'}
+        // ];
 
-        if (fetchedFromServer) {
-            this.saveDeckForRouteToSessionStorage(deckForRoute);
-        }
-        */
     }
     
 }

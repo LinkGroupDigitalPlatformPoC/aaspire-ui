@@ -30,13 +30,40 @@ export class MemberSearch {
      * Returns:
      *      BoxToken object such as: {"issuccess":"true","token":"2Zsck9MtEqpNFNWyAmbid9J2ShiGIFwP","folderid":"4705872914","clientid":"ID000002"}
      */
-    public getTokenForAppUser(usr: string, group: string): Observable<MemberDetails> {
+    public getTokenForAppUser(usr: string, group: string): Observable<[MemberDetails]> {
         // Expert Seller back end
         
-        let completeURL = "https://expertselleroffering-prod.mybluemix.net/getboxtoken/" + usr + '/' + group;
+        // let completeURL = "https://expertselleroffering-prod.mybluemix.net/getboxtoken/" + usr + '/' + group;
+        let completeURL = "http://dev-member-mgmt-services.mybluemix.net/members?search=a%20ma"; 
 
         return this.http.get(completeURL).map(this.extractData).catch(this.handleError);
     }
+
+/*
+
+[  
+   {  
+      "id":"201",
+      "title":"Mr",
+      "givenName":"Roger",
+      "surname":"Federer",
+      "dateOfBirth":"1991-01-01",
+      "status":"ACTIVE",
+      "email":"abc@gmail.com",
+      "address":{  
+         "id":"101",
+         "line1":"60 City Road",
+         "line2":"Southgate",
+         "suburb":"South Bank",
+         "state":"VIC",
+         "postCode":"3006",
+         "country":"Australia"
+      },
+      "phoneNumber":"12345678"
+   },
+]
+
+*/
 
     /**
      * Parse the response object
@@ -64,7 +91,7 @@ export class MemberSearch {
 
         if (res.status == 200) {
             let body = res.json(); // parse into a JavaScript object
-            console.log('MemberSearch service: success: body = ' + JSON.stringify(body));
+            // console.log('MemberSearch service: success: body = ' + JSON.stringify(body));
             return body;
         }
         else {
