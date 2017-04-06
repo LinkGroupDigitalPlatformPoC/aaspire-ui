@@ -45,7 +45,7 @@
 
 	<div class="ui-g-12 ui-md-8"></div>
 	<div class="ui-g-12 ui-md-4" style="text-align: right">
-		<button pButton type="button" label="Search" class="cyan-btn"></button>
+		<button pButton type="button" label="Search" (click)="onSearch()"></button>
 	</div>
 
 </div>
@@ -56,11 +56,19 @@
 <div class="ui-g form-group">
 	<div class="ui-g-12">
 		<p-dataTable selectionMode="single" [paginator]="true" [rows]="10"
-			[responsive]="true"> <p-header>Results</p-header> <p-column
-			field="membernum" header="Member#" [sortable]="true"></p-column> <p-column
-			field="name" header="Name" [sortable]="true"></p-column> <p-column
-			field="plan" header="Plan" [sortable]="true"></p-column> <p-column
-			field="dob" header="D.O.B" [sortable]="true"></p-column> </p-dataTable>
+			[responsive]="true" [value]="searchResults"> 
+			 
+			<p-column field="membernum" header="Member#" [sortable]="true"></p-column> 
+			<p-column field="name" header="Name" [sortable]="true"></p-column>
+			<p-column field="plan" header="Plan" [sortable]="true"></p-column>
+			<p-column field="dob" header="D.O.B" [sortable]="true"></p-column> 
+
+		    <p-column styleClass="col-button">
+		        <template let-result="rowData" pTemplate="body">
+					<button pButton type="button" label="Start Call"></button>
+		        </template>
+		    </p-column>
+		</p-dataTable>
 	</div>
 </div>
 
