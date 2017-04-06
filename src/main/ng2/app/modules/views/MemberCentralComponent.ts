@@ -21,6 +21,8 @@ export class MemberCentralComponent {
     onSearch() {
         console.log('MemberCentralComponent::onSearch');
         // mock up serach result data should make a call to an api
+
+        // @IC: hook in here
         this.searchResults = [{'membernum':'123456789','name':'John Doe','plan':'Standard','dob':'03-07-1979'},
                          {'membernum':'123456777','name':'John Smith','plan':'Standard','dob':'03-07-1959'}];
     }
