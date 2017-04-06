@@ -47,7 +47,11 @@ export class MemberCentralComponent {
         // loop through array of members
         for (var member of memberDetails) {
             console.log("member is: " + JSON.stringify(member));
-            this.searchResults.push({'membernum':'123456789','name':'John Doe','plan':'Standard','dob':'03-07-1979'});
+            this.searchResults.push({
+                'membernum': '123456789',
+                'name': member.title + " " + member.givenName + " " + member.surname,
+                'plan': 'Standard',
+                'dob': member.dateOfBirth});
             console.log("________");
         }
         // mock up search result data should make a call to an api
