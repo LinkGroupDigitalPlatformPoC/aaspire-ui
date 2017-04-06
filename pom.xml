@@ -45,7 +45,7 @@
 						<id>exec-npm-tsc</id>
 						<phase>generate-sources</phase>
 						<configuration>
-							<executable>npm.cmd</executable>
+							<executable>npm</executable>
 							<arguments>
 								<argument>run</argument>
 								<argument>tsc</argument>
