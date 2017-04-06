@@ -1,0 +1,49 @@
+<h1>Reference Data</h1>
+
+<hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+
+<div style="text-align:right">
+	<button pButton type="button" icon="ui-icon-chevron-left" class="PinkButton" (click)="onPrevious()" [disabled]="searchScrollDisabled" iconPos="right"></button>
+	<button pButton type="button" icon="ui-icon-chevron-right" class="PinkButton" (click)="onNext()" [disabled]="searchScrollDisabled" iconPos="left"></button>                     
+	<button pButton type="button" icon="ui-icon-search" class="PinkButton" (click)="onSearch()"></button>                     
+	<button pButton type="button" icon="ui-icon-open-in-new" class="PinkButton" (click)="onNew()" [disabled]="newBtnDisabled"></button>
+	<button pButton type="button" icon="ui-icon-save" class="PinkButton" (click)="onSave()" [disabled]="saveBtnDisabled"></button>
+	<button pButton type="button" icon="ui-icon-trash" class="PinkButton" (click)="onDelete()" [disabled]="deleteBtnDisabled"></button>
+	<button pButton type="button" icon="ui-icon-refresh" class="PinkButton" (click)="onRefresh()" [disabled]="refreshBtnDisabled"></button>
+</div>
+
+<hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+
+<div class="ui-g form-group">
+	<div class="ui-g-12 ui-md-12"></div>
+
+	<div class="ui-g-12 ui-md-4">
+		<span class="md-inputfield"> 
+			<input type="text" pInputText><label>Name</label>
+		</span>
+	</div>
+
+	<div class="ui-g-12 ui-md-8"></div>
+
+	<div class="ui-g-12 ui-md-12"></div>
+
+	<div class="ui-g-12 ui-md-8">
+		<span class="md-inputfield"> 
+			<textarea pInputTextarea rows="5"></textarea><label>Description</label>
+		</span>
+	</div>
+
+	<div class="ui-g-12 ui-md-4"></div>
+
+</div>
+
+<div class="ui-g form-group">
+	<div class="ui-g-12">
+		<p-dataTable selectionMode="single" [paginator]="true" [rows]="10"
+			[responsive]="true" [value]="refData.values"> 
+			<header>Values</header>
+			<p-column field="value" header="Value" [sortable]="true"></p-column> 
+			<p-column field="descr" header="Description" [sortable]="true"></p-column>
+		</p-dataTable>
+	</div>
+</div>

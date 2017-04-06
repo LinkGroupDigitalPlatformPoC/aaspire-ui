@@ -25,6 +25,7 @@ import { appRouting }  from './AppRoutes';
 // components
 import { MemberCentralComponent }  from './modules/views/MemberCentralComponent';
 import { VerifyIdentityComponent }  from './modules/views/VerifyIdentityComponent';
+import { RefDataComponent }  from './modules/views/RefDataComponent';
         
 @NgModule({
     imports: [
@@ -69,7 +70,8 @@ import { VerifyIdentityComponent }  from './modules/views/VerifyIdentityComponen
     	AppFooterComponent,
     	AppProfileComponent,
     	MemberCentralComponent,
-        VerifyIdentityComponent
+        VerifyIdentityComponent,
+        RefDataComponent
     ],
     bootstrap: [
     	AppComponent
