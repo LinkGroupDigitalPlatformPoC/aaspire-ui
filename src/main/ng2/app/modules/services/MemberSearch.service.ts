@@ -32,7 +32,8 @@ export class MemberSearch {
      */
     public getTokenForAppUser(usr: string, group: string): Observable<MemberDetails> {
         // Expert Seller back end
-        let completeURL = "xxxx"; // AppSettings.NODE_APP_FOR_BOX_AUTH_URL + usr + '/' + group;
+        
+        let completeURL = "https://expertselleroffering-prod.mybluemix.net/getboxtoken/" + usr + '/' + group;
 
         return this.http.get(completeURL).map(this.extractData).catch(this.handleError);
     }
@@ -63,6 +64,7 @@ export class MemberSearch {
 
         if (res.status == 200) {
             let body = res.json(); // parse into a JavaScript object
+            console.log('MemberSearch service: success: body = ' + JSON.stringify(body));
             return body;
         }
         else {

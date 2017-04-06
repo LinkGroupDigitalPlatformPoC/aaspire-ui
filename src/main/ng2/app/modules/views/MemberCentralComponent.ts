@@ -26,12 +26,13 @@ export class MemberCentralComponent {
         console.log('MemberCentralComponent::onSearch');
 
         // @IC: hook in the API here
-        /*
-        this.subscriptionToMemberSearch = this.memberSearchService.getBoxDeckForRoute(classification, selection, category).subscribe(
-            deckObj => this.consumeMemberDetails(deckObj, true),
+        
+        this.subscriptionToMemberSearch = 
+        this.memberSearchService.getTokenForAppUser("iancraig@au1.ibm.com", "AIC Offerings").subscribe(
+            memberObj => this.consumeMemberDetails("abc"),
             error => console.error("ERROR: " + <any>error)
         );
-        */
+        
 
         // mock up search result data should make a call to an api
         this.searchResults = [
@@ -46,9 +47,9 @@ export class MemberCentralComponent {
      * @param deckForRoute: JSON structure describing the Box content for a route
      * @param fetchedFromServer: whether this was a fresh fetch from Box (or cached data)
      */
-    /*
-    private consumeMemberDetails(deckForRoute: BoxDeckForRoute, fetchedFromServer: boolean) {        
-
+    
+    private consumeMemberDetails(memberDetails: string) {        
+        /*
         let currentTopic: string = deckForRoute.Category; // eg: casestudies
         
         // reset the "fetching data"" indicator
@@ -76,6 +77,7 @@ export class MemberCentralComponent {
         if (fetchedFromServer) {
             this.saveDeckForRouteToSessionStorage(deckForRoute);
         }
+        */
     }
-    */
+    
 }
