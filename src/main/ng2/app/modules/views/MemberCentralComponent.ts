@@ -1,32 +1,81 @@
-import {EventEmitter, Component, OnInit} from '@angular/core';
+import { EventEmitter, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/primeng';
 
 import { ActivatedRoute } from '@angular/router';
 import './../common/RxJsOperators';
 import { Router } from '@angular/router';
 
+import { MemberDetails } from '../models/MemberDetails.interface';
+import { MemberSearch } from '../services/MemberSearch.service';
+
 @Component({
     moduleId: module.id,
     templateUrl: 'MemberCentral.xhtml',
-    providers: []
+    providers: [MemberSearch]
 })
+
 export class MemberCentralComponent {
 
-    searchResults : any;
+    searchResults : any; // [MemberDetails];  @ICtodo
+    private subscriptionToMemberSearch: any;
+    userEnteredSearchString: string; // set from the top bar
+    userEnteredMemberNum: string; // from the partner HTML
       
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
-    constructor(private route: ActivatedRoute, private router: Router) {}
+    constructor(private route: ActivatedRoute, private router: Router, private memberSearchService: MemberSearch) {}
     
+    // from this component
+    // from the search button in this component
     onSearch() {
-        console.log('MemberCentralComponent::onSearch');
-        // mock up serach result data should make a call to an api
-        this.searchResults = [{'membernum':'123456789','name':'John Doe','plan':'Standard','dob':'03-07-1979'},
-                         {'membernum':'123456777','name':'John Smith','plan':'Standard','dob':'03-07-1959'}];
+        debugger;
+        console.log('MemberCentralComponent::onSearch(): param = ' + this.userEnteredMemberNum);
+        
+        this.subscriptionToMemberSearch = 
+            this.memberSearchService.getMembersForSearchString(" ").subscribe( // @ICtodo
+                memberObj => this.consumeMemberDetails(memberObj),
+                error => console.error("ERROR: " + <any>error));
+    }
+
+    // from another component
+    // from the lens button in the top bar
+    public searchOnUserEnteredString(userStr: string) {
+        debugger;
+
+        this.userEnteredSearchString = userStr;
+        console.log('MemberCentralComponent::searchOnUserEnteredString(): param = ' + this.userEnteredSearchString);
+        this.onSearch();
+/*
+        this.subscriptionToMemberSearch = 
+            this.memberSearchService.getMembersForSearchString(this.userEnteredSearchString).subscribe(
+                memberObj => this.consumeMemberDetails(memberObj),
+                error => console.error("ERROR: " + <any>error));
+*/
     }
     
     onStartCall() {
         this.router.navigateByUrl('/verifyidentity/1234567');    
+    }
+
+    /**
+     * Consume member list from the member search
+     * Update the UI
+     */
+    private consumeMemberDetails(memberDetails: [MemberDetails]) {
+        // console.log('MemberCentralComponent::consumeMemberDetails(): got a result: ' + JSON.stringify(memberDetails));
+        console.log('MemberCentralComponent::consumeMemberDetails(): number of results = ' + memberDetails.length);
+
+        this.searchResults = new Array();
+
+        // loop through the array of members returned from the API and add to the UI list
+        for (var member of memberDetails) {
+            console.log("MemberCentralComponent::consumeMemberDetails(): display member: " + JSON.stringify(member));
+            this.searchResults.push({
+                'membernum': member.id,
+                'name': member.title + " " + member.givenName + " " + member.surname,
+                'plan': member.plan,
+                'dob': member.dateOfBirth});
+        }
     }
 }
