@@ -2,9 +2,11 @@ import {Component, AfterViewInit, ElementRef,Renderer,ViewChild,EventEmitter, On
 import './modules/common/RxJsOperators';
 import './modules/common/Polyfills';
 import {Message} from 'primeng/primeng';
-import { Observable }     from 'rxjs/Observable';
-import { Subscription }     from 'rxjs/Subscription';
-import {AbstractModel} from './modules/common/AbstractModel';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { AbstractModel } from './modules/common/AbstractModel';
+
+import { TimerComponent } from './modules/views/TimerComponent';
 
 enum MenuOrientation {
     STATIC,
@@ -51,10 +53,14 @@ declare var jQuery: any;
                                 </div>
                             </div>
                             <div class="ui-g-12 ui-lg-4">
+                                
+                                
                                 <div class="card card-w-title">
+                                    <timer-component></timer-component>
                                     <h1>Context</h1>
                                     <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;"/>
                                 </div>
+                            
                             </div>
                         </div>
                     </div>
@@ -67,7 +73,8 @@ declare var jQuery: any;
 		
 		</div>
   `,
-  styleUrls: ['AppComponent.scss']
+  // directives: [TimerComponent],
+  styleUrls: ['AppComponent.scss'],
 })
 export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
     
