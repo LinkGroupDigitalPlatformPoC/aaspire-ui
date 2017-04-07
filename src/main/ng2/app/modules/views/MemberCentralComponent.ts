@@ -1,4 +1,4 @@
-import {EventEmitter, Component, OnInit} from '@angular/core';
+import { EventEmitter, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/primeng';
 
 import { ActivatedRoute } from '@angular/router';
@@ -12,27 +12,45 @@ import { MemberSearch } from '../services/MemberSearch.service';
     templateUrl: 'MemberCentral.xhtml',
     providers: [MemberSearch]
 })
+
 export class MemberCentralComponent {
 
     searchResults : any; // [MemberDetails];  @ICtodo
     private subscriptionToMemberSearch: any;
+    userEnteredSearchString: string; // set from the top bar
+    userEnteredMemberNum: string; // from the partner HTML
       
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
     constructor(private route: ActivatedRoute, private memberSearchService: MemberSearch) {}
     
+    // from this component
+    // from the search button in this component
     onSearch() {
-        console.log('MemberCentralComponent::onSearch');
-
-        // @IC: hook in the API here
+        debugger;
+        console.log('MemberCentralComponent::onSearch(): param = ' + this.userEnteredMemberNum);
         
         this.subscriptionToMemberSearch = 
-        this.memberSearchService.getTokenForAppUser("iancraig@au1.ibm.com", "AIC Offerings").subscribe(
-            memberObj => this.consumeMemberDetails(memberObj),
-            error => console.error("ERROR: " + <any>error)
-        );
+            this.memberSearchService.getMembersForSearchString(" ").subscribe( // @ICtodo
+                memberObj => this.consumeMemberDetails(memberObj),
+                error => console.error("ERROR: " + <any>error));
+    }
 
+    // from another component
+    // from the lens button in the top bar
+    public searchOnUserEnteredString(userStr: string) {
+        debugger;
+
+        this.userEnteredSearchString = userStr;
+        console.log('MemberCentralComponent::searchOnUserEnteredString(): param = ' + this.userEnteredSearchString);
+        this.onSearch();
+/*
+        this.subscriptionToMemberSearch = 
+            this.memberSearchService.getMembersForSearchString(this.userEnteredSearchString).subscribe(
+                memberObj => this.consumeMemberDetails(memberObj),
+                error => console.error("ERROR: " + <any>error));
+*/
     }
 
     /**
@@ -40,26 +58,20 @@ export class MemberCentralComponent {
      * Update the UI
      */
     private consumeMemberDetails(memberDetails: [MemberDetails]) {
-        // console.log('consumeMemberDetails: got a result: ' + JSON.stringify(memberDetails));
+        // console.log('MemberCentralComponent::consumeMemberDetails(): got a result: ' + JSON.stringify(memberDetails));
+        console.log('MemberCentralComponent::consumeMemberDetails(): number of results = ' + memberDetails.length);
 
         this.searchResults = new Array();
 
-        // loop through array of members
+        // loop through the array of members returned from the API and add to the UI list
         for (var member of memberDetails) {
-            console.log("member is: " + JSON.stringify(member));
+            console.log("MemberCentralComponent::consumeMemberDetails(): display member: " + JSON.stringify(member));
             this.searchResults.push({
-                'membernum': '123456789',
+                'membernum': member.id,
                 'name': member.title + " " + member.givenName + " " + member.surname,
-                'plan': 'Standard',
+                'plan': member.plan,
                 'dob': member.dateOfBirth});
-            console.log("________");
         }
-        // mock up search result data should make a call to an api
-        // this.searchResults = [
-        //     {'membernum':'123456789','name':'John Doe','plan':'Standard','dob':'03-07-1979'},
-        //     {'membernum':'123456777','name':'John Smith','plan':'Standard','dob':'03-07-1959'}
-        // ];
-
     }
     
 }

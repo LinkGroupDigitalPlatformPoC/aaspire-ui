@@ -204,6 +204,9 @@ export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
     }
 
     onTopbarItemClick(event, item) {
+        // debugger;
+        console.log("AppComponent::onTopbarItemClick; event=" + event + "; item value=" + item.value); // @IC
+
         this.topbarItemClick = true;
 
         if(this.activeTopbarItem === item)

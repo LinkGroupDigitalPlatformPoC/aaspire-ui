@@ -8,7 +8,10 @@ export interface MemberDetails {
     surname: string;
     dateOfBirth: string;
     status: string;
+    plan: string;
     email: string;
     address: Address;
     phoneNumber: string;
 }
+
+
