@@ -1,5 +1,5 @@
 /**
- * Context for a call
+ * Context for a call in progress.
  */
 
 import { Component } from '@angular/core';
