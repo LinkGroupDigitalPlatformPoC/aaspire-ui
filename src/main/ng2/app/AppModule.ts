@@ -18,6 +18,8 @@ import { AppMenuComponent }  from './AppMenuComponent';
 import { AppSubMenuComponent }  from './AppSubMenuComponent';
 import { AppProfileComponent }  from './AppProfileComponent';
 import { AppFooterComponent }  from './AppFooterComponent';
+
+import { ContextComponent } from './modules/views/ContextComponent';
 import { TimerComponent } from './modules/views/TimerComponent';
 
 // routes
@@ -77,6 +79,7 @@ import { CallComponent }  from './modules/views/CallComponent';
         RefDataComponent,
         MemberComponent,
         CallComponent,
+        ContextComponent,
         TimerComponent
     ],
     bootstrap: [

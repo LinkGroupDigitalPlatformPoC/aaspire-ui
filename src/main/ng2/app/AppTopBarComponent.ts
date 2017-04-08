@@ -178,10 +178,10 @@ export class AppTopBarComponent {
 
     constructor(@Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
 
-    public searchForMembers(x) {
+    public searchForMembers(userEnteredSearchString: string) {
         // debugger;
-        console.log("AppTopBarComponent:: searchForMembers(): " + x);
-        //this.memberComp.searchOnUserEnteredString(x);
+        console.log("AppTopBarComponent:: searchForMembers(): " + userEnteredSearchString);
+        //this.memberComp.searchOnUserEnteredString(userEnteredSearchString);
     }
 
 }

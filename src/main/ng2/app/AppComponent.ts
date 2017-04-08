@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { AbstractModel } from './modules/common/AbstractModel';
 
+import { ContextComponent } from './modules/views/ContextComponent';
 import { TimerComponent } from './modules/views/TimerComponent';
 
 enum MenuOrientation {
@@ -54,9 +55,7 @@ declare var jQuery: any;
                             </div>
                             <div class="ui-g-12 ui-lg-4">
                                 <div class="card card-w-title">
-                                    <h1>Context</h1>
-                                    <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;"/>
-                                    <timer-component></timer-component>
+                                    <context-component></context-component>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +69,6 @@ declare var jQuery: any;
 		
 		</div>
   `,
-  // directives: [TimerComponent],
   styleUrls: ['AppComponent.scss'],
 })
 export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
