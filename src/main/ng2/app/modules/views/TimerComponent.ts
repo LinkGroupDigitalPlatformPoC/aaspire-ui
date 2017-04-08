@@ -1,23 +1,12 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { AppComponent } from '../../AppComponent';
+// import { AppComponent } from '../../AppComponent';
 
 @Component({
-    styles: [
-        `.timer {
-            border: none;
-            position: relative;
-            font-weight: 600;
-            font-family: "Helvetica Neue";
-            font-weight: bold;
-            font-size: 45px;
-        }`
-    ],
+    moduleId: module.id,
+    styleUrls: ['Timer.style.scss'],
     selector: 'timer-component',
-    template: 
-        `<div class=timer>
-            {{minutesStr}} : {{secondsStr}}
-        </div>`,
+    templateUrl: 'Timer.xhtml',
 })
 
 export class TimerComponent {
@@ -35,6 +24,17 @@ export class TimerComponent {
         timer.subscribe(t => this.updateDigitalTimer(t));
     }
 
+    // set back to 00:00
+    public resetDigitalTimer() {
+        // TODO: stop the timer
+        
+        this.minutes = 0;
+        this.seconds = 0;
+        this.minutesStr = "00";
+        this.secondsStr = "00";
+    }
+
+    // increment by 1 second
     private updateDigitalTimer(t: any) {
         if ((t >= 60) && (t%60 == 0)) {
             this.minutes++;

@@ -5,7 +5,7 @@ import {AppComponent} from './AppComponent';
     selector: 'app-footer',
     template: `
         <div class="card">
-            <span class="footer-text-left">PrimeNG ULTIMA for Angular 2</span>
+            <span class="footer-text-left">Link Group</span>
             <span class="footer-text-right"><span class="ui-icon ui-icon-copyright"></span>  <span>All Rights Reserved</span></span>
         </div>
     `

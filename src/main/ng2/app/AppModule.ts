@@ -17,6 +17,8 @@ import { AppMenuComponent }  from './AppMenuComponent';
 import { AppSubMenuComponent }  from './AppSubMenuComponent';
 import { AppProfileComponent }  from './AppProfileComponent';
 import { AppFooterComponent }  from './AppFooterComponent';
+
+import { ContextComponent } from './modules/views/ContextComponent';
 import { TimerComponent } from './modules/views/TimerComponent';
 
 // routes
@@ -67,6 +69,7 @@ import { MemberCentralComponent }  from './modules/views/MemberCentralComponent'
     	AppFooterComponent,
     	AppProfileComponent,
     	MemberCentralComponent,
+        ContextComponent,
         TimerComponent
     ],
     bootstrap: [
