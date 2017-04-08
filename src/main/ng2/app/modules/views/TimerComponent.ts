@@ -3,8 +3,21 @@ import { Observable } from 'rxjs/Rx';
 import { AppComponent } from '../../AppComponent';
 
 @Component({
+    styles: [
+        `.timer {
+            border: none;
+            position: relative;
+            font-weight: 600;
+            font-family: "Helvetica Neue";
+            font-weight: bold;
+            font-size: 45px;
+        }`
+    ],
     selector: 'timer-component',
-    template: 'Time on call: {{minutesStr}} : {{secondsStr}}'
+    template: 
+        `<div class=timer>
+            {{minutesStr}} : {{secondsStr}}
+        </div>`,
 })
 
 export class TimerComponent {
@@ -16,7 +29,7 @@ export class TimerComponent {
     constructor() {}
 
     ngOnInit() {
-        let timer = Observable.timer(2000, 1000);
+        let timer = Observable.timer(500, 1000);
 
         // ES6 arrow for scope
         timer.subscribe(t => this.updateDigitalTimer(t));
