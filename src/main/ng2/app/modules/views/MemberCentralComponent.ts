@@ -19,6 +19,7 @@ export class MemberCentralComponent {
     private subscriptionToMemberSearch: any;
     userEnteredSearchString: string; // set from the top bar
     userEnteredMemberNum: string; // from the partner HTML
+    userEnteredSearchCriteria: string; // from the partner HTML
       
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
@@ -28,19 +29,21 @@ export class MemberCentralComponent {
     // from this component
     // from the search button in this component
     onSearch() {
-        debugger;
-        console.log('MemberCentralComponent::onSearch(): param = ' + this.userEnteredMemberNum);
+        // debugger;
+        console.log('MemberCentralComponent::onSearch(): param = ' + this.userEnteredSearchCriteria);
         
         this.subscriptionToMemberSearch = 
-            this.memberSearchService.getMembersForSearchString(" ").subscribe( // @ICtodo
+            this.memberSearchService.getMembersForSearchString(this.userEnteredSearchCriteria).subscribe(
                 memberObj => this.consumeMemberDetails(memberObj),
                 error => console.error("ERROR: " + <any>error));
     }
 
     // from another component
     // from the lens button in the top bar
+
+    // TODO: need ES6 arrow for scope
     public searchOnUserEnteredString(userStr: string) {
-        debugger;
+        // debugger;
 
         this.userEnteredSearchString = userStr;
         console.log('MemberCentralComponent::searchOnUserEnteredString(): param = ' + this.userEnteredSearchString);
