@@ -18,6 +18,7 @@ import { AppMenuComponent }  from './AppMenuComponent';
 import { AppSubMenuComponent }  from './AppSubMenuComponent';
 import { AppProfileComponent }  from './AppProfileComponent';
 import { AppFooterComponent }  from './AppFooterComponent';
+import { TimerComponent } from './modules/views/TimerComponent';
 
 // routes
 import { appRouting }  from './AppRoutes';
@@ -75,7 +76,8 @@ import { CallComponent }  from './modules/views/CallComponent';
         VerifyIdentityComponent,
         RefDataComponent,
         MemberComponent,
-        CallComponent
+        CallComponent,
+        TimerComponent
     ],
     bootstrap: [
     	AppComponent

@@ -176,14 +176,12 @@ import {MemberSearch} from './modules/services/MemberSearch.service';
 })
 export class AppTopBarComponent {
 
-    constructor(@Inject(forwardRef(() => AppComponent)) @Inject(forwardRef(() => MemberCentralComponent)) public app:AppComponent, 
-    public memberComp:MemberCentralComponent
-    ) {}
+    constructor(@Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
 
     public searchForMembers(x) {
         // debugger;
         console.log("AppTopBarComponent:: searchForMembers(): " + x);
-        this.memberComp.searchOnUserEnteredString(x);
+        //this.memberComp.searchOnUserEnteredString(x);
     }
 
 }
