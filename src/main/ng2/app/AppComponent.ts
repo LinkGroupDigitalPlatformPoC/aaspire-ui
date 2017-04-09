@@ -55,7 +55,7 @@ declare var jQuery: any;
                             </div>
                             <div class="ui-g-12 ui-lg-4">
                                 <div class="card card-w-title">
-                                    <context-component></context-component>
+                                    <context-component #context></context-component>
                                 </div>
                             </div>
                         </div>
@@ -112,6 +112,8 @@ export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
     documentClickListener: Function;
 
     resetMenu: boolean;
+
+    @ViewChild('context') context: ContextComponent; // @IC
 
     @ViewChild('layoutContainer') layourContainerViewChild: ElementRef;
 

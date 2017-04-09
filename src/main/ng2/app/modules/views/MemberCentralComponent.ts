@@ -1,9 +1,10 @@
-import { EventEmitter, Component, OnInit } from '@angular/core';
+import { EventEmitter, Component, OnInit, Inject, forwardRef } from '@angular/core';
 import { TreeNode } from 'primeng/primeng';
 
 import { ActivatedRoute } from '@angular/router';
 import './../common/RxJsOperators';
 
+import { AppComponent } from '../../AppComponent';
 import { MemberDetails } from '../models/MemberDetails.interface';
 import { MemberSearch } from '../services/MemberSearch.service';
 
@@ -24,7 +25,7 @@ export class MemberCentralComponent {
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
-    constructor(private route: ActivatedRoute, private memberSearchService: MemberSearch) {}
+    constructor(private route: ActivatedRoute, private memberSearchService: MemberSearch, @Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
     
     // from the "Search"" button on this component
     onSearch() {
@@ -41,6 +42,7 @@ export class MemberCentralComponent {
     onStartCall(member:any) {
         debugger;
         console.log("MemberCentralComponent::onStartCall(): " + member.membernum + ", " + member.name);
+        this.app.context.startCallWithMember(5);
     }
 
     // from another component (the lens button in the top bar)

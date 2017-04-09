@@ -25,9 +25,10 @@ export class ContextComponent {
 
     ngOnInit() {}
 
-    public startCallWithMember(memberOnCall: MemberDetails) {
-        this.populateMemberDetails(memberOnCall);
-        this.startCallTimer();
+    public startCallWithMember(param: any) {
+        console.log("ContextComponent::startCallWithMember() with " + param);
+        // this.populateMemberDetails(memberOnCall);
+        // this.startCallTimer();
     }
 
     // populate the member on the current call
