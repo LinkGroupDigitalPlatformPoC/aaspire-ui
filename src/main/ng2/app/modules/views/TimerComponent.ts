@@ -21,11 +21,11 @@ export class TimerComponent {
         let timer = Observable.timer(500, 1000);
 
         // ES6 arrow for scope
-        timer.subscribe(t => this.updateDigitalTimer(t));
+        timer.subscribe(t => this.incrementDigitalTimer(t));
     }
 
     // set back to 00:00
-    public resetDigitalTimer() {
+    public resetTimer() {
         // TODO: stop the timer
         
         this.minutes = 0;
@@ -34,8 +34,14 @@ export class TimerComponent {
         this.secondsStr = "00";
     }
 
+    // start counting time elapsed
+    public startTimer() {}
+
+    // stop counting time elapsed
+    public stopTimer() {}
+
     // increment by 1 second
-    private updateDigitalTimer(t: any) {
+    private incrementDigitalTimer(t: any) {
         if ((t >= 60) && (t%60 == 0)) {
             this.minutes++;
             this.seconds = 0;
