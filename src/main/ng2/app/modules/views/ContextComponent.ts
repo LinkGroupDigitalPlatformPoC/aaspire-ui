@@ -1,5 +1,5 @@
 /**
- * Context for a call in progress with a member.
+ * Context for a call in progress with a member..
  */
 
 import { Component } from '@angular/core';
@@ -25,8 +25,13 @@ export class ContextComponent {
 
     ngOnInit() {}
 
+    public startCallWithMember(memberOnCall: MemberDetails) {
+        this.populateMemberDetails(memberOnCall);
+        this.startCallTimer();
+    }
+
     // populate the member on the current call
-    public populateMemberDetails(memberOnCall: MemberDetails) {}
+    private populateMemberDetails(memberOnCall: MemberDetails) {}
 
     // start the call timer
     private startCallTimer() {}

@@ -26,8 +26,7 @@ export class MemberCentralComponent {
      */    
     constructor(private route: ActivatedRoute, private memberSearchService: MemberSearch) {}
     
-    // from this component
-    // from the search button in this component
+    // from the "Search"" button on this component
     onSearch() {
         // debugger;
         console.log('MemberCentralComponent::onSearch(): param = ' + this.userEnteredSearchCriteria);
@@ -38,21 +37,18 @@ export class MemberCentralComponent {
                 error => console.error("ERROR: " + <any>error));
     }
 
-    // from another component
-    // from the lens button in the top bar
+    // from the "Start Call"" button on a row of the members grid
+    onStartCall() {
+        console.log("MemberCentralComponent::onStartCall()");
+    }
+
+    // from another component (the lens button in the top bar)
     // TODO: need ES6 arrow for scope
     public searchOnUserEnteredString(userStr: string) {
         // debugger;
-
         this.userEnteredSearchString = userStr;
         console.log('MemberCentralComponent::searchOnUserEnteredString(): param = ' + this.userEnteredSearchString);
         this.onSearch();
-/*
-        this.subscriptionToMemberSearch = 
-            this.memberSearchService.getMembersForSearchString(this.userEnteredSearchString).subscribe(
-                memberObj => this.consumeMemberDetails(memberObj),
-                error => console.error("ERROR: " + <any>error));
-*/
     }
 
     /**
@@ -60,7 +56,6 @@ export class MemberCentralComponent {
      * Update the UI
      */
     private consumeMemberDetails(memberDetails: [MemberDetails]) {
-        // console.log('MemberCentralComponent::consumeMemberDetails(): got a result: ' + JSON.stringify(memberDetails));
         console.log('MemberCentralComponent::consumeMemberDetails(): number of results = ' + memberDetails.length);
 
         this.searchResults = new Array();
