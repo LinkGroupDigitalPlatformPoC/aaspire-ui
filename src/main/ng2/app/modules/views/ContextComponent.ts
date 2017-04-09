@@ -18,15 +18,17 @@ import { MemberDetails } from '../models/MemberDetails.interface';
 })
 
 export class ContextComponent {
-    callWithMemberNumber: string = "12345";
-    callWithMemberName: string = "Glen Something";
+    callWithMemberNumber: string = " ";
+    callWithMemberName: string = " ";
 
     constructor() {}
 
     ngOnInit() {}
 
-    public startCallWithMember(param: any) {
-        console.log("ContextComponent::startCallWithMember() with " + param);
+    public startCallWithMember(memberNum: string, memberName: string) {
+        console.log("ContextComponent::startCallWithMember() with " + memberNum + "," + memberName);
+        this.callWithMemberNumber = memberNum;
+        this.callWithMemberName = memberName;
         // this.populateMemberDetails(memberOnCall);
         // this.startCallTimer();
     }
