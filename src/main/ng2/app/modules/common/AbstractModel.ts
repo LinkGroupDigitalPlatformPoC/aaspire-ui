@@ -17,6 +17,7 @@ export abstract class AbstractModel {
     abstract getManyToOneFields() : string[];
     
     abstract getCopy() : any;
+
     
     public fillFromJSONString( json: string ) {
         
@@ -73,5 +74,5 @@ export abstract class AbstractModel {
             }
         }
     }
-    
+
 }

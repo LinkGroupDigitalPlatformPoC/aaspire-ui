@@ -36,7 +36,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'R',icon:'subject',
                         items: [
-                            {label: 'Reference Data', icon:'subject', routerLink:['/referencedata']}                                
+                            {label: 'Reference Data', icon:'subject', routerLink:['/refdata']}                                
                         ]
                     }
             	]

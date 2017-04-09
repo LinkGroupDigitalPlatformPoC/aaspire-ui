@@ -8,7 +8,8 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { ButtonModule, ToolbarModule, TabViewModule, InputTextareaModule, 
          InputTextModule, GrowlModule, DialogModule, MenubarModule, DataTableModule,
          SharedModule, PanelModule, TreeModule, CalendarModule, DropdownModule, CarouselModule, DataGridModule,
-         InputSwitchModule,ConfirmDialogModule,ConfirmationService,BlockUIModule, ChartModule, ScheduleModule, DataListModule} from 'primeng/primeng';
+         InputSwitchModule,ConfirmDialogModule,ConfirmationService,BlockUIModule, ChartModule, ScheduleModule, DataListModule,
+         CheckboxModule} from 'primeng/primeng';
 
 // framework classes
 import { AppComponent }  from './AppComponent';
@@ -26,6 +27,10 @@ import { appRouting }  from './AppRoutes';
 
 // components
 import { MemberCentralComponent }  from './modules/views/MemberCentralComponent';
+import { VerifyIdentityComponent }  from './modules/views/VerifyIdentityComponent';
+import { RefDataComponent }  from './modules/views/RefDataComponent';
+import { MemberComponent }  from './modules/views/MemberComponent';
+import { CallComponent }  from './modules/views/CallComponent';
         
 @NgModule({
     imports: [
@@ -56,6 +61,7 @@ import { MemberCentralComponent }  from './modules/views/MemberCentralComponent'
         JsonpModule,
         ScheduleModule,
         DataListModule,
+        CheckboxModule,
         appRouting
     ],
     providers: [
@@ -69,6 +75,10 @@ import { MemberCentralComponent }  from './modules/views/MemberCentralComponent'
     	AppFooterComponent,
     	AppProfileComponent,
     	MemberCentralComponent,
+        VerifyIdentityComponent,
+        RefDataComponent,
+        MemberComponent,
+        CallComponent,
         ContextComponent,
         TimerComponent
     ],

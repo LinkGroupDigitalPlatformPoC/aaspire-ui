@@ -3,6 +3,7 @@ import { TreeNode } from 'primeng/primeng';
 
 import { ActivatedRoute } from '@angular/router';
 import './../common/RxJsOperators';
+import { Router } from '@angular/router';
 
 import { AppComponent } from '../../AppComponent';
 import { MemberDetails } from '../models/MemberDetails.interface';
@@ -25,7 +26,7 @@ export class MemberCentralComponent {
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
-    constructor(private route: ActivatedRoute, private memberSearchService: MemberSearch, @Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
+    constructor(private route: ActivatedRoute, private router: Router, private memberSearchService: MemberSearch, @Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
     
     // from the "Search"" button on this component
     onSearch() {
@@ -43,6 +44,8 @@ export class MemberCentralComponent {
         // debugger;
         console.log("MemberCentralComponent::onStartCall(): " + member.membernum + ", " + member.name);
         this.app.context.startCallWithMember(member.membernum, member.name);
+
+        this.router.navigateByUrl('/verifyidentity/1234567');    
     }
 
     // from another component (the lens button in the top bar)
@@ -73,5 +76,4 @@ export class MemberCentralComponent {
                 'dob': member.dateOfBirth});
         }
     }
-    
 }

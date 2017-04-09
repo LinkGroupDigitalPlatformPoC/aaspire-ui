@@ -1,0 +1,9 @@
+applications:
+- disk_quota: 1024M
+  host: frontend-ui-services
+  name: frontend-ui-services
+  path: ./aaspire-ui-0.0.1-SNAPSHOT.war
+  instances: 1
+  memory: 512M
+  buildpack: liberty-for-java
+  domain: mybluemix.net
