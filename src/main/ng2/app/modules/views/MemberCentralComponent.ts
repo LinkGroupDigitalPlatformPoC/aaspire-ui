@@ -38,8 +38,9 @@ export class MemberCentralComponent {
     }
 
     // from the "Start Call"" button on a row of the members grid
-    onStartCall() {
-        console.log("MemberCentralComponent::onStartCall()");
+    onStartCall(member:any) {
+        debugger;
+        console.log("MemberCentralComponent::onStartCall(): " + member.membernum + ", " + member.name);
     }
 
     // from another component (the lens button in the top bar)
