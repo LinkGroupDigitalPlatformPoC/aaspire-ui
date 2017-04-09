@@ -1,8 +1,12 @@
 import {Component,Inject,forwardRef} from '@angular/core';
 import {AppComponent} from './AppComponent';
 
+import {MemberCentralComponent} from './modules/views/MemberCentralComponent';
+import {MemberSearch} from './modules/services/MemberSearch.service';
+
 @Component({
     selector: 'app-topbar',
+    providers: [MemberCentralComponent, MemberSearch],
     template: `
         <div class="topbar clearfix">
             <div class="topbar-left">            
@@ -158,9 +162,9 @@ import {AppComponent} from './AppComponent';
                         </ul>
                     </li>
                     <li #search class="search-item" [ngClass]="{'active-top-menu':app.activeTopbarItem === search}"
-                        (click)="app.onTopbarItemClick($event,search)">
+                        (click)="searchForMembers(name.value)">
                         <span class="md-inputfield">
-                            <input type="text" pInputText>
+                            <input type="text" pInputText #name>
                             <label>Search</label>
                             <i class="topbar-icon material-icons">search</i>
                         </span>
@@ -173,5 +177,11 @@ import {AppComponent} from './AppComponent';
 export class AppTopBarComponent {
 
     constructor(@Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
+
+    public searchForMembers(userEnteredSearchString: string) {
+        // debugger;
+        console.log("AppTopBarComponent:: searchForMembers(): " + userEnteredSearchString);
+        //this.memberComp.searchOnUserEnteredString(userEnteredSearchString);
+    }
 
 }

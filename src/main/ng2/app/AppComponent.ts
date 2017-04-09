@@ -6,7 +6,8 @@ import { Observable }     from 'rxjs/Observable';
 import { Subscription }     from 'rxjs/Subscription';
 import { AbstractModel} from './modules/common/AbstractModel';
 import { ContextMediatorService} from './modules/common/ContextMediatorService';
-import { Call} from './modules/models/Call';
+import { ContextComponent } from './modules/views/ContextComponent';
+import { TimerComponent } from './modules/views/TimerComponent';
 
 enum MenuOrientation {
     STATIC,
@@ -55,8 +56,7 @@ declare var JSOG: any;
                             </div>
                             <div class="ui-g-12 ui-lg-4">
                                 <div class="card card-w-title">
-                                    <h1>Context</h1>
-                                    <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;"/>
+                                    <context-component #context></context-component>
                                     <p-fieldset legend="Current Call" [toggleable]="true" *ngIf="callContext">
 
                                         <div class="ui-g form-group">
@@ -114,7 +114,7 @@ declare var JSOG: any;
 		
 		</div>
   `,
-  styleUrls: ['AppComponent.scss']
+  styleUrls: ['AppComponent.scss'],
 })
 export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
     
@@ -155,6 +155,8 @@ export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
     documentClickListener: Function;
 
     resetMenu: boolean;
+
+    @ViewChild('context') context: ContextComponent; // @IC
 
     @ViewChild('layoutContainer') layourContainerViewChild: ElementRef;
 
@@ -281,6 +283,9 @@ export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
     }
 
     onTopbarItemClick(event, item) {
+        // debugger;
+        console.log("AppComponent::onTopbarItemClick; event=" + event + "; item value=" + item.value); // @IC
+
         this.topbarItemClick = true;
 
         if(this.activeTopbarItem === item)

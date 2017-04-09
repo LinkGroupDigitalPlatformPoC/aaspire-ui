@@ -21,6 +21,9 @@ import { AppSubMenuComponent }  from './AppSubMenuComponent';
 import { AppProfileComponent }  from './AppProfileComponent';
 import { AppFooterComponent }  from './AppFooterComponent';
 
+import { ContextComponent } from './modules/views/ContextComponent';
+import { TimerComponent } from './modules/views/TimerComponent';
+
 // routes
 import { appRouting }  from './AppRoutes';
 
@@ -82,7 +85,9 @@ import { ContextMediatorService } from './modules/common/ContextMediatorService'
         VerifyIdentityComponent,
         RefDataComponent,
         MemberComponent,
-        CallComponent
+        CallComponent,
+        ContextComponent,
+        TimerComponent
     ],
     bootstrap: [
     	AppComponent
