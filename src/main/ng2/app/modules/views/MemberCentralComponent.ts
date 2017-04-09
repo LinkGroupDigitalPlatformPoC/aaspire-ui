@@ -1,9 +1,10 @@
 import {EventEmitter, Component, OnInit} from '@angular/core';
 import { TreeNode } from 'primeng/primeng';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import './../common/RxJsOperators';
-import { Router } from '@angular/router';
+import {ContextMediatorService} from './../common/ContextMediatorService';
+import {Call} from './../models/Call';
 
 @Component({
     moduleId: module.id,
@@ -17,7 +18,7 @@ export class MemberCentralComponent {
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
-    constructor(private route: ActivatedRoute, private router: Router) {}
+    constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService : ContextMediatorService) {}
     
     onSearch() {
         console.log('MemberCentralComponent::onSearch');
@@ -27,6 +28,17 @@ export class MemberCentralComponent {
     }
     
     onStartCall() {
+        
+        // 1. call api to create Call
+        let call : Call = new Call();
+        call.membernum = 123456789;
+        call.callid = 987654321;
+        call.membername= 'John, Smith';
+        
+        // 2. set call variable globaly in AppComponent
+        this.contextMediatorService.onStartCall(call);
+        
+        // navigate to identity verification step
         this.router.navigateByUrl('/verifyidentity/1234567');    
     }
 }

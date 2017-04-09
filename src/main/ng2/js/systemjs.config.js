@@ -29,7 +29,9 @@
       'jsog':					   'js:jsog',
       'core-js':				   'npm:core-js',
       'zone.js':				   'npm:zone.js',
-      'chart.js':				   'npm:chart.js/dist/Chart.js'
+      'chart.js':				   'npm:chart.js/dist/Chart.js',
+      'ng-lightning/ng-lightning': 'npm:ng-lightning/bundles/ng-lightning.umd.js',
+      'tether': 'npm:tether/dist/js/tether.min.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -39,7 +41,8 @@
       'jsog':	{defaultExtension: 'js'},
       'core-js':{defaultExtension: 'js'},
       'zone.js':{defaultExtension: 'js'},
-      'chart.js':{defaultExtension: 'js'}
+      'chart.js':{defaultExtension: 'js'},
+      'ng-lightning/ng-lightning':{defaultExtension: 'js'}
     }
   });
 })(this);

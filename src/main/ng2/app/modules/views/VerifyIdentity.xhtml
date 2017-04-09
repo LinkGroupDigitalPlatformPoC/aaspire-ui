@@ -2,65 +2,33 @@
 
 <hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
-<div class="ui-g dashboard">
-    <div class="ui-g-12 ui-md-10">
-    </div>
-    <div class="ui-g-12 ui-md-2">
-    	<div class="ui-g card colorbox colorbox-1">
-		    <div class="ui-g-4">
-		        <i class="material-icons">check_circle</i>
-		    </div>
-		    <div class="ui-g-8">
-		        <span class="colorbox-name">Points</span>
-		        <span class="colorbox-count">50</span>
+<div class="ui-g dashboard">	
+
+    <div class="ui-g-12 ui-md-8"></div>
+    <div class="ui-g-12 ui-md-4">
+    	<div class="ui-g card colorbox colorbox-2">
+		    <div class="ui-g-12">
+		        <span class="colorbox-name">Total Points</span>
+		        <span class="colorbox-count">{{points}}</span>
 		    </div>
 		</div>
 	</div>
-	
-	<p-dataTable>
-	    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 
-	    <p-column field="idType" header="Identity Type"></p-column>
-	    <p-column field="points" header="Points"></p-column>
-	    <p-column field="value" header="Cross Reference Value"></p-column>
-	    
-	</p-dataTable>
-	
-	<!-- 
-	<div class="ui-g-12 ui-md-12 task-list">
-	    <ul>
-	        <li>
-	            <p-checkbox binary="true"></p-checkbox>
-	            <span class="task-name">Sales Reports</span>
-	            <span class="task-name">Sales Reports</span>
-	            <i class="material-icons">&#xE8C9;</i>
-	        </li>
-	        <li>
-	            <p-checkbox binary="true"></p-checkbox>
-	            <span class="task-name">Pay Invoices</span>
-	            <i class="material-icons">&#xE8A1;</i>
-	        </li>
-	        <li>
-	            <p-checkbox binary="true"></p-checkbox>
-	            <span class="task-name">Dinner with Tony</span>
-	            <i class="material-icons">&#xE561;</i>
-	        </li>
-	        <li>
-	            <p-checkbox binary="true"></p-checkbox>
-	            <span class="task-name">Client Meeting</span>
-	            <i class="material-icons">&#xE7FB;</i>
-	        </li>
-	        <li>
-	            <p-checkbox binary="true"></p-checkbox>
-	            <span class="task-name">New Theme</span>
-	            <i class="material-icons">&#xE3AE;</i>
-	        </li>
-	        <li>
-	            <p-checkbox binary="true"></p-checkbox>
-	            <span class="task-name">Flight Ticket</span>
-	            <i class="material-icons">&#xE01B;</i>
-	        </li>
-	    </ul>
+    <div class="ui-g-12 ui-md-12">
+		<p-dataTable [value]="identityChecks" [(selection)]="selectedIdentifiers" dataKey="identifier" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+		    <p-column [style]="{'width':'38px'}" selectionMode="multiple" ></p-column>
+		    <p-column field="identifier" header="Identity Type"></p-column>
+		    <p-column field="value" header="Cross Reference Value"></p-column>
+		    <p-column field="points" header="Points"></p-column>
+		</p-dataTable>	
 	</div>
-	-->
+
+    <div class="ui-g-12 ui-md-8">
+    </div>
+    <div class="ui-g-12 ui-md-2">
+    	<button pButton type="button" label="Cancel" (click)="onCancel()" class="red-btn"></button>
+    </div>	
+    <div class="ui-g-12 ui-md-2">
+    	<button pButton type="button" label="Verified" (click)="onVerified()" [disabled]="points < 100" class="green-btn"></button>
+    </div>	
 </div>
