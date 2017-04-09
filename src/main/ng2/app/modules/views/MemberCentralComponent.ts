@@ -40,7 +40,6 @@ export class MemberCentralComponent {
 
     // from another component
     // from the lens button in the top bar
-
     // TODO: need ES6 arrow for scope
     public searchOnUserEnteredString(userStr: string) {
         // debugger;
