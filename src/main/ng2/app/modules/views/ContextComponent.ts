@@ -1,10 +1,14 @@
 /**
- * Context for a call in progress with a member..
+ * Context for a call in progress with a member.
  */
 
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
+// PrimeNG
+import {SplitButtonModule} from 'primeng/primeng';
+
+// components
 import { TimerComponent } from './TimerComponent';
 
 // models
@@ -25,17 +29,27 @@ export class ContextComponent {
 
     ngOnInit() {}
 
+    // from the "wrap up"" button
+    onWrapUp() {
+        console.log("ContextComponent::onWrapUp()");
+    }
+
     public startCallWithMember(memberNum: string, memberName: string) {
         console.log("ContextComponent::startCallWithMember() with " + memberNum + "," + memberName);
-        this.callWithMemberNumber = memberNum;
-        this.callWithMemberName = memberName;
-        // this.populateMemberDetails(memberOnCall);
+
+        this.populateMemberDetails(memberNum, memberName);
         // this.startCallTimer();
     }
 
     // populate the member on the current call
-    private populateMemberDetails(memberOnCall: MemberDetails) {}
+    private populateMemberDetails(memberNum: string, memberName: string) {
+        this.callWithMemberNumber = memberNum;
+        this.callWithMemberName = memberName;
+    }
 
     // start the call timer
-    private startCallTimer() {}
+    private startCallTimer() {
+        console.log("ContextComponent::startCallTimer()");
+    }
+
 }
