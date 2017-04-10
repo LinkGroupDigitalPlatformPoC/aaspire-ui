@@ -31,8 +31,7 @@ export class MemberCentralComponent {
     
     // from the "Search"" button on this component
     onSearch() {
-        // debugger;
-        console.log('MemberCentralComponent::onSearch(): param = ' + this.userEnteredSearchCriteria);
+        // console.log('MemberCentralComponent::onSearch(): param = ' + this.userEnteredSearchCriteria);
         
         this.subscriptionToMemberSearch = 
             this.memberSearchService.getMembersForSearchString(this.userEnteredSearchCriteria).subscribe(
@@ -41,19 +40,17 @@ export class MemberCentralComponent {
     }
 
     // from the "Start Call"" button on a row of the members grid
-    onStartCall(member:any) {
+    onStartCall(member: any) {
         // debugger;
         console.log("MemberCentralComponent::onStartCall(): " + member.membernum + ", " + member.name);
-        this.app.context.startCallWithMember(member.membernum, member.name);
 
+        // populate the call structure with the member selected by the user
+        let call: Call = new Call();
+        call.membernum = member.membernum;
+        call.callid = 987654321; // @ICtodo
+        call.membername= member.name;
         
-        // 1. call api to create Call
-        let call : Call = new Call();
-        call.membernum = 123456789;
-        call.callid = 987654321;
-        call.membername= 'John, Smith';
-        
-        // 2. set call variable globaly in AppComponent
+        // trigger an event for any interested components
         this.contextMediatorService.onStartCall(call);
         
         // navigate to identity verification step

@@ -1,9 +1,10 @@
 import { Injectable,EventEmitter } from '@angular/core';
 import './RxJsOperators';
-import {AbstractModel} from './AbstractModel';
-import {Call} from './../models/Call';
+import { AbstractModel } from './AbstractModel';
+import { Call } from './../models/Call';
 
 @Injectable()
+
 export class ContextMediatorService {
     
     public onStartCall$ : EventEmitter<Call>;
@@ -11,8 +12,7 @@ export class ContextMediatorService {
     
     
     constructor() {
-        //setup observable event emitters
-        
+        // setup observable event emitters
         this.onStartCall$ = new EventEmitter();
         this.onEndCall$ = new EventEmitter();
     }

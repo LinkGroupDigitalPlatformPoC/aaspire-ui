@@ -19,8 +19,6 @@ export class TimerComponent {
 
     ngOnInit() {
         let timer = Observable.timer(500, 1000);
-
-        // ES6 arrow for scope
         timer.subscribe(t => this.incrementDigitalTimer(t));
     }
 

@@ -1,25 +1,56 @@
-<div class=context>
+<h1>Context</h1>
 
-    <h1>Context</h1>
+<hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
-    <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+<div class="ui-g-12 ui-md-12"></div>
 
-    <h2>Current Call</h2>
-
-    <div class="current-call-box">
-        <div class="current-call-text">Member #:<span>{{callWithMemberNumber}}</span></div>
-        <div class="current-call-text">Name:<span>{{callWithMemberName}}</span></div>
-        <div class="ui-g-12 ui-md-12"></div>
-        <div class="ui-g-12 ui-md-12"></div>
-        <div class="center">
-            <div class="center-heading-text">Call Timer</div>
-            <div class="ui-g-12 ui-md-12"></div>
+<p-fieldset legend="Current Call" [toggleable]="true" *ngIf="callContext">
+    <div class="ui-g form-group">
+        <div class="ui-g-12 ui-md-4">
+            <label>Call#</label>:
+        </div>
+        <div class="ui-g-12 ui-md-8">
+            <a style="color: blue;text-decoration: underline;" routerLink="/call/{{callContext.callid}}">{{callContext.callid}}</a>
+        </div>
+        <div class="ui-g-12 ui-md-4">
+            <label>Member#</label>:
+        </div>
+        <div class="ui-g-12 ui-md-8">
+            <a style="color: blue;text-decoration: underline;" routerLink="/member/{{callContext.membernum}}">{{callContext.membernum}}</a>
+        </div>
+        <div class="ui-g-12 ui-md-4">
+            <label>Name</label>:
+        </div>
+        <div class="ui-g-12 ui-md-8">
+            {{callContext.membername}}
+        </div>
+        <div class="ui-g-12 ui-md-12">
+            <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+        </div>
+        <div class="ui-g-12 ui-md-4">
+            <label>Elpased Time</label>:
+        </div>
+        <!--
+        <div class="ui-g-12 ui-md-8">
+            <div class="call-timer">
+            </div>
+        </div>
+        -->
+        <div class="ui-g-12 ui-md-8">
             <timer-component></timer-component>
         </div>
-        <div class="ui-g-12 ui-md-12"></div>
+        <div class="ui-g-12 ui-md-12">
+            <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+        </div>
+        <div class="ui-g-12 ui-md-12">
+            <label>Personality insights</label>:
+        </div>
         <div class="ui-splitbutton">
             <p-splitButton label="Wrap Up" (onClick)="onWrapUp()" [model]="items"></p-splitButton>
-	    </div>
+        </div>
     </div>
-
-</div>
+</p-fieldset>
+<p-fieldset legend="Alerts" [toggleable]="true" *ngIf="callContext">
+</p-fieldset>
+<p-fieldset legend="Documents" [toggleable]="true" *ngIf="callContext">
+</p-fieldset>
