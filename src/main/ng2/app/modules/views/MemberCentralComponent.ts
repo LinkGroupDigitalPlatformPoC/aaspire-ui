@@ -1,9 +1,10 @@
 import { EventEmitter, Component, OnInit, Inject, forwardRef } from '@angular/core';
 import { TreeNode } from 'primeng/primeng';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import './../common/RxJsOperators';
-import { Router } from '@angular/router';
+import {ContextMediatorService} from './../common/ContextMediatorService';
+import {Call} from './../models/Call';
 
 import { AppComponent } from '../../AppComponent';
 import { MemberDetails } from '../models/MemberDetails.interface';
@@ -26,7 +27,7 @@ export class MemberCentralComponent {
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
-    constructor(private route: ActivatedRoute, private router: Router, private memberSearchService: MemberSearch, @Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
+    constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService : ContextMediatorService,private memberSearchService: MemberSearch, @Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
     
     // from the "Search"" button on this component
     onSearch() {
@@ -45,6 +46,17 @@ export class MemberCentralComponent {
         console.log("MemberCentralComponent::onStartCall(): " + member.membernum + ", " + member.name);
         this.app.context.startCallWithMember(member.membernum, member.name);
 
+        
+        // 1. call api to create Call
+        let call : Call = new Call();
+        call.membernum = 123456789;
+        call.callid = 987654321;
+        call.membername= 'John, Smith';
+        
+        // 2. set call variable globaly in AppComponent
+        this.contextMediatorService.onStartCall(call);
+        
+        // navigate to identity verification step
         this.router.navigateByUrl('/verifyidentity/1234567');    
     }
 

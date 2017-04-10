@@ -1,13 +1,14 @@
 import {Component, AfterViewInit, ElementRef,Renderer,ViewChild,EventEmitter, OnInit,OnDestroy} from '@angular/core';
 import './modules/common/RxJsOperators';
 import './modules/common/Polyfills';
-import {Message} from 'primeng/primeng';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { AbstractModel } from './modules/common/AbstractModel';
-
+import { Message} from 'primeng/primeng';
+import { Observable }     from 'rxjs/Observable';
+import { Subscription }     from 'rxjs/Subscription';
+import { AbstractModel} from './modules/common/AbstractModel';
+import { ContextMediatorService} from './modules/common/ContextMediatorService';
 import { ContextComponent } from './modules/views/ContextComponent';
 import { TimerComponent } from './modules/views/TimerComponent';
+import { Call } from './modules/models/Call';
 
 enum MenuOrientation {
     STATIC,
@@ -16,6 +17,7 @@ enum MenuOrientation {
 };
 
 declare var jQuery: any;
+declare var JSOG: any;
 
 @Component({
   moduleId: module.id,
@@ -55,7 +57,51 @@ declare var jQuery: any;
                             </div>
                             <div class="ui-g-12 ui-lg-4">
                                 <div class="card card-w-title">
-                                    <context-component #context></context-component>
+            						<context-component #context></context-component>
+                                    <p-fieldset legend="Current Call" [toggleable]="true" *ngIf="callContext">
+
+                                        <div class="ui-g form-group">
+                                            <div class="ui-g-12 ui-md-4">
+                                                <label>Call#</label>:
+                                            </div>
+                                            <div class="ui-g-12 ui-md-8">
+                                                <a style="color: blue;text-decoration: underline;" routerLink="/call/{{callContext.callid}}">{{callContext.callid}}</a>                                                
+                                            </div>
+                                            <div class="ui-g-12 ui-md-4">
+                                                <label>Member#</label>:
+                                            </div>
+                                            <div class="ui-g-12 ui-md-8">
+                                                <a style="color: blue;text-decoration: underline;" routerLink="/member/{{callContext.membernum}}">{{callContext.membernum}}</a>                                                
+                                            </div>
+                                            <div class="ui-g-12 ui-md-4">
+                                                <label>Name</label>:
+                                            </div>
+                                            <div class="ui-g-12 ui-md-8">
+                                                {{callContext.membername}}
+                                            </div>
+                                            <div class="ui-g-12 ui-md-12">
+                                                <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+                                            </div>
+                                            <div class="ui-g-12 ui-md-4">
+                                                <label>Elpased Time</label>:
+                                            </div>
+                                            <div class="ui-g-12 ui-md-8">
+                                                <div class="call-timer"></div>
+                                            </div>
+                                            <div class="ui-g-12 ui-md-12">
+                                                <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+                                            </div>
+                                            <div class="ui-g-12 ui-md-12">
+                                                <label>Personality insights</label>:
+                                            </div>
+                                        </div>
+
+
+                                    </p-fieldset>
+                                    <p-fieldset legend="Alerts" [toggleable]="true" *ngIf="callContext">
+                                    </p-fieldset>
+                                    <p-fieldset legend="Documents" [toggleable]="true" *ngIf="callContext">
+                                    </p-fieldset>
                                 </div>
                             </div>
                         </div>
@@ -73,14 +119,12 @@ declare var jQuery: any;
 })
 export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
     
+    clock : any;
+    
     blocked : boolean;
     
     msgs: Message[] = [];
     
-    _onSaved$ : Subscription;
-
-    _onDeleted$ : Subscription;
-
     layoutCompact: boolean = true;
 
     layoutMode: MenuOrientation = MenuOrientation.HORIZONTAL;
@@ -118,12 +162,43 @@ export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
     @ViewChild('layoutContainer') layourContainerViewChild: ElementRef;
 
     @ViewChild('layoutMenuScroller') layoutMenuScrollerViewChild: ElementRef;
+    
+    _onStartCall$ : Subscription;
 
-    constructor(public renderer: Renderer) {}
+    _onEndCall$ : Subscription;
+
+    /* Holds the current call for th euser */
+    callContext : Call;
+
+    constructor(public renderer: Renderer, protected contextMediatorService: ContextMediatorService) {}
 
     ngOnInit() {
+        // subscribe to toolbar events, this should be be abstract and generic
+        this._onStartCall$ = this.contextMediatorService.onStartCall$.subscribe(call => this.startCall(call));
+        this._onEndCall$ = this.contextMediatorService.onEndCall$.subscribe(call => this.endCall(call));
     }
+    
+    startCall(call : Call) {
+        console.log('AppComponent.startCall');
+        console.log(JSON.stringify(call));
+        
+        // setup to show current call in context
+        this.callContext = call;
+        
+        this.clock = jQuery('.call-timer').FlipClock({
+            clockFace: 'MinuteCounter'
+        });
+        console.log(this.clock.getTime());
+    }
+    
+    endCall(call : Call) {
+        console.log('AppComponent.endCall');
 
+        // end call and remove from context
+        this.callContext = null;
+    }
+    
+    /*
     displaySavedGrowl(model : AbstractModel) {
         
         // only display is an object is present
@@ -141,7 +216,8 @@ export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
             this.msgs.push({severity:'info', summary:'Info', detail: model.getHumanFriendlyName() + ' was deleted successfully!'});
         }
     }
-
+    */
+    
     ngAfterViewInit() {
         this.layoutContainer = <HTMLDivElement> this.layourContainerViewChild.nativeElement;
         this.layoutMenuScroller = <HTMLDivElement> this.layoutMenuScrollerViewChild.nativeElement;
@@ -261,7 +337,7 @@ export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
 
         jQuery(this.layoutMenuScroller).nanoScroller({flash:true});
         
-        this._onSaved$.unsubscribe();
-        this._onDeleted$.unsubscribe();
+        this._onStartCall$.unsubscribe();
+        this._onEndCall$.unsubscribe();
     }
 }

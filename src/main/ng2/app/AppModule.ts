@@ -9,7 +9,9 @@ import { ButtonModule, SplitButtonModule, ToolbarModule, TabViewModule, InputTex
          InputTextModule, GrowlModule, DialogModule, MenubarModule, DataTableModule,
          SharedModule, PanelModule, TreeModule, CalendarModule, DropdownModule, CarouselModule, DataGridModule,
          InputSwitchModule,ConfirmDialogModule,ConfirmationService,BlockUIModule, ChartModule, ScheduleModule, DataListModule,
-         CheckboxModule} from 'primeng/primeng';
+         CheckboxModule,FieldsetModule} from 'primeng/primeng';
+
+import {NglModule} from 'ng-lightning/ng-lightning';
 
 // framework classes
 import { AppComponent }  from './AppComponent';
@@ -31,6 +33,8 @@ import { VerifyIdentityComponent }  from './modules/views/VerifyIdentityComponen
 import { RefDataComponent }  from './modules/views/RefDataComponent';
 import { MemberComponent }  from './modules/views/MemberComponent';
 import { CallComponent }  from './modules/views/CallComponent';
+
+import { ContextMediatorService } from './modules/common/ContextMediatorService';
         
 @NgModule({
     imports: [
@@ -63,10 +67,13 @@ import { CallComponent }  from './modules/views/CallComponent';
         ScheduleModule,
         DataListModule,
         CheckboxModule,
+        FieldsetModule,
+        NglModule.forRoot(),
         appRouting
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy }
+        { provide: LocationStrategy, useClass: HashLocationStrategy },
+        ContextMediatorService
     ],
     declarations: [
     	AppComponent,

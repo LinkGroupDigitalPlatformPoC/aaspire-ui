@@ -11,5 +11,6 @@ buildNumber.properties
 /.apt_generated/
 src/main/ng2/app/**/*.js
 src/main/ng2/app/**/*.map
-npm-debug.log
+
 settings.json
+npm-debug.log
