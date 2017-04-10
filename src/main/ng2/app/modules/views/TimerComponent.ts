@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-// import { AppComponent } from '../../AppComponent';
 
 @Component({
     moduleId: module.id,
@@ -18,13 +17,12 @@ export class TimerComponent {
     constructor() {}
 
     ngOnInit() {
+        console.log("TimerComponent::ngOnInit()");
         let timer = Observable.timer(500, 1000);
-
-        // ES6 arrow for scope
         timer.subscribe(t => this.incrementDigitalTimer(t));
     }
 
-    // set back to 00:00
+    // set the timer to 00:00
     public resetTimer() {
         // TODO: stop the timer
         

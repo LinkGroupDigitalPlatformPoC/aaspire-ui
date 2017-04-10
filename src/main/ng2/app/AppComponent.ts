@@ -1,14 +1,12 @@
-import {Component, AfterViewInit, ElementRef,Renderer,ViewChild,EventEmitter, OnInit,OnDestroy} from '@angular/core';
+import { Component, AfterViewInit, ElementRef, Renderer, ViewChild, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import './modules/common/RxJsOperators';
 import './modules/common/Polyfills';
-import { Message} from 'primeng/primeng';
-import { Observable }     from 'rxjs/Observable';
-import { Subscription }     from 'rxjs/Subscription';
-import { AbstractModel} from './modules/common/AbstractModel';
-import { ContextMediatorService} from './modules/common/ContextMediatorService';
+import { Message } from 'primeng/primeng';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { AbstractModel } from './modules/common/AbstractModel';
 import { ContextComponent } from './modules/views/ContextComponent';
 import { TimerComponent } from './modules/views/TimerComponent';
-import { Call } from './modules/models/Call';
 
 enum MenuOrientation {
     STATIC,
@@ -20,9 +18,9 @@ declare var jQuery: any;
 declare var JSOG: any;
 
 @Component({
-  moduleId: module.id,
-  selector: 'my-app',
-  template:`
+    moduleId: module.id,
+    selector: 'my-app',
+    template: `
 		<div class="layout-wrapper" [ngClass]="{'layout-compact':layoutCompact}">
 						
 		    <div #layoutContainer class="layout-container" 
@@ -58,56 +56,10 @@ declare var JSOG: any;
                             <div class="ui-g-12 ui-lg-4">
                                 <div class="card card-w-title">
             						<context-component #context></context-component>
-                                    <p-fieldset legend="Current Call" [toggleable]="true" *ngIf="callContext">
-
-                                        <div class="ui-g form-group">
-                                            <div class="ui-g-12 ui-md-4">
-                                                <label>Call#</label>:
-                                            </div>
-                                            <div class="ui-g-12 ui-md-8">
-                                                <a style="color: blue;text-decoration: underline;" routerLink="/call/{{callContext.callid}}">{{callContext.callid}}</a>                                                
-                                            </div>
-                                            <div class="ui-g-12 ui-md-4">
-                                                <label>Member#</label>:
-                                            </div>
-                                            <div class="ui-g-12 ui-md-8">
-                                                <a style="color: blue;text-decoration: underline;" routerLink="/member/{{callContext.membernum}}">{{callContext.membernum}}</a>                                                
-                                            </div>
-                                            <div class="ui-g-12 ui-md-4">
-                                                <label>Name</label>:
-                                            </div>
-                                            <div class="ui-g-12 ui-md-8">
-                                                {{callContext.membername}}
-                                            </div>
-                                            <div class="ui-g-12 ui-md-12">
-                                                <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
-                                            </div>
-                                            <div class="ui-g-12 ui-md-4">
-                                                <label>Elpased Time</label>:
-                                            </div>
-                                            <div class="ui-g-12 ui-md-8">
-                                                <div class="call-timer"></div>
-                                            </div>
-                                            <div class="ui-g-12 ui-md-12">
-                                                <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
-                                            </div>
-                                            <div class="ui-g-12 ui-md-12">
-                                                <label>Personality insights</label>:
-                                            </div>
-                                        </div>
-
-
-                                    </p-fieldset>
-                                    <p-fieldset legend="Alerts" [toggleable]="true" *ngIf="callContext">
-                                    </p-fieldset>
-                                    <p-fieldset legend="Documents" [toggleable]="true" *ngIf="callContext">
-                                    </p-fieldset>
                                 </div>
                             </div>
                         </div>
                     </div>
-		                       
-		            
 		        </div>
 		        
 		        <div class="layout-mask"></div>
@@ -115,89 +67,39 @@ declare var JSOG: any;
 		
 		</div>
   `,
-  styleUrls: ['AppComponent.scss'],
+    styleUrls: ['AppComponent.scss'],
 })
-export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
-    
-    clock : any;
-    
-    blocked : boolean;
-    
+export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
+
+    blocked: boolean;
     msgs: Message[] = [];
-    
     layoutCompact: boolean = true;
-
     layoutMode: MenuOrientation = MenuOrientation.HORIZONTAL;
-    
     darkMenu: boolean = true;
-    
     profileMode: string = 'inline';
-
     rotateMenuButton: boolean;
-
     topbarMenuActive: boolean;
-
     overlayMenuActive: boolean;
-
     staticMenuDesktopInactive: boolean;
-
     staticMenuMobileActive: boolean;
-
     layoutContainer: HTMLDivElement;
-
     layoutMenuScroller: HTMLDivElement;
-
     menuClick: boolean;
-
     topbarItemClick: boolean;
-
     activeTopbarItem: any;
-
     documentClickListener: Function;
-
     resetMenu: boolean;
 
-    @ViewChild('context') context: ContextComponent; // @IC
-
+    @ViewChild('context') context: ContextComponent; // for the current call
     @ViewChild('layoutContainer') layourContainerViewChild: ElementRef;
-
     @ViewChild('layoutMenuScroller') layoutMenuScrollerViewChild: ElementRef;
-    
-    _onStartCall$ : Subscription;
 
-    _onEndCall$ : Subscription;
-
-    /* Holds the current call for th euser */
-    callContext : Call;
-
-    constructor(public renderer: Renderer, protected contextMediatorService: ContextMediatorService) {}
+    constructor(public renderer: Renderer) { }
 
     ngOnInit() {
         // subscribe to toolbar events, this should be be abstract and generic
-        this._onStartCall$ = this.contextMediatorService.onStartCall$.subscribe(call => this.startCall(call));
-        this._onEndCall$ = this.contextMediatorService.onEndCall$.subscribe(call => this.endCall(call));
     }
-    
-    startCall(call : Call) {
-        console.log('AppComponent.startCall');
-        console.log(JSON.stringify(call));
-        
-        // setup to show current call in context
-        this.callContext = call;
-        
-        this.clock = jQuery('.call-timer').FlipClock({
-            clockFace: 'MinuteCounter'
-        });
-        console.log(this.clock.getTime());
-    }
-    
-    endCall(call : Call) {
-        console.log('AppComponent.endCall');
 
-        // end call and remove from context
-        this.callContext = null;
-    }
-    
     /*
     displaySavedGrowl(model : AbstractModel) {
         
@@ -217,28 +119,28 @@ export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
         }
     }
     */
-    
+
     ngAfterViewInit() {
-        this.layoutContainer = <HTMLDivElement> this.layourContainerViewChild.nativeElement;
-        this.layoutMenuScroller = <HTMLDivElement> this.layoutMenuScrollerViewChild.nativeElement;
+        this.layoutContainer = <HTMLDivElement>this.layourContainerViewChild.nativeElement;
+        this.layoutMenuScroller = <HTMLDivElement>this.layoutMenuScrollerViewChild.nativeElement;
 
         //hides the horizontal submenus or top menu if outside is clicked
-        this.documentClickListener = this.renderer.listenGlobal('body', 'click', (event) => {            
-            if(!this.topbarItemClick) {
+        this.documentClickListener = this.renderer.listenGlobal('body', 'click', (event) => {
+            if (!this.topbarItemClick) {
                 this.activeTopbarItem = null;
                 this.topbarMenuActive = false;
             }
 
-            if(!this.menuClick && this.isHorizontal()) {
+            if (!this.menuClick && this.isHorizontal()) {
                 this.resetMenu = true;
             }
 
             this.topbarItemClick = false;
             this.menuClick = false;
         });
-        
+
         setTimeout(() => {
-            jQuery(this.layoutMenuScroller).nanoScroller({flash:true});
+            jQuery(this.layoutMenuScroller).nanoScroller({ flash: true });
         }, 10);
     }
 
@@ -246,11 +148,11 @@ export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
         this.rotateMenuButton = !this.rotateMenuButton;
         this.topbarMenuActive = false;
 
-        if(this.layoutMode === MenuOrientation.OVERLAY) {
+        if (this.layoutMode === MenuOrientation.OVERLAY) {
             this.overlayMenuActive = !this.overlayMenuActive;
         }
         else {
-            if(this.isDesktop())
+            if (this.isDesktop())
                 this.staticMenuDesktopInactive = !this.staticMenuDesktopInactive;
             else
                 this.staticMenuMobileActive = !this.staticMenuMobileActive;
@@ -263,7 +165,7 @@ export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
         this.menuClick = true;
         this.resetMenu = false;
 
-        if(!this.isHorizontal()) {
+        if (!this.isHorizontal()) {
             setTimeout(() => {
                 jQuery(this.layoutMenuScroller).nanoScroller();
             }, 500);
@@ -273,13 +175,13 @@ export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
     onTopbarMenuButtonClick(event) {
         this.topbarItemClick = true;
         this.topbarMenuActive = !this.topbarMenuActive;
-        
-        if(this.overlayMenuActive || this.staticMenuMobileActive) {
+
+        if (this.overlayMenuActive || this.staticMenuMobileActive) {
             this.rotateMenuButton = false;
             this.overlayMenuActive = false;
             this.staticMenuMobileActive = false;
         }
-        
+
         event.preventDefault();
     }
 
@@ -289,7 +191,7 @@ export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
 
         this.topbarItemClick = true;
 
-        if(this.activeTopbarItem === item)
+        if (this.activeTopbarItem === item)
             this.activeTopbarItem = null;
         else
             this.activeTopbarItem = item;
@@ -331,13 +233,10 @@ export class AppComponent implements AfterViewInit,OnInit,OnDestroy {
     }
 
     ngOnDestroy() {
-        if(this.documentClickListener) {
+        if (this.documentClickListener) {
             this.documentClickListener();
-        }  
+        }
 
-        jQuery(this.layoutMenuScroller).nanoScroller({flash:true});
-        
-        this._onStartCall$.unsubscribe();
-        this._onEndCall$.unsubscribe();
+        jQuery(this.layoutMenuScroller).nanoScroller({ flash: true });
     }
 }
