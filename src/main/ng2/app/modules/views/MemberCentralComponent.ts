@@ -20,9 +20,7 @@ export class MemberCentralComponent {
 
     searchResults : any; // [MemberDetails];  @ICtodo
     private subscriptionToMemberSearch: any;
-    userEnteredSearchString: string; // set from the top bar
-    userEnteredMemberNum: string; // from the partner HTML
-    userEnteredSearchCriteria: string; // from the partner HTML
+    userEnteredSearchCriteria: string; // entered by the user
       
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
