@@ -8,6 +8,7 @@ import { AbstractModel} from './modules/common/AbstractModel';
 import { ContextMediatorService} from './modules/common/ContextMediatorService';
 import { ContextComponent } from './modules/views/ContextComponent';
 import { TimerComponent } from './modules/views/TimerComponent';
+import { Call } from './modules/models/Call';
 
 enum MenuOrientation {
     STATIC,
@@ -56,7 +57,7 @@ declare var JSOG: any;
                             </div>
                             <div class="ui-g-12 ui-lg-4">
                                 <div class="card card-w-title">
-                                    <context-component #context></context-component>
+            						<context-component #context></context-component>
                                     <p-fieldset legend="Current Call" [toggleable]="true" *ngIf="callContext">
 
                                         <div class="ui-g form-group">
