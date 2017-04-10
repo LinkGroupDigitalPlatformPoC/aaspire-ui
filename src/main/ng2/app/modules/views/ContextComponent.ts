@@ -1,5 +1,5 @@
 /**
- * Context for a call in progress with a member..
+ * Context for a call in progress with a member.
  */
 
 import { Component } from '@angular/core';
