@@ -25,7 +25,7 @@ export class MemberCentralComponent {
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
-    constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService : ContextMediatorService,private memberSearchService: MemberSearch, @Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
+    constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService : ContextMediatorService, private memberSearchService: MemberSearch, @Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
     
     // from the "Search"" button on this component
     onSearch() {
@@ -53,15 +53,6 @@ export class MemberCentralComponent {
         
         // navigate to identity verification step
         this.router.navigateByUrl('/verifyidentity/1234567');    
-    }
-
-    // from another component (the lens button in the top bar)
-    // TODO: need ES6 arrow for scope
-    public searchOnUserEnteredString(userStr: string) {
-        // debugger;
-        this.userEnteredSearchString = userStr;
-        console.log('MemberCentralComponent::searchOnUserEnteredString(): param = ' + this.userEnteredSearchString);
-        this.onSearch();
     }
 
     /**

@@ -181,7 +181,6 @@ export class AppTopBarComponent {
     public searchForMembers(userEnteredSearchString: string) {
         // debugger;
         console.log("AppTopBarComponent:: searchForMembers(): " + userEnteredSearchString);
-        //this.memberComp.searchOnUserEnteredString(userEnteredSearchString);
     }
 
 }

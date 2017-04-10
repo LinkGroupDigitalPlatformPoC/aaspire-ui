@@ -30,8 +30,7 @@ import { Call } from '../models/Call';
 export class ContextComponent {
     private items: MenuItem[]; // "Wrap Up" split button
 
-    /* Holds the current call for the user */
-    callContext: Call;
+    private currentCall: Call;
     _onStartCall$: Subscription;
     _onEndCall$: Subscription;
 
@@ -73,18 +72,15 @@ export class ContextComponent {
     // from the "wrap up"" button
     onWrapUp() {
         console.log("ContextComponent::onWrapUp()");
-        
+        this.endCall(this.currentCall);
     }
 
-    // triggered by an event
+    // triggered by an event (eg: "Start Call" button on member central grid - for a particular member)
     startCall(call: Call) {
         console.log('ContextComponent::startCall()');
         console.log(JSON.stringify(call));
 
-        // setup to show current call in context
-        this.callContext = call;
-
-        this.startCallTimer();
+        this.currentCall = call; // shows the whole panel (see the HTML)
 
         // this.clock = jQuery('.call-timer').FlipClock({
         //     clockFace: 'MinuteCounter'
@@ -92,24 +88,12 @@ export class ContextComponent {
         // console.log(this.clock.getTime());
     }
 
-    // triggered by an event
+    // (can be) triggered by an event
     endCall(call: Call) {
         console.log('ContextComponent::endCall()');
 
-        this.stopCallTimer();
-
         // end call and remove from context
-        this.callContext = null;
-    }
-
-    // timer clock
-    private startCallTimer() {
-        console.log("ContextComponent::startCallTimer()");
-    }
-
-    // timer clock
-    private stopCallTimer() {
-        console.log("ContextComponent::stopCallTimer()");
+        this.currentCall = null; // hides the whole panel (see the HTML)
     }
 
 }
