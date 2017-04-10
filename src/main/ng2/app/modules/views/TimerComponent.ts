@@ -1,6 +1,7 @@
 // .
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     moduleId: module.id,
@@ -15,17 +16,27 @@ export class TimerComponent {
     private minutesStr: string = " ";
     private secondsStr: string = " ";
 
+    private timer: Observable<number>;
+    private timerSubscription: Subscription = undefined; // every second
+
     constructor() {}
 
     ngOnInit() {
         console.log("TimerComponent::ngOnInit()");
-        let timer = Observable.timer(500, 1000);
-        timer.subscribe(t => this.incrementDigitalTimer(t));
+        this.timer = Observable.timer(500, 1000); // emit an event every second
+        
+        this.startTimer();
+    }
+
+    ngOnDestroy() {
+        if (this.timerSubscription != undefined) {
+            this.timerSubscription.unsubscribe();
+        }
     }
 
     // set the timer to 00:00
     public resetTimer() {
-        // TODO: stop the timer
+        this.stopTimer();
         
         this.minutes = 0;
         this.seconds = 0;
@@ -34,10 +45,16 @@ export class TimerComponent {
     }
 
     // start counting time elapsed
-    public startTimer() {}
+    public startTimer() {
+        this.timerSubscription = this.timer.subscribe(t => this.incrementDigitalTimer(t));
+    }
 
     // stop counting time elapsed
-    public stopTimer() {}
+    public stopTimer() {
+        if (this.timerSubscription != undefined) {
+            this.timerSubscription.unsubscribe();
+        }
+    }
 
     // increment by 1 second
     private incrementDigitalTimer(t: any) {
