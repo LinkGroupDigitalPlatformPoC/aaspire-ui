@@ -12,3 +12,5 @@ buildNumber.properties
 src/main/ng2/app/**/*.js
 src/main/ng2/app/**/*.map
 
+settings.json
+npm-debug.log
