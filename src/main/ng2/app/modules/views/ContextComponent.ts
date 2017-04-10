@@ -49,6 +49,7 @@ export class ContextComponent {
     // from the "wrap up"" button
     onWrapUp() {
         console.log("ContextComponent::onWrapUp()");
+        
     }
 
     public startCallWithMember(memberNum: string, memberName: string) {
