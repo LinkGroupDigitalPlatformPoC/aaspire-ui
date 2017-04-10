@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 // PrimeNG
-import {SplitButtonModule} from 'primeng/primeng';
+import { SplitButtonModule } from 'primeng/primeng';
+import { MenuModule, MenuItem } from 'primeng/primeng';
 
 // components
 import { TimerComponent } from './TimerComponent';
@@ -22,12 +23,28 @@ import { MemberDetails } from '../models/MemberDetails.interface';
 })
 
 export class ContextComponent {
+    private items: MenuItem[];
     callWithMemberNumber: string = " ";
     callWithMemberName: string = " ";
 
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.items = [{
+            label: 'File',
+            items: [
+                {label: 'New', icon: 'fa-plus'},
+                {label: 'Open', icon: 'fa-download'}
+            ]
+        },
+        {
+            label: 'Edit',
+            items: [
+                {label: 'Undo', icon: 'fa-refresh'},
+                {label: 'Redo', icon: 'fa-repeat'}
+            ]
+        }];
+    }
 
     // from the "wrap up"" button
     onWrapUp() {
@@ -47,9 +64,12 @@ export class ContextComponent {
         this.callWithMemberName = memberName;
     }
 
-    // start the call timer
     private startCallTimer() {
         console.log("ContextComponent::startCallTimer()");
+    }
+
+    private stopCallTimer() {
+        console.log("ContextComponent::stopCallTimer()");
     }
 
 }

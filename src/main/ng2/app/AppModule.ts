@@ -5,7 +5,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import {Component} from '@angular/core';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
-import { ButtonModule, ToolbarModule, TabViewModule, InputTextareaModule, 
+import { ButtonModule, SplitButtonModule, ToolbarModule, TabViewModule, InputTextareaModule, 
          InputTextModule, GrowlModule, DialogModule, MenubarModule, DataTableModule,
          SharedModule, PanelModule, TreeModule, CalendarModule, DropdownModule, CarouselModule, DataGridModule,
          InputSwitchModule,ConfirmDialogModule,ConfirmationService,BlockUIModule, ChartModule, ScheduleModule, DataListModule,
@@ -36,6 +36,7 @@ import { CallComponent }  from './modules/views/CallComponent';
     imports: [
         BrowserModule,
         ButtonModule,
+        SplitButtonModule,
         MenubarModule,
         TabViewModule,
         ToolbarModule,
