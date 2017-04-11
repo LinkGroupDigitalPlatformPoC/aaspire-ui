@@ -2,7 +2,7 @@
 import { AddressDetails } from '../models/AddressDetails.interface';
 
 export interface MemberDetails {
-    id: string;
+    id: number;
     title: string;
     givenName: string;
     surname: string;
