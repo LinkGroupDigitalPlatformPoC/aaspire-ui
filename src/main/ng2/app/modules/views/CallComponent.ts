@@ -15,6 +15,8 @@ import { IdentityCheck } from './../models/IdentityCheck';
 })
 export class CallComponent implements OnInit {
         
+    displaySearch: boolean = false;
+        
     private callActions: MenuItem[]; // "Wrap Up" split button
 
     private call : CallDetails;
@@ -113,5 +115,9 @@ export class CallComponent implements OnInit {
     onRowUnselect(event) {
         // subtract points based on identifier type
         this.onRowSelect(event);
+    }
+    
+    onSearch() {
+        this.displaySearch = true;
     }
 }
