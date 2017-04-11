@@ -10,6 +10,9 @@ import './../common/RxJsOperators';
 // models
 import { MemberDetails } from './../models/MemberDetails.interface';
 
+// components
+import { MemberMainComponent } from './MemberMainComponent';
+
 @Component({
     moduleId: module.id,
     templateUrl: 'MemberTabs.xhtml'

@@ -32,6 +32,7 @@ import { MemberCentralComponent }  from './modules/views/MemberCentralComponent'
 import { VerifyIdentityComponent }  from './modules/views/VerifyIdentityComponent';
 import { RefDataComponent }  from './modules/views/RefDataComponent';
 import { MemberTabsComponent }  from './modules/views/MemberTabsComponent';
+import { MemberMainComponent } from './modules/views/MemberMainComponent';
 import { CallComponent }  from './modules/views/CallComponent';
 
 import { ContextMediatorService } from './modules/common/ContextMediatorService';
@@ -86,6 +87,7 @@ import { ContextMediatorService } from './modules/common/ContextMediatorService'
         VerifyIdentityComponent,
         RefDataComponent,
         MemberTabsComponent,
+        MemberMainComponent,
         CallComponent,
         ContextComponent,
         TimerComponent
