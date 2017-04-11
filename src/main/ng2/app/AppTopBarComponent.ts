@@ -1,12 +1,15 @@
-import {Component,Inject,forwardRef} from '@angular/core';
-import {AppComponent} from './AppComponent';
+import { Component,Inject,forwardRef } from '@angular/core';
+import { AppComponent } from './AppComponent';
 
-import {MemberCentralComponent} from './modules/views/MemberCentralComponent';
-import {MemberSearch} from './modules/services/MemberSearch.service';
+// components
+import { MemberCentralComponent } from './modules/views/MemberCentralComponent';
+
+// services
+import { MemberService } from './modules/services/Member.service';
 
 @Component({
     selector: 'app-topbar',
-    providers: [MemberCentralComponent, MemberSearch],
+    providers: [MemberService],
     template: `
         <div class="topbar clearfix">
             <div class="topbar-left">            

@@ -3,29 +3,34 @@ import { TreeNode } from 'primeng/primeng';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import './../common/RxJsOperators';
-import {ContextMediatorService} from './../common/ContextMediatorService';
-import {Call} from './../models/Call';
 
+// components
 import { AppComponent } from '../../AppComponent';
+
+// models
 import { MemberDetails } from '../models/MemberDetails.interface';
-import { MemberSearch } from '../services/MemberSearch.service';
+import { CallDetails } from '../models/CallDetails';
+
+// services
+import { MemberService } from '../services/Member.service';
+import { ContextMediatorService } from './../common/ContextMediatorService';
 
 @Component({
     moduleId: module.id,
     templateUrl: 'MemberCentral.xhtml',
-    providers: [MemberSearch]
+    providers: [MemberService]
 })
 
 export class MemberCentralComponent {
 
-    searchResults : any; // [MemberDetails];  @ICtodo
+    searchResults : any; // [MemberDetails];  @ICtodo .
     private subscriptionToMemberSearch: any;
     userEnteredSearchCriteria: string; // entered by the user
       
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
-    constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService : ContextMediatorService, private memberSearchService: MemberSearch, @Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
+    constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService : ContextMediatorService, private memberSearchService: MemberService, @Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
     
     // from the "Search"" button on this component
     onSearch() {
@@ -43,12 +48,12 @@ export class MemberCentralComponent {
         console.log("MemberCentralComponent::onStartCall(): " + member.membernum + ", " + member.name);
 
         // populate the call structure with the member selected by the user
-        let call: Call = new Call();
+        let call: CallDetails = new CallDetails();
         call.membernum = member.membernum;
         call.callid = 987654321; // @ICtodo
         call.membername= member.name;
         
-        // trigger an event for any interested components
+        // trigger an event for any interested component/s
         this.contextMediatorService.onStartCall(call);
         
         // navigate to identity verification step

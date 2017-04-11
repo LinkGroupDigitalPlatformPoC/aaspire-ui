@@ -3,7 +3,8 @@ import { TreeNode } from 'primeng/primeng';
 
 import { ActivatedRoute } from '@angular/router';
 import './../common/RxJsOperators';
-import {Call} from './../models/Call';
+
+import { CallDetails } from './../models/CallDetails';
 
 @Component({
     moduleId: module.id,
@@ -11,7 +12,7 @@ import {Call} from './../models/Call';
 })
 export class CallComponent implements OnInit {
         
-    private call : Call;
+    private call : CallDetails;
       
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  

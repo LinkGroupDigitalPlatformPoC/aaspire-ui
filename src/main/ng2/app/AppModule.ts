@@ -31,7 +31,7 @@ import { appRouting }  from './AppRoutes';
 import { MemberCentralComponent }  from './modules/views/MemberCentralComponent';
 import { VerifyIdentityComponent }  from './modules/views/VerifyIdentityComponent';
 import { RefDataComponent }  from './modules/views/RefDataComponent';
-import { MemberComponent }  from './modules/views/MemberComponent';
+import { MemberTabsComponent }  from './modules/views/MemberTabsComponent';
 import { CallComponent }  from './modules/views/CallComponent';
 
 import { ContextMediatorService } from './modules/common/ContextMediatorService';
@@ -85,7 +85,7 @@ import { ContextMediatorService } from './modules/common/ContextMediatorService'
     	MemberCentralComponent,
         VerifyIdentityComponent,
         RefDataComponent,
-        MemberComponent,
+        MemberTabsComponent,
         CallComponent,
         ContextComponent,
         TimerComponent

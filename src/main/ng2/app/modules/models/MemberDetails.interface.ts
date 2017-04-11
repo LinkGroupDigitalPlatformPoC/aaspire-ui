@@ -1,5 +1,5 @@
 
-import { Address } from '../models/Address.interface';
+import { AddressDetails } from '../models/AddressDetails.interface';
 
 export interface MemberDetails {
     id: string;
@@ -10,7 +10,7 @@ export interface MemberDetails {
     status: string;
     plan: string;
     email: string;
-    address: Address;
+    address: AddressDetails;
     phoneNumber: string;
 }
 
