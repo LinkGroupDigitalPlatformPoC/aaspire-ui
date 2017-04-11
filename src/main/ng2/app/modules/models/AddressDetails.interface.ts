@@ -1,4 +1,4 @@
-export interface Address {
+export interface AddressDetails {
     id: string;
     line1: string;
     line2: string;

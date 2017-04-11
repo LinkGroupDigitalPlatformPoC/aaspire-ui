@@ -4,7 +4,7 @@ import {Routes, RouterModule} from '@angular/router';
 import { MemberCentralComponent } from './modules/views/MemberCentralComponent';
 import { VerifyIdentityComponent } from './modules/views/VerifyIdentityComponent';
 import { RefDataComponent } from './modules/views/RefDataComponent';
-import { MemberComponent } from './modules/views/MemberComponent';
+import { MemberTabsComponent } from './modules/views/MemberTabsComponent';
 import { CallComponent } from './modules/views/CallComponent';
 
 const appRoutes: Routes = [
@@ -12,8 +12,8 @@ const appRoutes: Routes = [
     {path: 'membercentral', component: MemberCentralComponent},
     {path:'verifyidentity/:id', component: VerifyIdentityComponent},
     {path:'refdata', component: RefDataComponent},
-    {path:'member/:id', component: MemberComponent},
-    {path:'member', component: MemberComponent},
+    {path:'member/:id', component: MemberTabsComponent},
+    {path:'member', component: MemberTabsComponent},
     {path:'call/:id', component: CallComponent},
     {path:'call', component: CallComponent}
 ];

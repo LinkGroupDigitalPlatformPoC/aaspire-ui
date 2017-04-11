@@ -14,9 +14,7 @@ import { AppSettings } from '../../appSettings';
 
 @Injectable()
 
-export class MemberSearch {
-
-    boxToken: string;
+export class MemberService {
 
     constructor(private http: Http) {}
 

@@ -18,7 +18,7 @@ import { ContextMediatorService } from '../common/ContextMediatorService';
 
 // models
 import { MemberDetails } from '../models/MemberDetails.interface';
-import { Call } from '../models/Call';
+import { CallDetails } from '../models/CallDetails';
 
 @Component({
     moduleId: module.id,
@@ -28,9 +28,9 @@ import { Call } from '../models/Call';
 })
 
 export class ContextComponent {
-    private items: MenuItem[]; // "Wrap Up" split button
+    private callActions: MenuItem[]; // "Wrap Up" split button
+    private currentCall: CallDetails;
 
-    private currentCall: Call;
     _onStartCall$: Subscription;
     _onEndCall$: Subscription;
 
@@ -45,7 +45,7 @@ export class ContextComponent {
         this._onEndCall$ = this.contextMediatorService.onEndCall$.subscribe(call => this.endCall(call));
 
         // items for the dropdown menu in the "Wrap Up" split button
-        this.items = [{
+        this.callActions = [{
             label: 'File',
             items: [
                 {label: 'New', icon: 'fa-plus'},
@@ -76,7 +76,7 @@ export class ContextComponent {
     }
 
     // triggered by an event (eg: "Start Call" button on member central grid - for a particular member)
-    startCall(call: Call) {
+    startCall(call: CallDetails) {
         console.log('ContextComponent::startCall()');
         console.log(JSON.stringify(call));
 
@@ -89,7 +89,7 @@ export class ContextComponent {
     }
 
     // (can be) triggered by an event
-    endCall(call: Call) {
+    endCall(call: CallDetails) {
         console.log('ContextComponent::endCall()');
 
         // end call and remove from context
