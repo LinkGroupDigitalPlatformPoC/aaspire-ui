@@ -14,3 +14,92 @@
 
 <hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
+<p-tabView>
+    <p-tabPanel header="Main">
+	<div class="ui-g form-group dashboard">
+	
+		<div class="ui-g-12 ui-md-2">
+			<label for="dropdown">Call Id</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">987654321</div>
+		<div class="ui-g-12 ui-md-6"></div>
+		
+		<div class="ui-g-12 ui-md-2">
+			<label for="dropdown">Member#</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">1267832468</div>
+			
+		<div class="ui-g-12 ui-md-2">
+			<label for="dropdown">Primary Call Reason</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">
+			<span class="md-inputfield"> 
+				<p-dropdown id="dropdown" [autoWidth]="false" placeholder="Primary call reason" [options]="callReasonsSelectItems" [(ngModel)]="primaryCallReason">
+				</p-dropdown>
+			</span>
+		</div>
+		
+		<div class="ui-g-12 ui-md-2">
+			<label for="dropdown">Name</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">John, Smith</div>
+
+		<div class="ui-g-12 ui-md-2">
+			<label for="othercallreasons">Other Call Reasons</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">
+			<span class="md-inputfield"> 
+				<p-multiSelect id="othercallreasons" [options]="callReasonsSelectItems" [(ngModel)]="otherSelectedCallReasons"></p-multiSelect>
+				<!-- <p-listbox [options]="callReasonsSelectItems" [(ngModel)]="otherSelectedCallReasons" multiple="multiple" checkbox="checkbox"></p-listbox> -->
+			</span>
+		</div>
+
+
+		<div class="ui-g-12 ui-md-12"></div>
+
+		<div class="ui-g-12 ui-md-2">
+			<label>Status</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">Inprogess</div>
+		
+		<div class="ui-g-12 ui-md-6"></div>
+
+		<div class="ui-g-12 ui-md-2">
+			<label>Start Time</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">12:30</div>
+
+		<div class="ui-g-12 ui-md-2">
+			<label>End Time</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">12:35</div>
+
+		<div class="ui-g-12 ui-md-12"></div>
+		
+		<div class="ui-g-12 ui-md-2">
+			<label>Duration</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">01:25</div>
+		
+		<div class="ui-g-12 ui-md-6"></div>
+
+		<div class="ui-g-12 ui-md-6">
+			<p-dataTable [value]="identityChecks" [(selection)]="selectedIdentifiers" dataKey="identifier" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+			    <p-column [style]="{'width':'38px'}" selectionMode="multiple" ></p-column>
+			    <p-column field="identifier" header="Identity Type"></p-column>
+			    <p-column field="value" header="Cross Reference Value"></p-column>
+			    <p-column field="points" header="Points"></p-column>
+			</p-dataTable>	
+		</div>
+		<div class="ui-g-12 ui-md-6">
+	    	<div class="ui-g card colorbox colorbox-2">
+			    <div class="ui-g-12">
+			        <span class="colorbox-name">Total Points</span>
+			        <span class="colorbox-count">{{points}}</span>
+			    </div>
+			</div>
+		</div>
+	</div>    	
+    </p-tabPanel>
+</p-tabView>
+

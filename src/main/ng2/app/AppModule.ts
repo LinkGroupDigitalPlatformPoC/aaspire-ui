@@ -9,7 +9,7 @@ import { ButtonModule, SplitButtonModule, ToolbarModule, TabViewModule, InputTex
          InputTextModule, GrowlModule, DialogModule, MenubarModule, DataTableModule,
          SharedModule, PanelModule, TreeModule, CalendarModule, DropdownModule, CarouselModule, DataGridModule,
          InputSwitchModule,ConfirmDialogModule,ConfirmationService,BlockUIModule, ChartModule, ScheduleModule, DataListModule,
-         CheckboxModule,FieldsetModule} from 'primeng/primeng';
+         CheckboxModule,FieldsetModule,ListboxModule,MultiSelectModule} from 'primeng/primeng';
 
 import {NglModule} from 'ng-lightning/ng-lightning';
 
@@ -69,6 +69,8 @@ import { ContextMediatorService } from './modules/common/ContextMediatorService'
         DataListModule,
         CheckboxModule,
         FieldsetModule,
+        ListboxModule,
+        MultiSelectModule,
         NglModule.forRoot(),
         appRouting
     ],

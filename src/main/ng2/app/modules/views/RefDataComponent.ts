@@ -20,8 +20,10 @@ export class RefDataComponent implements OnInit {
     constructor(private route: ActivatedRoute) {}
     
     ngOnInit() {
+        /*
         this.refData = new RefData();
         this.refData.values = new Array<RefDataValue>();
+        */
     }
     
 }
