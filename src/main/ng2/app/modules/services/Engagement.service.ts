@@ -1,5 +1,5 @@
 /**
- * Search for members.
+ * Engagements.
  */
 
 // Angular
@@ -32,7 +32,7 @@ export class EngagementService {
             return body;
         }
         else {
-            console.error('BoxTokenService: extractData(): ERROR: Could not retrieve token; Status = ' + res.status);
+            console.error('EngagementService: extractData(): ERROR: Could not retrieve token; Status = ' + res.status);
             return "";
         }
     }

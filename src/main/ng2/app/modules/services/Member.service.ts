@@ -37,7 +37,7 @@ export class MemberService {
         let options = new RequestOptions({ headers: headers });
 
         // via API connect
-        let completeURL = AppSettings.API_MEMBER_SEARCH;
+        let completeURL = AppSettings.API_MEMBER_SEARCH + encodeURI(srchStr);
         
         // direct connection:
         // let completeURL = "http://dev-member-mgmt-services.mybluemix.net/members?search=" + srchStr;
@@ -59,7 +59,7 @@ export class MemberService {
             return body;
         }
         else {
-            console.error('BoxTokenService: extractData(): ERROR: Could not retrieve token; Status = ' + res.status);
+            console.error('MemberService: extractData(): ERROR: Could not retrieve token; Status = ' + res.status);
             return "";
         }
     }

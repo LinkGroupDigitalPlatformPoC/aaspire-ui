@@ -8,8 +8,8 @@ import { CallDetails } from './../models/CallDetails';
 
 export class ContextMediatorService {
     
-    public onStartCall$ : EventEmitter<CallDetails>;
-    public onEndCall$ : EventEmitter<CallDetails>;
+    public onStartCall$: EventEmitter<CallDetails>;
+    public onEndCall$: EventEmitter<CallDetails>;
     
     
     constructor() {
@@ -18,11 +18,11 @@ export class ContextMediatorService {
         this.onEndCall$ = new EventEmitter();
     }
 
-    onStartCall(call : CallDetails) {
+    onStartCall(call: CallDetails) {
         this.onStartCall$.emit(call);
     }
     
-    onEndCall(call : CallDetails) {
+    onEndCall(call: CallDetails) {
         this.onEndCall$.emit(call);
     }
 } 

@@ -1,5 +1,5 @@
 export class CallDetails {
-    membernum : number;
-    membername: string;
-    callid : number;
+    memberId : number;
+    memberName: string;
+    callId : number;
 }

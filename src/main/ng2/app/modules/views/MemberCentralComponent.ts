@@ -5,59 +5,64 @@ import { ActivatedRoute, Router } from '@angular/router';
 import './../common/RxJsOperators';
 
 // components
-import { AppComponent } from '../../AppComponent';
+import { AppSettings } from '../../appSettings';
 
 // models
 import { MemberDetails } from '../models/MemberDetails.interface';
 import { CallDetails } from '../models/CallDetails';
+import { MemberGridRow } from '../models/MemberGridRow.interface'
 
 // services
 import { MemberService } from '../services/Member.service';
+import { SharedService } from '../services/Shared.service';
 import { ContextMediatorService } from './../common/ContextMediatorService';
 
 @Component({
     moduleId: module.id,
     templateUrl: 'MemberCentral.xhtml',
-    providers: [MemberService]
+    providers: [MemberService, SharedService]
 })
 
 export class MemberCentralComponent {
 
-    searchResults : any; // [MemberDetails];  @ICtodo .
+    searchResults : Array<MemberGridRow>;
     private subscriptionToMemberSearch: any;
-    userEnteredSearchCriteria: string; // entered by the user
+    userEnteredSearchCriteria: string;
       
-    /**
-     * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
-     */    
-    constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService : ContextMediatorService, private memberSearchService: MemberService, @Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
+    constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService : ContextMediatorService, protected sharedService: SharedService, 
+                protected memberService: MemberService) {}
     
-    // from the "Search"" button on this component
+    /**
+     * From the "Search"" button on this component
+     */
     onSearch() {
         // console.log('MemberCentralComponent::onSearch(): param = ' + this.userEnteredSearchCriteria);
         
         this.subscriptionToMemberSearch = 
-            this.memberSearchService.getMembersForSearchString(this.userEnteredSearchCriteria).subscribe(
+            this.memberService.getMembersForSearchString(this.userEnteredSearchCriteria).subscribe(
                 memberObj => this.consumeMemberDetails(memberObj),
                 error => console.error("ERROR: " + <any>error));
     }
 
-    // from the "Start Call"" button on a row of the members grid
-    onStartCall(member: any) {
-        // debugger;
-        console.log("MemberCentralComponent::onStartCall(): " + member.membernum + ", " + member.name);
+    /**
+     * From the "Start Call"" button (on a row of the members grid)
+     */
+    onStartCall(member: MemberGridRow) {
+        console.log("MemberCentralComponent::onStartCall(): " + member.id + ", " + member.name);
+
+        this.sharedService.selectedMemberId = member.id;
 
         // populate the call structure with the member selected by the user
         let call: CallDetails = new CallDetails();
-        call.membernum = member.membernum;
-        call.callid = 987654321; // @ICtodo
-        call.membername= member.name;
+        call.memberId = member.id;
+        call.callId = 987654321; // @ICtodo: get next available call identifier
+        call.memberName= member.name;
         
         // trigger an event for any interested component/s
         this.contextMediatorService.onStartCall(call);
         
         // navigate to identity verification step
-        this.router.navigateByUrl('/verifyidentity/1234567');    
+        this.router.navigateByUrl('/verifyidentity/' + member.id.toString());    
     }
 
     /**
@@ -67,16 +72,20 @@ export class MemberCentralComponent {
     private consumeMemberDetails(memberDetails: [MemberDetails]) {
         console.log('MemberCentralComponent::consumeMemberDetails(): number of results = ' + memberDetails.length);
 
-        this.searchResults = new Array();
+        this.searchResults = new Array<MemberGridRow>();
 
-        // loop through the array of members returned from the API and add to the UI list
         for (var member of memberDetails) {
             console.log("MemberCentralComponent::consumeMemberDetails(): display member: " + JSON.stringify(member));
-            this.searchResults.push({
-                'membernum': member.id,
+
+            var gridRow: MemberGridRow = {
+                'id': member.id,
                 'name': member.title + " " + member.givenName + " " + member.surname,
                 'plan': member.plan,
-                'dob': member.dateOfBirth});
+                'dob': member.dateOfBirth
+            };
+
+             // add a member to the UI list
+            this.searchResults.push(gridRow);
         }
     }
 }
