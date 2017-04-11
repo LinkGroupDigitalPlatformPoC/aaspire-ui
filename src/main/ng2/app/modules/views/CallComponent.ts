@@ -15,6 +15,8 @@ import { IdentityCheck } from './../models/IdentityCheck';
 })
 export class CallComponent implements OnInit {
         
+    private callActions: MenuItem[]; // "Wrap Up" split button
+
     private call : CallDetails;
     
     private callReasonsSelectItems : SelectItem[];
@@ -56,6 +58,22 @@ export class CallComponent implements OnInit {
         for(let refDataValue of callReasons.values) {
             this.callReasonsSelectItems.push({label:refDataValue.descr,value:refDataValue.value});
         }
+
+        this.callActions = [{
+            label: 'File',
+            items: [
+                {label: 'New', icon: 'fa-plus'},
+                {label: 'Open', icon: 'fa-download'}
+            ]
+        },
+        {
+            label: 'Edit',
+            items: [
+                {label: 'Undo', icon: 'fa-refresh'},
+                {label: 'Redo', icon: 'fa-repeat'}
+            ]
+        }];
+    
     }
     
     getCallReasons() : RefData {
