@@ -22,6 +22,9 @@
       '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
+      '@angular/animations': 'npm:@angular/animations/bundles/animations.umd.js',
+      '@angular/animations/browser': 'npm:@angular/animations/bundles/animations-browser.umd.js',
+      '@angular/platform-browser/animations':'npm:@angular/platform-browser/bundles/platform-browser-animations.umd.js',
       // other libraries
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
@@ -31,7 +34,11 @@
       'zone.js':				   'npm:zone.js',
       'chart.js':				   'npm:chart.js/dist/Chart.js',
       'ng-lightning/ng-lightning': 'npm:ng-lightning/bundles/ng-lightning.umd.js',
-      'tether': 'npm:tether/dist/js/tether.min.js'
+      'tether': 'npm:tether/dist/js/tether.min.js',
+      'ng2-smart-table':'npm:ng2-smart-table/bundles/table.umd.js',
+      'ng2-completer':'npm:ng2-completer/ng2-completer.umd.js',
+      'lodash':'npm:lodash'
+    	  
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -42,7 +49,10 @@
       'core-js':{defaultExtension: 'js'},
       'zone.js':{defaultExtension: 'js'},
       'chart.js':{defaultExtension: 'js'},
-      'ng-lightning/ng-lightning':{defaultExtension: 'js'}
+      'ng-lightning/ng-lightning':{defaultExtension: 'js'},
+      'ng2-smart-table':{defaultExtension: 'js'},
+      'ng2-completer':{defaultExtension: 'js'},
+      'lodash':{main: './index.js',defaultExtension: 'js'}
     }
   });
 })(this);

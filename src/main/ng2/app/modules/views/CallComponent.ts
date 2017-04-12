@@ -7,11 +7,13 @@ import './../common/RxJsOperators';
 import { CallDetails } from './../models/CallDetails';
 import { RefData } from './../models/RefData';
 import { RefDataValue } from './../models/RefDataValue';
+import { RefDataApi } from './../services/RefDataApi';
 import { IdentityCheck } from './../models/IdentityCheck';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'Call.xhtml'
+    templateUrl: 'Call.xhtml',
+    providers:[RefDataApi]
 })
 export class CallComponent implements OnInit {
         
@@ -30,7 +32,7 @@ export class CallComponent implements OnInit {
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
-    constructor(private route: ActivatedRoute) {}
+    constructor(private route: ActivatedRoute, public refDataApi : RefDataApi) {}
     
     ngOnInit() {
         
@@ -52,34 +54,18 @@ export class CallComponent implements OnInit {
         this.identityChecks.push(new IdentityCheck('Last Employer', 40, 'Link Group'));       
 
         // getCallReason API call
-        let callReasons : RefData = this.getCallReasons();
+        this.getCallReasons();
         
-        //loop through and initialise the selectitem array with refdatavalues
-        for(let refDataValue of callReasons.values) {
+    }
+
+    setupCallReasonSelectItems(refData : RefData) {
+        for(let refDataValue of refData.values) {
             this.callReasonsSelectItems.push({label:refDataValue.descr,value:refDataValue.value});
         }  
     }
-    
-    getCallReasons() : RefData {
 
-        // TODO this should be a call to the refdata api.
-        
-        let refDataValues = new Array<RefDataValue>();
-        refDataValues.push(new RefDataValue('A','>65'));
-        refDataValues.push(new RefDataValue('B','Acct. Details Update'));
-        refDataValues.push(new RefDataValue('C','Acct. Details Confirm'));
-        refDataValues.push(new RefDataValue('D','ATO / Lost Super'));
-        refDataValues.push(new RefDataValue('E','Advisor'));
-        refDataValues.push(new RefDataValue('F','Balances'));
-        refDataValues.push(new RefDataValue('G','Beneficiaries'));
-        refDataValues.push(new RefDataValue('H','Beneficiary Update'));
-        refDataValues.push(new RefDataValue('I','Campaign 1'));
-        refDataValues.push(new RefDataValue('J','Campaign 2'));
-        refDataValues.push(new RefDataValue('K','Campaign 3'));
-        
-        let refData = new RefData('CALLRSN','Call Reasons',refDataValues);
-        
-        return refData;
+    getCallReasons() {
+        this.refDataApi.getById('CALLRSN').subscribe(refData => this.setupCallReasonSelectItems(refData));
     }
     
     onRowSelect(event) {

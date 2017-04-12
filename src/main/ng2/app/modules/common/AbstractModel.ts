@@ -7,18 +7,7 @@ export abstract class AbstractModel {
     descr: string;
 
     version: number= 0;
-
-    abstract getContextName(): string;
-    
-    abstract getHumanFriendlyName() : string;
-    
-    abstract initialiseNullManyToOneFields();
-    
-    abstract getManyToOneFields() : string[];
-    
-    abstract getCopy() : any;
-
-    
+   
     public fillFromJSONString( json: string ) {
         
         console.info('fillFromJSONString 1:'+json);
@@ -64,15 +53,4 @@ export abstract class AbstractModel {
         }
         return keys;
     }
-
-    public nullOutUnitialisedManyToOneRelationships() {
-        for(var field of this.getManyToOneFields()) {            
-            console.info('Field:'+field);
-            
-            if(this[field].version <= 0) {
-                this[field] = null;
-            }
-        }
-    }
-
 }
