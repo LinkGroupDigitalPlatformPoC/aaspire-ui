@@ -10,7 +10,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { MemberDetails } from '../models/MemberDetails.interface';
-import { AppSettings } from '../../appSettings';
+import { AppSettings } from '../../AppSettings';
 
 @Injectable()
 
@@ -25,7 +25,7 @@ export class EngagementService {
             'X-IBM-Client-Id': '01493a98-9ab1-47f8-8943-afee23978816' // @ICtodo: security: inject this during the build process, as an environment variable
         });
 
-        let options = new RequestOptions({ headers: headers });
+        let options = new RequestOptions({headers: headers});
 
         // via API connect
         let completeURL = AppSettings.API_ENGAGEMENT_SEARCH + encodeURI(srchStr);
