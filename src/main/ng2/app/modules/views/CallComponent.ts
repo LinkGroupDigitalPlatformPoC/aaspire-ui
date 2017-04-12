@@ -4,10 +4,15 @@ import { TreeNode,SelectItem } from 'primeng/primeng';
 import { ActivatedRoute } from '@angular/router';
 import './../common/RxJsOperators';
 
+// models
 import { CallDetails } from './../models/CallDetails';
 import { RefData } from './../models/RefData';
 import { RefDataValue } from './../models/RefDataValue';
 import { IdentityCheck } from './../models/IdentityCheck';
+import { EngagementBody } from './../models/EngagementBody.interface';
+
+// services
+import { SharedService } from './../services/Shared.service'; // singleton
 
 @Component({
     moduleId: module.id,
@@ -18,28 +23,29 @@ export class CallComponent implements OnInit {
     displaySearch: boolean = false;
 
     private call : CallDetails;
-    
     private callReasonsSelectItems : SelectItem[];
-      
     private identityChecks: IdentityCheck[];
-    
     private points: number; // id verification
-    
     private selectedIdentifiers: IdentityCheck[];
 
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
-    constructor(private route: ActivatedRoute) {}
+    constructor(private route: ActivatedRoute, private sharedService: SharedService) {}
     
     ngOnInit() {
-        
         // TODO this should be an api to retrieve the call if the id was provided in the route
+
+        let engagement: EngagementBody = this.sharedService.currentEngagementBody;
+        console.log("CallComponent::ngOnInit(): current engagement = " + JSON.stringify(engagement));
+
         this.call = new CallDetails();
-        this.call.status = 'inprogress';
+        this.call.callId = this.route.snapshot.params['id']; // from the URL
+        this.call.memberId = parseInt(engagement.memberId);
+        this.call.status = engagement.status;
+        this.call.startTime = engagement.dateTimeInitiated;
         
         this.callReasonsSelectItems = new Array<SelectItem>();
-
         this.identityChecks = new Array<IdentityCheck>();
         this.selectedIdentifiers = new Array<IdentityCheck>();
         
