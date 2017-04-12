@@ -9,8 +9,11 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 // third party - endorsed by Angular
 import { Observable } from 'rxjs/Observable';
 
-import { MemberDetails } from '../models/MemberDetails.interface';
+// constants
 import { AppSettings } from '../../AppSettings';
+
+// models
+import { EngagementBody } from '../models/EngagementBody.interface';
 
 @Injectable()
 
@@ -18,8 +21,57 @@ export class EngagementService {
 
     constructor(private http: Http) {}
 
-    // GET
-    getEngagement(srchStr: string) {
+    /*
+    GET
+
+    Get all engagements for a specified member
+
+    https://api.us.apiconnect.ibmcloud.com/mangluibmorg-linkgrouppoc-dev/sb/members/201/engagements   
+    
+    returns: array of engagements
+        [
+            {
+                "_id": "58ec66d9fdf0af0037e25cba",
+                "memberId": "201",
+                "dateTimeInitiated": "2017-03-31 09:30",
+                "dateTimeCompleted": "2017-03-31 09:35",
+                "notes": "detailed notes sample",
+                "primaryTopic": "Account Inquiry",
+                "secondaryTopic": [
+                "Placeholder1",
+                "Placeholder2"
+                ],
+                "status": "completed"
+            },
+            {
+                "_id": "58ec66d9fdf0af0037e25cbb",
+                "memberId": "201",
+                "dateTimeInitiated": "2017-03-31 07:30",
+                "dateTimeCompleted": "2017-03-31 08:35",
+                "notes": "detailed notes sample",
+                "primaryTopic": "Account Inquiry",
+                "secondaryTopic": [
+                "Placeholder1",
+                "Placeholder2"
+                ],
+                "status": "completed"
+            },
+            {
+                "_id": "58ec7c97fdf0af0037e25cbc",
+                "memberId": "201",
+                "dateTimeInitiated": "2017-07-31 09:30",
+                "dateTimeCompleted": "2017-07-31 09:35",
+                "notes": "detailed notes sample blah blah",
+                "primaryTopic": "Account Balance",
+                "secondaryTopic": [
+                "ATO",
+                "Account Balance"
+                ],
+                "status": "completed"
+            }
+        ]
+    */
+    getEngagementsForMember(memberId: number) {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'X-IBM-Client-Id': '01493a98-9ab1-47f8-8943-afee23978816' // @ICtodo: security: inject this during the build process, as an environment variable
@@ -28,14 +80,65 @@ export class EngagementService {
         let options = new RequestOptions({headers: headers});
 
         // via API connect
-        let completeURL = AppSettings.API_ENGAGEMENT_SEARCH + encodeURI(srchStr);
+        let completeURL = AppSettings.API_ENGAGEMENT_SEARCH + memberId.toString() + "/engagements";
 
         return this.http.get(completeURL, options).map(this.extractData).catch(this.handleError);
     }
 
-    // POST
-    createEngagement() {
+    /*
+    POST
 
+    Create a new engagement for a specified member
+
+    https://api.us.apiconnect.ibmcloud.com/mangluibmorg-linkgrouppoc-dev/sb/engagements
+
+    body:
+        {
+            "memberId": "210",
+            "dateTimeInitiated": "2017-07-31 09:30",
+            "dateTimeCompleted": "2017-07-31 09:35",
+            "notes": "detailed notes sample blah blah",
+            "primaryTopic": "Account Balance",
+            "secondaryTopic": [
+                "ATO",
+                "Account Balance"
+            ],
+            "status": "completed"
+        }
+    
+    returns:
+        {
+            "ok":1,
+            "n":1
+        }
+    */
+    createEngagementForMember(memberId: number) {
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-IBM-Client-Id': '01493a98-9ab1-47f8-8943-afee23978816' // @ICtodo: security: inject this during the build process, as an environment variable
+        });
+
+        let options = new RequestOptions({headers: headers});
+
+        // via API connect
+        let completeURL = AppSettings.API_ENGAGEMENT_ADD;
+
+        // body
+        let body= JSON.stringify({
+            "memberId": memberId.toString(),
+            "dateTimeInitiated": "2017-07-31 09:30",
+            "dateTimeCompleted": "2017-07-31 09:35",
+            "notes": "detailed notes sample blah blah",
+            "primaryTopic": "Account Balance",
+            "secondaryTopic": [
+                "ATO",
+                "Account Balance"
+            ],
+            "status": "verify"
+        });
+
+        return this.http.post(completeURL, body, options).map(this.extractData).catch(this.handleError);
     }
 
     // PUT
