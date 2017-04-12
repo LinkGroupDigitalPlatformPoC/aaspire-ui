@@ -14,4 +14,5 @@ export class CallDetails {
     constructor() {
         this.otherSelectedCallReasons = new Array<RefDataValue>();
     }
+
 }

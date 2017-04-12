@@ -14,11 +14,13 @@ import { ContextMediatorService } from './../common/ContextMediatorService';
     moduleId: module.id,
     templateUrl: 'VerifyIdentity.xhtml'
 })
+
 export class VerifyIdentityComponent implements OnInit {
         
     private identityChecks: IdentityCheck[];
     private points: number; // id verification
     private selectedIdentifiers: IdentityCheck[];
+    private memberId: string;
        
     constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService : ContextMediatorService) {}
     
@@ -27,18 +29,14 @@ export class VerifyIdentityComponent implements OnInit {
         
         this.points = 0;
 
-        let callId = this.route.snapshot.params['id'];
+        this.memberId = this.route.snapshot.params['id'];
         
-        console.log("VerifyIdentityComponent::ngOnInit()");
-        
-        if (callId) {
-        } 
-        else {           
-        }    
+        console.log("VerifyIdentityComponent::ngOnInit(): for member " + this.memberId); 
         
         this.identityChecks = new Array<IdentityCheck>();
         this.selectedIdentifiers = new Array<IdentityCheck>();
         
+        // TODO: get member details for the member id
         this.identityChecks.push(new IdentityCheck('Name', 40, 'John Smith'));
         this.identityChecks.push(new IdentityCheck('Licence #' ,30, 'L87239847'));
         this.identityChecks.push(new IdentityCheck('DOB', 40, '03-07-1985'));
@@ -47,11 +45,10 @@ export class VerifyIdentityComponent implements OnInit {
     }
     
     onRowSelect(event) {
- 
         // add points based in identifier type
         let currentTotal = 0;
         
-        for(let identifier of this.selectedIdentifiers) {
+        for (let identifier of this.selectedIdentifiers) {
             currentTotal = currentTotal + identifier.points;
         }
         
@@ -63,16 +60,16 @@ export class VerifyIdentityComponent implements OnInit {
         this.onRowSelect(event);
     }
     
-    onVerified(){
+    onVerified() {
         // go to member screen
-        this.router.navigateByUrl('/member/12345678');  
+        this.router.navigateByUrl('/member/' + this.memberId);  
     }
     
     onCancel() {
-        
         this.contextMediatorService.onEndCall(null);
         
-        // go to member central
+        // go (back) to member central
         this.router.navigateByUrl('/membercentral');  
     }
+
 }
