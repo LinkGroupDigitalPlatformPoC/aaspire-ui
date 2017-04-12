@@ -1,4 +1,4 @@
-import { EventEmitter, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import './../common/RxJsOperators';
 
 // PrimeNG
@@ -16,12 +16,14 @@ import { SharedService } from './../services/Shared.service';
 })
 
 export class MemberMainComponent implements OnInit {
+
+    private selectedMember: MemberDetails;
        
     constructor(private sharedService: SharedService) {}
     
     ngOnInit() {
-        debugger;
         console.log("MemberMainComponent::ngOnInit()");
+        this.selectedMember = this.sharedService.currentMember;
     }
     
 }
