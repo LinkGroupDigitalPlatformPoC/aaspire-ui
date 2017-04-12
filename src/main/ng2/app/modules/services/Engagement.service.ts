@@ -110,8 +110,18 @@ export class EngagementService {
         for a successful call
 
         {
-            "ok":1,
-            "n":1
+            "memberId": "210",
+            "csrId": "123456",
+            "dateTimeInitiated": "Wed Apr 12 2017 15:36:34 GMT+1000 (AEST)",
+            "dateTimeCompleted": "2017-07-31 09:35",
+            "notes": "detailed notes sample blah blah",
+            "primaryTopic": "Account Balance",
+            "secondaryTopic": [
+                "ATO",
+                "Account Balance"
+            ],
+            "status": "completed",
+            "_id": "58eddec9132a410039e32933"
         }
     */
     createEngagementForMember(engagementBody: EngagementBody) {

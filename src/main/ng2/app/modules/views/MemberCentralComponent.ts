@@ -107,12 +107,12 @@ export class MemberCentralComponent {
         // for the UI (see the HTML): populate the call structure with the member selected by the user
         let call: CallDetails = new CallDetails();
         call.memberId = parseInt(this.engagementBody.memberId);
-        call.callId = 987654321; // @ICtodo: get next available call identifier from add engagement API
+        call.callId = result._id; // @ICtodo: get next available call identifier from add engagement API
         call.memberName = this.sharedService.currentMember.title + " " + this.sharedService.currentMember.givenName + " " + this.sharedService.currentMember.surname;
         this.contextMediatorService.onStartCall(call);
 
         // navigate to the call
-        this.router.navigateByUrl('/call/' + 1234567); // waiting for API team to return a call number
+        this.router.navigateByUrl('/call/' + result._id); // waiting for API team to return a call number
     }
 
     /**
