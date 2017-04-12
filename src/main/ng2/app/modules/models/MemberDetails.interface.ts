@@ -1,17 +1,21 @@
 
 import { AddressDetails } from '../models/AddressDetails.interface';
+import { IdentityVerification } from '../models/IdentityVerification.interface';
 
 export interface MemberDetails {
-    id: number;
-    title: string;
-    givenName: string;
-    surname: string;
-    dateOfBirth: string;
-    status: string;
-    plan: string;
-    email: string;
+    accountBalance: number;
     address: AddressDetails;
+    dateOfBirth: string;
+    email: string;
+    givenName: string;
+    id: number;
+    identities: [IdentityVerification];
+    lastEmployer: string;
     phoneNumber: string;
+    plan: string;
+    status: string;
+    surname: string;
+    title: string;
 }
 
 
