@@ -28,7 +28,7 @@ import { CallDetails } from '../models/CallDetails';
 })
 
 export class ContextComponent {
-    private callActions: MenuItem[]; // "Wrap Up" split button
+    // private callActions: MenuItem[]; // "Wrap Up" split button
     private currentCall: CallDetails;
 
     _onStartCall$: Subscription;
@@ -45,20 +45,20 @@ export class ContextComponent {
         this._onEndCall$ = this.contextMediatorService.onEndCall$.subscribe(call => this.endCall(call));
 
         // items for the dropdown menu in the "Wrap Up" split button
-        this.callActions = [{
-            label: 'File',
-            items: [
-                {label: 'New', icon: 'fa-plus'},
-                {label: 'Open', icon: 'fa-download'}
-            ]
-        },
-        {
-            label: 'Edit',
-            items: [
-                {label: 'Undo', icon: 'fa-refresh'},
-                {label: 'Redo', icon: 'fa-repeat'}
-            ]
-        }];
+        // this.callActions = [{
+        //     label: 'File',
+        //     items: [
+        //         {label: 'New', icon: 'fa-plus'},
+        //         {label: 'Open', icon: 'fa-download'}
+        //     ]
+        // },
+        // {
+        //     label: 'Edit',
+        //     items: [
+        //         {label: 'Undo', icon: 'fa-refresh'},
+        //         {label: 'Redo', icon: 'fa-repeat'}
+        //     ]
+        // }];
     }
 
     ngOnDestroy() {
@@ -70,30 +70,23 @@ export class ContextComponent {
     // ______
 
     // from the "wrap up"" button
-    onWrapUp() {
-        console.log("ContextComponent::onWrapUp()");
-        this.endCall(this.currentCall);
-    }
+    // onWrapUp() {
+    //     console.log("ContextComponent::onWrapUp()");
+    //     this.endCall(this.currentCall);
+    // }
 
     // triggered by an event (eg: "Start Call" button on member central grid - for a particular member)
     startCall(call: CallDetails) {
-        console.log('ContextComponent::startCall()');
-        console.log(JSON.stringify(call));
+        console.log('ContextComponent::startCall(): using call details: ' + JSON.stringify(call));
 
-        this.currentCall = call; // shows the whole panel (see the HTML)
-
-        // this.clock = jQuery('.call-timer').FlipClock({
-        //     clockFace: 'MinuteCounter'
-        // });
-        // console.log(this.clock.getTime());
+        this.currentCall = call; // shows the whole context panel (see the HTML)
     }
 
     // (can be) triggered by an event
     endCall(call: CallDetails) {
         console.log('ContextComponent::endCall()');
 
-        // end call and remove from context
-        this.currentCall = null; // hides the whole panel (see the HTML)
+        this.currentCall = null; // hides the whole context panel (see the HTML)
     }
 
 }

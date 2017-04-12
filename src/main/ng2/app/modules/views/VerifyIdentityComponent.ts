@@ -9,6 +9,7 @@ import { IdentityCheck } from './../models/IdentityCheck';
 
 // services
 import { ContextMediatorService } from './../common/ContextMediatorService';
+import { SharedService } from '../services/Shared.service'; // singleton
 
 @Component({
     moduleId: module.id,
@@ -22,10 +23,10 @@ export class VerifyIdentityComponent implements OnInit {
     private selectedIdentifiers: IdentityCheck[];
     private memberId: string;
        
-    constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService : ContextMediatorService) {}
+    constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService : ContextMediatorService, private sharedService: SharedService) {}
     
     ngOnInit() {
-        // onload get the current call from global variable and set it as the current call    
+        // onload get the current call from global variable and set it as the current call
         
         this.points = 0;
 

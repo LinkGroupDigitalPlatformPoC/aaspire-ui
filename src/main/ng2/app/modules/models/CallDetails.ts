@@ -6,10 +6,10 @@ export class CallDetails {
     memberName: string;
     callId : number;
     status : string;
-    startTime:string;
-    endTime:string;
-    otherSelectedCallReasons : RefDataValue[];
-    primaryCallReason : RefDataValue;    
+    startTime: string;
+    endTime: string;
+    otherSelectedCallReasons :RefDataValue[];
+    primaryCallReason :RefDataValue;    
     
     constructor() {
         this.otherSelectedCallReasons = new Array<RefDataValue>();

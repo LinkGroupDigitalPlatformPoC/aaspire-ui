@@ -10,7 +10,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { MemberDetails } from '../models/MemberDetails.interface';
-import { AppSettings } from '../../appSettings';
+import { AppSettings } from '../../AppSettings';
 
 @Injectable()
 
@@ -28,19 +28,16 @@ export class MemberService {
      * Returns:
      *      array of member details (JSON)
      */
-    public getMembersForSearchString(srchStr: string): Observable<[MemberDetails]> {
+    public getMembers(srchStr: string): Observable<[MemberDetails]> {
         let headers = new Headers({
             'Content-Type': 'application/json',
-            'X-IBM-Client-Id': '01493a98-9ab1-47f8-8943-afee23978816' // @ICtodo: security
+            'X-IBM-Client-Id': '01493a98-9ab1-47f8-8943-afee23978816' // @ICtodo: security: inject this during the build process, as an environment variable
         });
 
-        let options = new RequestOptions({ headers: headers });
+        let options = new RequestOptions({headers: headers});
 
         // via API connect
         let completeURL = AppSettings.API_MEMBER_SEARCH + encodeURI(srchStr);
-        
-        // direct connection:
-        // let completeURL = "http://dev-member-mgmt-services.mybluemix.net/members?search=" + srchStr;
 
         return this.http.get(completeURL, options).map(this.extractData).catch(this.handleError);
     }
