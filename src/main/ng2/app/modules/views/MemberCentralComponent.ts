@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import './../common/RxJsOperators';
 
 // components
-import { AppSettings } from '../../appSettings';
+import { AppSettings } from '../../AppSettings';
 
 // models
 import { MemberDetails } from '../models/MemberDetails.interface';

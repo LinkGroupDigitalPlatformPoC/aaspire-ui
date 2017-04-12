@@ -10,7 +10,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { MemberDetails } from '../models/MemberDetails.interface';
-import { AppSettings } from '../../appSettings';
+import { AppSettings } from '../../AppSettings';
 
 @Injectable()
 
