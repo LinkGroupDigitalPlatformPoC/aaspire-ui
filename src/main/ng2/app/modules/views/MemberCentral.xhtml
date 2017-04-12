@@ -17,12 +17,11 @@
 
 <div class="ui-g form-group">
 	<div class="ui-g-12">
-		<p-dataTable selectionMode="single" [paginator]="true" [rows]="10" [responsive]="true" [value]="searchResults"> 
+		<p-dataTable selectionMode="single" [paginator]="false" [rows]="10" [responsive]="true" [value]="searchResults"> 
 			<p-column field="id" header="Member#" ></p-column> 
 			<p-column field="name" header="Name" ></p-column>
 			<p-column field="plan" header="Plan" ></p-column>
 			<p-column field="dob" header="D.O.B" ></p-column> 
-
 		    <p-column styleClass="col-button">
 		        <template let-result="rowData" pTemplate="body">
 					<button pButton type="button" label="Start Call" (click)="onStartCall(result)"></button>
