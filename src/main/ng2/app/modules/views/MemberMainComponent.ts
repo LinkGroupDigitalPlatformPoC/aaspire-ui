@@ -21,7 +21,7 @@ export class MemberMainComponent implements OnInit {
     
     ngOnInit() {
         debugger;
-        console.log("MemberMainComponent::ngOnInit(): selected member = " + this.sharedService.selectedMemberId);
+        console.log("MemberMainComponent::ngOnInit()");
     }
     
 }

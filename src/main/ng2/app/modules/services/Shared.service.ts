@@ -9,7 +9,6 @@ import { MemberDetails } from '../models/MemberDetails.interface';
 
 export class SharedService {
 
-    public selectedMemberId: number = 0;
     public currentEngagementBody: EngagementBody;
     public currentMember: MemberDetails;
 
