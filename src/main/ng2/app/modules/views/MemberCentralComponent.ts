@@ -1,3 +1,4 @@
+//.
 // Angular
 import { EventEmitter, Component, OnInit, Inject, forwardRef } from '@angular/core';
 
@@ -42,7 +43,7 @@ export class MemberCentralComponent {
         // console.log('MemberCentralComponent::onSearch(): param = ' + this.userEnteredSearchCriteria);
         
         this.subscriptionToMemberSearch = 
-            this.memberService.getMembersForSearchString(this.userEnteredSearchCriteria).subscribe(
+            this.memberService.getMembers(this.userEnteredSearchCriteria).subscribe(
                 memberObj => this.consumeMemberDetails(memberObj),
                 error => console.error("ERROR: " + <any>error));
     }
@@ -77,7 +78,7 @@ export class MemberCentralComponent {
         this.searchResults = new Array<MemberGridRow>();
 
         for (var member of memberDetails) {
-            console.log("MemberCentralComponent::consumeMemberDetails(): display member: " + JSON.stringify(member));
+            // console.log("MemberCentralComponent::consumeMemberDetails(): display member: " + JSON.stringify(member));
 
             var gridRow: MemberGridRow = {
                 'id': member.id,

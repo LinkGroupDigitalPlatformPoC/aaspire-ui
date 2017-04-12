@@ -1,4 +1,4 @@
-// .
+// 
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
