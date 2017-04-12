@@ -63,8 +63,8 @@ export class MemberCentralComponent {
         // trigger an event for any interested component/s
         this.contextMediatorService.onStartCall(call);
         
-        // navigate to identity verification step
-        this.router.navigateByUrl('/verifyidentity/' + memberRow.id.toString());    
+        // navigate to the call
+        this.router.navigateByUrl('/call/' + call.callId);    
     }
 
     /**

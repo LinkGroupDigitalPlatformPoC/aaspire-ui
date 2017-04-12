@@ -7,7 +7,7 @@ import './../common/RxJsOperators';
 import { MemberDetails } from './../models/MemberDetails.interface';
 
 // services
-import { SharedService } from '../services/Shared.service';
+import { SharedService } from './../services/Shared.service';
 
 @Component({
     moduleId: module.id,

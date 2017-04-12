@@ -3,8 +3,5 @@ import {RefDataValue} from './RefDataValue';
 
 export class RefData /*extends AbstractModel*/ {
     
-    name: string;
-    descr: string;
-    
-    values: RefDataValue[];
+    constructor(public name : string, public descr : string, public values : RefDataValue[]) {}
 }

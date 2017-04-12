@@ -3,14 +3,119 @@
 <hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
 <div style="text-align:right">
-	<button pButton type="button" icon="ui-icon-chevron-left" class="PinkButton" (click)="onPrevious()" [disabled]="searchScrollDisabled" iconPos="right"></button>
-	<button pButton type="button" icon="ui-icon-chevron-right" class="PinkButton" (click)="onNext()" [disabled]="searchScrollDisabled" iconPos="left"></button>                     
-	<button pButton type="button" icon="ui-icon-search" class="PinkButton" (click)="onSearch()"></button>                     
-	<button pButton type="button" icon="ui-icon-open-in-new" class="PinkButton" (click)="onNew()" [disabled]="newBtnDisabled"></button>
-	<button pButton type="button" icon="ui-icon-save" class="PinkButton" (click)="onSave()" [disabled]="saveBtnDisabled"></button>
-	<button pButton type="button" icon="ui-icon-trash" class="PinkButton" (click)="onDelete()" [disabled]="deleteBtnDisabled"></button>
-	<button pButton type="button" icon="ui-icon-refresh" class="PinkButton" (click)="onRefresh()" [disabled]="refreshBtnDisabled"></button>
+	<button pButton type="button" icon="ui-icon-search" class="" (click)="onSearch()"></button>                     
+	<button pButton type="button" icon="ui-icon-save" class="" (click)="onSave()" ></button>
+	<button pButton type="button" icon="ui-icon-refresh" class="" (click)="onRefresh()" ></button>
+	<button pButton type="button" icon="ui-icon-refresh" class="" (click)="onWrapUp()" ></button>
 </div>
 
 <hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+
+<p-dialog header="Search" [(visible)]="displaySearch" width="800">
+
+	<div class="ui-g form-group dashboard">
+		<div class="ui-g-12 ui-md-2">
+			<label for="dropdown">Call Id</label>
+		</div>
+		<div class="ui-g-12 ui-md-8"><input type="text" pInputText></div>
+		<div class="ui-g-12 ui-md-2"><button pButton type="button" icon="ui-icon-search" class="" (click)="search()"></button></div>	
+	</div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="displaySearch=false" label="Ok"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+<p-tabView>
+    <p-tabPanel header="Main">
+	<div class="ui-g form-group dashboard">
+	
+		<div class="ui-g-12 ui-md-2">
+			<label for="dropdown">Call Id</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">{{call.callId}}</div>
+		<div class="ui-g-12 ui-md-6"></div>
+		
+		<div class="ui-g-12 ui-md-2">
+			<label for="dropdown">Member#</label>
+		</div>
+		
+		<div class="ui-g-12 ui-md-4">
+			<a style="color: blue;text-decoration: underline;" routerLink="/member">{{call.memberId}}</a>
+		</div>
+			
+		<div class="ui-g-12 ui-md-2">
+			<label for="dropdown">Primary Call Reason</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">
+			<span class="md-inputfield"> 
+				<p-dropdown id="dropdown" [autoWidth]="false" placeholder="Primary call reason" [options]="callReasonsSelectItems" [(ngModel)]="call.primaryCallReason">
+				</p-dropdown>
+			</span>
+		</div>
+		
+		<div class="ui-g-12 ui-md-2">
+			<label for="dropdown">Name</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">{{call.memberName}}</div>
+
+		<div class="ui-g-12 ui-md-2">
+			<label for="othercallreasons">Other Call Reasons</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">
+			<span class="md-inputfield"> 
+				<p-multiSelect id="othercallreasons" [options]="callReasonsSelectItems" [(ngModel)]="call.otherSelectedCallReasons"></p-multiSelect>
+				<!-- <p-listbox [options]="callReasonsSelectItems" [(ngModel)]="otherSelectedCallReasons" multiple="multiple" checkbox="checkbox"></p-listbox> -->
+			</span>
+		</div>
+
+
+		<div class="ui-g-12 ui-md-12"></div>
+
+		<div class="ui-g-12 ui-md-2">
+			<label>Status</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">{{call.status}}</div>
+		
+		<div class="ui-g-12 ui-md-6"></div>
+
+		<div class="ui-g-12 ui-md-2">
+			<label>Start Time</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">{{call.startTime}}</div>
+
+		<div class="ui-g-12 ui-md-2">
+			<label>End Time</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">{{call.endTime}}</div>
+
+		<div class="ui-g-12 ui-md-12"></div>
+		
+		<div class="ui-g-12 ui-md-2">
+			<label>Duration</label>
+		</div>
+		<div class="ui-g-12 ui-md-4">{{call.duration}}</div>
+		
+		<div class="ui-g-12 ui-md-6"></div>
+
+		<div class="ui-g-12 ui-md-6">
+			<p-dataTable [value]="identityChecks" [(selection)]="selectedIdentifiers" dataKey="identifier" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+			    <p-column [style]="{'width':'38px'}" selectionMode="multiple" ></p-column>
+			    <p-column field="identifier" header="Identity Type"></p-column>
+			    <p-column field="value" header="Cross Reference Value"></p-column>
+			    <p-column field="points" header="Points"></p-column>
+			</p-dataTable>	
+		</div>
+		<div class="ui-g-12 ui-md-6">
+	    	<div class="ui-g card colorbox colorbox-2">
+			    <div class="ui-g-12">
+			        <span class="colorbox-name">Total Points</span>
+			        <span class="colorbox-count">{{points}}</span>
+			    </div>
+			</div>
+		</div>
+	</div>    	
+    </p-tabPanel>
+</p-tabView>
 
