@@ -16,16 +16,10 @@ import { IdentityCheck } from './../models/IdentityCheck';
 export class CallComponent implements OnInit {
         
     displaySearch: boolean = false;
-        
-    private callActions: MenuItem[]; // "Wrap Up" split button
 
     private call : CallDetails;
     
     private callReasonsSelectItems : SelectItem[];
-    
-    private otherSelectedCallReasons : RefDataValue[];
-    
-    private primaryCallReason : RefDataValue;
       
     private identityChecks: IdentityCheck[];
     
@@ -33,14 +27,18 @@ export class CallComponent implements OnInit {
     
     private selectedIdentifiers: IdentityCheck[];
 
-     *     /**
+    /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
     constructor(private route: ActivatedRoute) {}
     
     ngOnInit() {
+        
+        // TODO this should be an api to retrieve the call if the id was provided in the route
+        this.call = new CallDetails();
+        this.call.status = 'inprogress';
+        
         this.callReasonsSelectItems = new Array<SelectItem>();
-        this.otherSelectedCallReasons = new Array<RefDataValue>();        
 
         this.identityChecks = new Array<IdentityCheck>();
         this.selectedIdentifiers = new Array<IdentityCheck>();
@@ -59,23 +57,7 @@ export class CallComponent implements OnInit {
         //loop through and initialise the selectitem array with refdatavalues
         for(let refDataValue of callReasons.values) {
             this.callReasonsSelectItems.push({label:refDataValue.descr,value:refDataValue.value});
-        }
-
-        this.callActions = [{
-            label: 'File',
-            items: [
-                {label: 'New', icon: 'fa-plus'},
-                {label: 'Open', icon: 'fa-download'}
-            ]
-        },
-        {
-            label: 'Edit',
-            items: [
-                {label: 'Undo', icon: 'fa-refresh'},
-                {label: 'Redo', icon: 'fa-repeat'}
-            ]
-        }];
-    
+        }  
     }
     
     getCallReasons() : RefData {
@@ -119,5 +101,16 @@ export class CallComponent implements OnInit {
     
     onSearch() {
         this.displaySearch = true;
+    }
+    
+    onWrapUp() {
+        
+        // call "save" api and then display call with the updated call object
+        // the status should change to "closed" which should then disable all toolbar buttons except for "search"
+        this.call.status='closed';
+        
+    }
+    
+    search() {
     }
 }

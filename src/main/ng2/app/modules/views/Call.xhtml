@@ -3,25 +3,28 @@
 <hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
 <div style="text-align:right">
-	<button pButton type="button" icon="ui-icon-search" class="green-btn" (click)="onSearch()"></button>                     
-	<button pButton type="button" icon="ui-icon-save" class="" (click)="onSave()" [disabled]="saveBtnDisabled"></button>
-	<button pButton type="button" icon="ui-icon-refresh" class="" (click)="onRefresh()" [disabled]="refreshBtnDisabled"></button>
+	<button pButton type="button" icon="ui-icon-search" class="" (click)="onSearch()"></button>                     
+	<button pButton type="button" icon="ui-icon-save" class="" (click)="onSave()" ></button>
+	<button pButton type="button" icon="ui-icon-refresh" class="" (click)="onRefresh()" ></button>
+	<button pButton type="button" icon="ui-icon-refresh" class="" (click)="onWrapUp()" ></button>
 </div>
 
 <hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
 <p-dialog header="Search" [(visible)]="displaySearch" width="800">
-    <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-       His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
-       Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
-       kind and benevolent to those who give respect, 
-       but given to ruthless violence whenever anything stands against the good of the family.</p>
-        <p-footer>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="button" pButton icon="fa-close" (click)="display=false" label="No"></button>
-                <button type="button" pButton icon="fa-check" (click)="display=false" label="Yes"></button>
-            </div>
-        </p-footer>
+
+	<div class="ui-g form-group dashboard">
+		<div class="ui-g-12 ui-md-2">
+			<label for="dropdown">Call Id</label>
+		</div>
+		<div class="ui-g-12 ui-md-8"><input type="text" pInputText></div>
+		<div class="ui-g-12 ui-md-2"><button pButton type="button" icon="ui-icon-search" class="" (click)="search()"></button></div>	
+	</div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="displaySearch=false" label="Ok"></button>
+        </div>
+    </p-footer>
 </p-dialog>
 
 <p-tabView>
@@ -31,7 +34,7 @@
 		<div class="ui-g-12 ui-md-2">
 			<label for="dropdown">Call Id</label>
 		</div>
-		<div class="ui-g-12 ui-md-4">987654321</div>
+		<div class="ui-g-12 ui-md-4">{{call.callId}}</div>
 		<div class="ui-g-12 ui-md-6"></div>
 		
 		<div class="ui-g-12 ui-md-2">
@@ -39,7 +42,7 @@
 		</div>
 		
 		<div class="ui-g-12 ui-md-4">
-			<a style="color: blue;text-decoration: underline;" routerLink="/member">123456789</a>
+			<a style="color: blue;text-decoration: underline;" routerLink="/member">{{call.memberId}}</a>
 		</div>
 			
 		<div class="ui-g-12 ui-md-2">
@@ -47,7 +50,7 @@
 		</div>
 		<div class="ui-g-12 ui-md-4">
 			<span class="md-inputfield"> 
-				<p-dropdown id="dropdown" [autoWidth]="false" placeholder="Primary call reason" [options]="callReasonsSelectItems" [(ngModel)]="primaryCallReason">
+				<p-dropdown id="dropdown" [autoWidth]="false" placeholder="Primary call reason" [options]="callReasonsSelectItems" [(ngModel)]="call.primaryCallReason">
 				</p-dropdown>
 			</span>
 		</div>
@@ -55,14 +58,14 @@
 		<div class="ui-g-12 ui-md-2">
 			<label for="dropdown">Name</label>
 		</div>
-		<div class="ui-g-12 ui-md-4">John, Smith</div>
+		<div class="ui-g-12 ui-md-4">{{call.memberName}}</div>
 
 		<div class="ui-g-12 ui-md-2">
 			<label for="othercallreasons">Other Call Reasons</label>
 		</div>
 		<div class="ui-g-12 ui-md-4">
 			<span class="md-inputfield"> 
-				<p-multiSelect id="othercallreasons" [options]="callReasonsSelectItems" [(ngModel)]="otherSelectedCallReasons"></p-multiSelect>
+				<p-multiSelect id="othercallreasons" [options]="callReasonsSelectItems" [(ngModel)]="call.otherSelectedCallReasons"></p-multiSelect>
 				<!-- <p-listbox [options]="callReasonsSelectItems" [(ngModel)]="otherSelectedCallReasons" multiple="multiple" checkbox="checkbox"></p-listbox> -->
 			</span>
 		</div>
@@ -73,26 +76,26 @@
 		<div class="ui-g-12 ui-md-2">
 			<label>Status</label>
 		</div>
-		<div class="ui-g-12 ui-md-4">Inprogess</div>
+		<div class="ui-g-12 ui-md-4">{{call.status}}</div>
 		
 		<div class="ui-g-12 ui-md-6"></div>
 
 		<div class="ui-g-12 ui-md-2">
 			<label>Start Time</label>
 		</div>
-		<div class="ui-g-12 ui-md-4">12:30</div>
+		<div class="ui-g-12 ui-md-4">{{call.startTime}}</div>
 
 		<div class="ui-g-12 ui-md-2">
 			<label>End Time</label>
 		</div>
-		<div class="ui-g-12 ui-md-4">12:35</div>
+		<div class="ui-g-12 ui-md-4">{{call.endTime}}</div>
 
 		<div class="ui-g-12 ui-md-12"></div>
 		
 		<div class="ui-g-12 ui-md-2">
 			<label>Duration</label>
 		</div>
-		<div class="ui-g-12 ui-md-4">01:25</div>
+		<div class="ui-g-12 ui-md-4">{{call.duration}}</div>
 		
 		<div class="ui-g-12 ui-md-6"></div>
 
