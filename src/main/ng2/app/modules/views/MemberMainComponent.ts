@@ -12,15 +12,15 @@ import { SharedService } from '../services/Shared.service';
 @Component({
     moduleId: module.id,
     selector: 'member-main',
-    templateUrl: 'MemberMain.xhtml',
-    providers: [ SharedService]
+    templateUrl: 'MemberMain.xhtml'
 })
 
 export class MemberMainComponent implements OnInit {
        
-    constructor(protected sharedService: SharedService) {}
+    constructor(private sharedService: SharedService) {}
     
     ngOnInit() {
+        debugger;
         console.log("MemberMainComponent::ngOnInit(): selected member = " + this.sharedService.selectedMemberId);
     }
     

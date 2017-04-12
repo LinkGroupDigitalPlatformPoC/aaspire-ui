@@ -1,9 +1,9 @@
-import { NgModule }      from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {FormsModule, ReactiveFormsModule}    from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpModule, JsonpModule } from '@angular/http';
-import {Component} from '@angular/core';
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { Component } from '@angular/core';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { ButtonModule, SplitButtonModule, ToolbarModule, TabViewModule, InputTextareaModule, 
          InputTextModule, GrowlModule, DialogModule, MenubarModule, DataTableModule,
@@ -36,6 +36,7 @@ import { MemberMainComponent } from './modules/views/MemberMainComponent';
 import { CallComponent }  from './modules/views/CallComponent';
 
 import { ContextMediatorService } from './modules/common/ContextMediatorService';
+import { SharedService } from './modules/services/Shared.service';
         
 @NgModule({
     imports: [
@@ -74,7 +75,8 @@ import { ContextMediatorService } from './modules/common/ContextMediatorService'
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        ContextMediatorService
+        ContextMediatorService,
+        SharedService
     ],
     declarations: [
     	AppComponent,

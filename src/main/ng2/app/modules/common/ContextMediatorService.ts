@@ -11,7 +11,6 @@ export class ContextMediatorService {
     public onStartCall$: EventEmitter<CallDetails>;
     public onEndCall$: EventEmitter<CallDetails>;
     
-    
     constructor() {
         // setup observable event emitters
         this.onStartCall$ = new EventEmitter();

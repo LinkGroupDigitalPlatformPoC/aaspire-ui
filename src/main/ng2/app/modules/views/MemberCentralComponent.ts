@@ -1,4 +1,7 @@
+// Angular
 import { EventEmitter, Component, OnInit, Inject, forwardRef } from '@angular/core';
+
+// PrimeNG
 import { TreeNode } from 'primeng/primeng';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,7 +23,7 @@ import { ContextMediatorService } from './../common/ContextMediatorService';
 @Component({
     moduleId: module.id,
     templateUrl: 'MemberCentral.xhtml',
-    providers: [MemberService, SharedService]
+    providers: [MemberService]
 })
 
 export class MemberCentralComponent {
@@ -29,7 +32,7 @@ export class MemberCentralComponent {
     private subscriptionToMemberSearch: any;
     userEnteredSearchCriteria: string;
       
-    constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService : ContextMediatorService, protected sharedService: SharedService, 
+    constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService: ContextMediatorService, private sharedService: SharedService, 
                 protected memberService: MemberService) {}
     
     /**
@@ -47,22 +50,21 @@ export class MemberCentralComponent {
     /**
      * From the "Start Call"" button (on a row of the members grid)
      */
-    onStartCall(member: MemberGridRow) {
-        console.log("MemberCentralComponent::onStartCall(): " + member.id + ", " + member.name);
-
-        this.sharedService.selectedMemberId = member.id;
+    onStartCall(memberRow: MemberGridRow) {
+        console.log("MemberCentralComponent::onStartCall(): setting shared service: id = " + memberRow.id);
+        this.sharedService.selectedMemberId = memberRow.id;
 
         // populate the call structure with the member selected by the user
         let call: CallDetails = new CallDetails();
-        call.memberId = member.id;
+        call.memberId = memberRow.id;
         call.callId = 987654321; // @ICtodo: get next available call identifier
-        call.memberName= member.name;
+        call.memberName= memberRow.name;
         
         // trigger an event for any interested component/s
         this.contextMediatorService.onStartCall(call);
         
         // navigate to identity verification step
-        this.router.navigateByUrl('/verifyidentity/' + member.id.toString());    
+        this.router.navigateByUrl('/verifyidentity/' + memberRow.id.toString());    
     }
 
     /**
@@ -88,4 +90,5 @@ export class MemberCentralComponent {
             this.searchResults.push(gridRow);
         }
     }
+
 }
