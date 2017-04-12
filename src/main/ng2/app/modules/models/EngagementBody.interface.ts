@@ -11,4 +11,5 @@ export interface EngagementBody {
     primaryTopic: string;
     secondaryTopic: Array<string>;
     status: string;
+    csrId: string;
 }

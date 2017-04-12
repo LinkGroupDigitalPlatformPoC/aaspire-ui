@@ -107,12 +107,14 @@ export class EngagementService {
         }
     
     returns:
+        for a successful call
+
         {
             "ok":1,
             "n":1
         }
     */
-    createEngagementForMember(memberId: number) {
+    createEngagementForMember(engagementBody: EngagementBody) {
         let headers = new Headers({
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -124,21 +126,7 @@ export class EngagementService {
         // via API connect
         let completeURL = AppSettings.API_ENGAGEMENT_ADD;
 
-        // body
-        let body= JSON.stringify({
-            "memberId": memberId.toString(),
-            "dateTimeInitiated": "2017-07-31 09:30",
-            "dateTimeCompleted": "2017-07-31 09:35",
-            "notes": "detailed notes sample blah blah",
-            "primaryTopic": "Account Balance",
-            "secondaryTopic": [
-                "ATO",
-                "Account Balance"
-            ],
-            "status": "verify"
-        });
-
-        return this.http.post(completeURL, body, options).map(this.extractData).catch(this.handleError);
+        return this.http.post(completeURL, engagementBody, options).map(this.extractData).catch(this.handleError);
     }
 
     // PUT
@@ -156,7 +144,6 @@ export class EngagementService {
 
         if (res.status == 200) {
             let body = res.json(); // parse into a JavaScript object
-            // console.log('MemberSearch service: success: body = ' + JSON.stringify(body));
             return body;
         }
         else {

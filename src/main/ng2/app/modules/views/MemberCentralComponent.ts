@@ -1,4 +1,5 @@
-//.
+//
+
 // Angular
 import { EventEmitter, Component, OnInit, Inject, forwardRef } from '@angular/core';
 
@@ -15,33 +16,36 @@ import { AppSettings } from '../../AppSettings';
 import { MemberDetails } from '../models/MemberDetails.interface';
 import { CallDetails } from '../models/CallDetails';
 import { MemberGridRow } from '../models/MemberGridRow.interface'
+import { EngagementBody } from '../models/EngagementBody.interface';
 
 // services
-import { MemberService } from '../services/Member.service';
-import { SharedService } from '../services/Shared.service';
-import { ContextMediatorService } from './../common/ContextMediatorService';
+import { SharedService } from '../services/Shared.service'; // singleton
+import { ContextMediatorService } from './../common/ContextMediatorService'; // singleton
+import { MemberService } from '../services/Member.service'; // members
+import { EngagementService } from '../services/Engagement.service'; // engagements / calls
 
 @Component({
     moduleId: module.id,
     templateUrl: 'MemberCentral.xhtml',
-    providers: [MemberService]
+    providers: [MemberService, EngagementService]
 })
 
 export class MemberCentralComponent {
 
+    userEnteredSearchCriteria: string;
     searchResults : Array<MemberGridRow>;
     private subscriptionToMemberSearch: any;
-    userEnteredSearchCriteria: string;
+    private subscriptionToAddEngagement: any;
+    private engagementBody: EngagementBody;
       
     constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService: ContextMediatorService, private sharedService: SharedService, 
-                protected memberService: MemberService) {}
+                protected memberService: MemberService, private engagementService: EngagementService) {}
     
     /**
      * From the "Search"" button on this component
      */
     onSearch() {
         // console.log('MemberCentralComponent::onSearch(): param = ' + this.userEnteredSearchCriteria);
-        
         this.subscriptionToMemberSearch = 
             this.memberService.getMembers(this.userEnteredSearchCriteria).subscribe(
                 memberObj => this.consumeMemberDetails(memberObj),
@@ -53,23 +57,54 @@ export class MemberCentralComponent {
      */
     onStartCall(memberRow: MemberGridRow) {
         console.log("MemberCentralComponent::onStartCall(): setting shared service: id = " + memberRow.id);
-        this.sharedService.selectedMemberId = memberRow.id;
+        this.sharedService.selectedMemberId = memberRow.id; // singleton: this works
+
 
         // populate the call structure with the member selected by the user
         let call: CallDetails = new CallDetails();
         call.memberId = memberRow.id;
-        call.callId = 987654321; // @ICtodo: get next available call identifier
+        call.callId = 987654321; // @ICtodo: get next available call identifier from add engagement API
         call.memberName= memberRow.name;
         
         // trigger an event for any interested component/s
         this.contextMediatorService.onStartCall(call);
-        
+
+        // create the call in the database via the API
+        let dateTimeNow = new Date().toString();
+
+        this.engagementBody = {
+            "memberId": memberRow.id.toString(),
+            "dateTimeInitiated": dateTimeNow,
+            "dateTimeCompleted": "",
+            "notes": "",
+            "primaryTopic": "",
+            "secondaryTopic": [],
+            "status": "verification",
+            "csrId": "123456"
+        }
+
+        this.subscriptionToAddEngagement = 
+            this.engagementService.createEngagementForMember(this.engagementBody).subscribe(
+                memberObj => this.consumeAddEngagementResult(memberObj),
+                error => console.error("ERROR: " + <any>error));  
+    }
+
+    /*
+     * From the "Start Call" button (on a row of the members grid)
+     * API for add engagement has returned
+     */
+    private consumeAddEngagementResult(result: any) {
+        console.log("MemberCentralComponent::consumeAddEngagementResult(): with result: " + JSON.stringify(result));
+
+        this.sharedService.currentEngagementBody = this.engagementBody;
+
         // navigate to the call
-        this.router.navigateByUrl('/call/' + call.callId);    
+        this.router.navigateByUrl('/call/' + 1234567); // waiting for API team to return a call number
     }
 
     /**
      * Consume member list from the member search
+     * API for get members has returned
      * Update the UI
      */
     private consumeMemberDetails(memberDetails: [MemberDetails]) {
