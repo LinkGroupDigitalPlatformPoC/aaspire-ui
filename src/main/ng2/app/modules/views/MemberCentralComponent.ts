@@ -37,6 +37,7 @@ export class MemberCentralComponent {
     private subscriptionToMemberSearch: any;
     private subscriptionToAddEngagement: any;
     private engagementBody: EngagementBody;
+    private matchingMemberDetails: [MemberDetails]; // members matching the search - used for start call
       
     constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService: ContextMediatorService, private sharedService: SharedService, 
                 protected memberService: MemberService, private engagementService: EngagementService) {}
@@ -65,13 +66,17 @@ export class MemberCentralComponent {
         call.memberId = memberRow.id;
         call.callId = 987654321; // @ICtodo: get next available call identifier from add engagement API
         call.memberName= memberRow.name;
-        
+
+        // store the selected member's details in the shared service for use by other components
+        this.storeSelectedMember(memberRow.id);
+
         // trigger an event for any interested component/s
         this.contextMediatorService.onStartCall(call);
 
         // create the call in the database via the API
         let dateTimeNow = new Date().toString();
 
+        // this matches the body of the API request
         this.engagementBody = {
             "memberId": memberRow.id.toString(),
             "dateTimeInitiated": dateTimeNow,
@@ -87,6 +92,17 @@ export class MemberCentralComponent {
             this.engagementService.createEngagementForMember(this.engagementBody).subscribe(
                 memberObj => this.consumeAddEngagementResult(memberObj),
                 error => console.error("ERROR: " + <any>error));  
+    }
+
+    /**
+     * Store the selected member in the shared service (for use by other components)
+     */
+    private storeSelectedMember(selectedMemberId: number) {
+        for (var member of this.matchingMemberDetails) {
+            if (member.id == selectedMemberId) {
+                this.sharedService.currentMember = member;
+            }
+        }
     }
 
     /*
@@ -110,11 +126,14 @@ export class MemberCentralComponent {
     private consumeMemberDetails(memberDetails: [MemberDetails]) {
         console.log('MemberCentralComponent::consumeMemberDetails(): number of results = ' + memberDetails.length);
 
-        this.searchResults = new Array<MemberGridRow>();
+        this.matchingMemberDetails = memberDetails; // array of matching members
+
+        this.searchResults = new Array<MemberGridRow>(); // for populating the UI
 
         for (var member of memberDetails) {
             // console.log("MemberCentralComponent::consumeMemberDetails(): display member: " + JSON.stringify(member));
 
+            // create a grid row (member) for the UI
             var gridRow: MemberGridRow = {
                 'id': member.id,
                 'name': member.title + " " + member.givenName + " " + member.surname,
@@ -122,7 +141,7 @@ export class MemberCentralComponent {
                 'dob': member.dateOfBirth
             };
 
-             // add a member to the UI list
+             // add the member row to the UI grid
             this.searchResults.push(gridRow);
         }
     }
