@@ -193,7 +193,7 @@
     opacity: 0;
     transform: scale(2.5); } }
 .splash-screen {
-  background-color: #3F51B5;
+  background-color: #ffffff;
   height: 100%; }
   .splash-screen .splash-container {
     padding-top: 250px;
@@ -203,10 +203,10 @@
   .splash-screen .logo {
     display: inline-block;
     vertical-align: middle;
-    width: 200px;
-    height: 30px;
+    width: 198px;
+    height: 117px;
     background: url("../images/logo2x.png") top left no-repeat;
-    background-size: 200px 30px; }
+    background-size: 198px 117px; }
   .splash-screen .load-bar {
     position: relative;
     margin-top: 20px;
@@ -560,8 +560,8 @@
     .landing-wrapper #header .header-top .logo {
       display: inline-block;
       vertical-align: middle;
-      width: 200px;
-      height: 30px;
+      width: 198px;
+      height: 117px;
       background: url("../images/logo.png") top left no-repeat; }
     .landing-wrapper #header .header-top #menu {
       float: right;
@@ -831,7 +831,7 @@
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .landing-wrapper .header .header-top .logo {
     background: url("../images/logo2x.png") top left no-repeat;
-    background-size: 200px 30px; } }
+    background-size: 198px 117px; } }
 html {
   height: 100%; }
 
@@ -871,10 +871,10 @@ body {
   .layout-container .topbar .logo {
     display: inline-block;
     vertical-align: middle;
-    width: 200px;
-    height: 30px;
-    background: url("../images/logo2x.png") top left no-repeat;
-    background-size: 200px 30px; }
+    width: 99px;
+    height: 58px;
+    background: url("../images/logo.png") top left no-repeat;
+    background-size: 99px 58px; }
   .layout-container .topbar .topbar-left {
     box-sizing: border-box;
     padding: 20px;

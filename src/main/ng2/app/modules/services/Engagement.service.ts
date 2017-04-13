@@ -157,13 +157,13 @@ export class EngagementService {
             return body;
         }
         else {
-            console.error('EngagementService: extractData(): ERROR: Could not retrieve data; Status = ' + res.status);
+            console.error('EngagementService: extractData(): ERROR; Status = ' + res.status);
             return "";
         }
     }
 
     private handleError(error: any) {
-        let errMsg = (error.message) ? error.message : error.status ? `${ error.status } - ${ error.statusText}` : 'Box token: Server error';
+        let errMsg = (error.message) ? error.message : error.status ? `${ error.status } - ${ error.statusText}` : 'Engagement service: ERROR';
         console.error(errMsg);
         return Observable.throw(errMsg);
     }
