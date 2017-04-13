@@ -13,7 +13,7 @@ import { MemberService } from './modules/services/Member.service';
     template: `
         <div class="topbar clearfix">
             <div class="topbar-left">            
-                <div></div>
+                <div class="logo"></div>
             </div>
 
             <div class="topbar-right">
