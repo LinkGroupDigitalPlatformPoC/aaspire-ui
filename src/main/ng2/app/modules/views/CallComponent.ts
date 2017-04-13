@@ -13,10 +13,12 @@ import { EngagementBody } from './../models/EngagementBody.interface';
 
 // services
 import { SharedService } from './../services/Shared.service'; // singleton
+import { RefDataApi } from './../services/RefDataApi';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'Call.xhtml'
+    templateUrl: 'Call.xhtml',
+    providers:[RefDataApi]
 })
 export class CallComponent implements OnInit {
         
@@ -31,77 +33,61 @@ export class CallComponent implements OnInit {
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
-    constructor(private route: ActivatedRoute, private sharedService: SharedService) {}
+    constructor(private route: ActivatedRoute, public refDataApi : RefDataApi,private sharedService: SharedService) {}
     
     ngOnInit() {
         // TODO this should be an api to retrieve the call if the id was provided in the route
 
-        let engagement: EngagementBody = this.sharedService.currentEngagementBody;
-        console.log("CallComponent::ngOnInit(): current engagement = " + JSON.stringify(engagement));
-
-        this.call = new CallDetails(); // used in the HTML (for now)
-        this.call.callId = this.route.snapshot.params['id']; // from the URL
-        this.call.memberId = parseInt(engagement.memberId);
-        this.call.status = engagement.status;
-        this.call.startTime = engagement.dateTimeInitiated;
         
         this.callReasonsSelectItems = new Array<SelectItem>();
         this.identityChecks = new Array<IdentityCheck>();
         this.selectedIdentifiers = new Array<IdentityCheck>();
-        
         this.points = 0;
-        
-        // Identity checks
-        // this.sharedService.currentMember - contains member info (including identity check)
-        // name
-        this.identityChecks.push(new IdentityCheck('Name', 40, this.sharedService.currentMember.title + " " + 
-                    this.sharedService.currentMember.givenName + " " + this.sharedService.currentMember.surname));
-        // this.identityChecks.push(new IdentityCheck('Name', 40, 'John Smith'));
+        this.call = new CallDetails(); // used in the HTML (for now)
 
-        // DOB
-        this.identityChecks.push(new IdentityCheck('DOB', 40, this.sharedService.currentMember.dateOfBirth));
-        // this.identityChecks.push(new IdentityCheck('DOB', 40, '03-07-1985'));
+        if(this.route.snapshot.params['id']) {
+            let engagement: EngagementBody = this.sharedService.currentEngagementBody;
+            console.log("CallComponent::ngOnInit(): current engagement = " + JSON.stringify(engagement));
 
-        // checks in the identities array
-        for (let identity of this.sharedService.currentMember.identities) {
-            this.identityChecks.push(new IdentityCheck(identity.type, 30, identity.documentNumber));
-        }
-        // this.identityChecks.push(new IdentityCheck('Licence #', 30, 'L87239847'));
-        // this.identityChecks.push(new IdentityCheck('Passport #', 40, 'P789374985'));
+            this.call.callId = this.route.snapshot.params['id']; // from the URL
+            this.call.memberId = parseInt(engagement.memberId);
+            this.call.status = engagement.status;
+            this.call.startTime = engagement.dateTimeInitiated;
 
-        // last employer
-        this.identityChecks.push(new IdentityCheck('Last Employer', 40, this.sharedService.currentMember.lastEmployer));  
-        // this.identityChecks.push(new IdentityCheck('Last Employer', 40, 'Link Group'));       
-
-        // getCallReason API call
-        let callReasons : RefData = this.getCallReasons();
-        
-        //loop through and initialise the selectitem array with refdatavalues
-        for (let refDataValue of callReasons.values) {
-            this.callReasonsSelectItems.push({label:refDataValue.descr,value:refDataValue.value});
-        }  
-    }
+            // Identity checks
+            // this.sharedService.currentMember - contains member info (including identity check)
+            // name
+            this.identityChecks.push(new IdentityCheck('Name', 40, this.sharedService.currentMember.title + " " + 
+                        this.sharedService.currentMember.givenName + " " + this.sharedService.currentMember.surname));
+            // this.identityChecks.push(new IdentityCheck('Name', 40, 'John Smith'));
     
-    getCallReasons() : RefData {
+            // DOB
+            this.identityChecks.push(new IdentityCheck('DOB', 40, this.sharedService.currentMember.dateOfBirth));
+            // this.identityChecks.push(new IdentityCheck('DOB', 40, '03-07-1985'));
+    
+            // checks in the identities array
+            for (let identity of this.sharedService.currentMember.identities) {
+                this.identityChecks.push(new IdentityCheck(identity.type, 30, identity.documentNumber));
+            }
+            // this.identityChecks.push(new IdentityCheck('Licence #', 30, 'L87239847'));
+            // this.identityChecks.push(new IdentityCheck('Passport #', 40, 'P789374985'));
+    
+            // last employer
+            this.identityChecks.push(new IdentityCheck('Last Employer', 40, this.sharedService.currentMember.lastEmployer));  
+            // this.identityChecks.push(new IdentityCheck('Last Employer', 40, 'Link Group'));       
+        }
+        // getCallReason API call
+        this.getCallReasons();
+    }
 
-        // TODO this should be a call to the refdata api.
-        
-        let refDataValues = new Array<RefDataValue>();
-        refDataValues.push(new RefDataValue('A','>65'));
-        refDataValues.push(new RefDataValue('B','Acct. Details Update'));
-        refDataValues.push(new RefDataValue('C','Acct. Details Confirm'));
-        refDataValues.push(new RefDataValue('D','ATO / Lost Super'));
-        refDataValues.push(new RefDataValue('E','Advisor'));
-        refDataValues.push(new RefDataValue('F','Balances'));
-        refDataValues.push(new RefDataValue('G','Beneficiaries'));
-        refDataValues.push(new RefDataValue('H','Beneficiary Update'));
-        refDataValues.push(new RefDataValue('I','Campaign 1'));
-        refDataValues.push(new RefDataValue('J','Campaign 2'));
-        refDataValues.push(new RefDataValue('K','Campaign 3'));
-        
-        let refData = new RefData('CALLRSN','Call Reasons',refDataValues);
-        
-        return refData;
+    setupCallReasonSelectItems(refData : RefData) {
+        for (let refDataValue of refData.values) {
+            this.callReasonsSelectItems.push({label:refDataValue.descr,value:refDataValue.value});
+        }
+    }
+
+    getCallReasons() {
+        this.refDataApi.getById('CALLRSN').subscribe(refData => this.setupCallReasonSelectItems(refData));
     }
     
     onRowSelect(event) {

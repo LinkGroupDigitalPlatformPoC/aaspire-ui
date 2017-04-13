@@ -4,12 +4,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpModule, JsonpModule } from '@angular/http';
 import { Component } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { ButtonModule, SplitButtonModule, ToolbarModule, TabViewModule, InputTextareaModule, 
          InputTextModule, GrowlModule, DialogModule, MenubarModule, DataTableModule,
          SharedModule, PanelModule, TreeModule, CalendarModule, DropdownModule, CarouselModule, DataGridModule,
          InputSwitchModule,ConfirmDialogModule,ConfirmationService,BlockUIModule, ChartModule, ScheduleModule, DataListModule,
          CheckboxModule,FieldsetModule,ListboxModule,MultiSelectModule} from 'primeng/primeng';
+
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import {NglModule} from 'ng-lightning/ng-lightning';
 
@@ -41,6 +44,7 @@ import { SharedService } from './modules/services/Shared.service';
 @NgModule({
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         ButtonModule,
         SplitButtonModule,
         MenubarModule,
@@ -72,6 +76,7 @@ import { SharedService } from './modules/services/Shared.service';
         FieldsetModule,
         ListboxModule,
         MultiSelectModule,
+        Ng2SmartTableModule,
         NglModule.forRoot(),
         appRouting
     ],
