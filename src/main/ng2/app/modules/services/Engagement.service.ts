@@ -26,7 +26,7 @@ export class EngagementService {
 
     Get all engagements for a specified member
 
-    https://api.us.apiconnect.ibmcloud.com/mangluibmorg-linkgrouppoc-dev/sb/members/201/engagements   
+    eg: https://api.us.apiconnect.ibmcloud.com/mangluibmorg-linkgrouppoc-dev/sb/members/201/engagements   
     
     returns: array of engagements
         [

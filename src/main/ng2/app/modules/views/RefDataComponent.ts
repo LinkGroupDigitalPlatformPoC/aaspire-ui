@@ -1,35 +1,31 @@
-import {EventEmitter, Component, OnInit} from '@angular/core';
+import { EventEmitter, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/primeng';
 
 import { ActivatedRoute } from '@angular/router';
 import './../common/RxJsOperators';
-import {RefData} from './../models/RefData';
-import {RefDataValue} from './../models/RefDataValue';
-import {RefDataApi} from './../services/RefDataApi';
+import { RefData } from './../models/RefData';
+import { RefDataValue } from './../models/RefDataValue';
+import { ReferenceDataService } from './../services/ReferenceData.service';
 
 @Component({
     moduleId: module.id,
     templateUrl: 'RefData.xhtml',
-    providers:[RefDataApi]
+    providers:[ReferenceDataService]
 })
+
 export class RefDataComponent implements OnInit {
         
     refData : RefData;
-    
     refDataSearchName : string;
-    
     displaySearch : boolean;
-    
     searchResults : RefData[];
-    
     searchColumns : any[];
-    
     settings : any;
 
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
-    constructor(private route: ActivatedRoute, private refDataApi : RefDataApi) {}
+    constructor(private route: ActivatedRoute, private referenceDataService: ReferenceDataService) {}
     
     ngOnInit() {
         
@@ -59,7 +55,7 @@ export class RefDataComponent implements OnInit {
     }
     
     search() {
-        this.refDataApi.getAll().subscribe(results => this.searched(results), error => this.displayError(error));
+        this.referenceDataService.getAll().subscribe(results => this.searched(results), error => this.displayError(error));
     }
 
     onSelect($event) {
@@ -84,17 +80,16 @@ export class RefDataComponent implements OnInit {
     /**
      * This method reacts to a user clicking the "save" button in the toolbar.
      */
-    onSave() {
-                
-        // call service to create or update object in the backend
+    onSave() {  
+        // call the service to create or update the object in the backend
         if (this.refData.version > 0) {
-            this.refDataApi.update(this.refData).subscribe(refData => this.saved(refData), error => this.displayError(error));                                
+            this.referenceDataService.update(this.refData).subscribe(refData => this.saved(refData), error => this.displayError(error));                                
         } else {
-            this.refDataApi.create(this.refData).subscribe(refData => this.saved(refData), error => this.displayError(error));                    
+            this.referenceDataService.create(this.refData).subscribe(refData => this.saved(refData), error => this.displayError(error));                    
         }
     }
 
     onRefresh() {
-        this.refDataApi.getById(this.refData.name).subscribe(refData => this.saved(refData), error => this.displayError(error));
+        this.referenceDataService.getById(this.refData.name).subscribe(refData => this.saved(refData), error => this.displayError(error));
     }
 }

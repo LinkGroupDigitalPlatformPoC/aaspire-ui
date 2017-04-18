@@ -8,9 +8,9 @@ export abstract class AbstractModel {
 
     version: number= 0;
    
-    public fillFromJSONString( json: string ) {
+    public fillFromJSONString(json: string) {
         
-        console.info('fillFromJSONString 1:'+json);
+        console.info('fillFromJSONString 1:' + json);
         
         let jsonObj = JSOG.parse( json );
         for ( let propName in jsonObj ) {
@@ -23,13 +23,13 @@ export abstract class AbstractModel {
             }
         }
         
-        console.info('fillFromJSONString 2:'+ JSOG.stringify(this));
+        console.info('fillFromJSONString 2: ' + JSOG.stringify(this));
 
         return this;
     }
 
-    public fillFromJSONObj( jsonObj : any ) {
-        console.info('fillFromJSONObj 1:'+jsonObj);
+    public fillFromJSONObj(jsonObj :any) {
+        console.info('fillFromJSONObj 1:' + jsonObj);
         
         let jsogObj = JSOG.parse(JSOG.stringify(jsonObj));
         
@@ -42,11 +42,11 @@ export abstract class AbstractModel {
             }
         }
         
-        console.info('fillFromJSONObj 2:'+ JSOG.stringify(this));
+        console.info('fillFromJSONObj 2:' + JSOG.stringify(this));
         return this;
     }
     
-    public getFields() :any[] {
+    public getFields(): any[] {
         var keys = [];
         for(var key in this){
            keys.push(key);
