@@ -49,8 +49,7 @@
 		</div>
 		<div class="ui-g-12 ui-md-4">
 			<span class="md-inputfield"> 
-				<p-dropdown id="dropdown" [autoWidth]="false" placeholder="Primary call reason" [options]="callReasonsSelectItems" [(ngModel)]="call.primaryCallReason">
-				</p-dropdown>
+				<p-dropdown id="dropdown" [autoWidth]="false" placeholder="Primary call reason" [options]="callReasonsSelectItems" [(ngModel)]="call.primaryCallReason"></p-dropdown>
 			</span>
 		</div>
 		
@@ -65,7 +64,6 @@
 		<div class="ui-g-12 ui-md-4">
 			<span class="md-inputfield"> 
 				<p-multiSelect id="othercallreasons" [options]="callReasonsSelectItems" [(ngModel)]="call.otherSelectedCallReasons"></p-multiSelect>
-				<!-- <p-listbox [options]="callReasonsSelectItems" [(ngModel)]="otherSelectedCallReasons" multiple="multiple" checkbox="checkbox"></p-listbox> -->
 			</span>
 		</div>
 

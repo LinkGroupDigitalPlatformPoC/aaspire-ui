@@ -1,5 +1,5 @@
-import {EventEmitter, Component, OnInit} from '@angular/core';
-import { TreeNode,SelectItem } from 'primeng/primeng';
+import { EventEmitter, Component, OnInit } from '@angular/core';
+import { TreeNode, SelectItem } from 'primeng/primeng';
 
 import { ActivatedRoute } from '@angular/router';
 import './../common/RxJsOperators';
@@ -8,17 +8,18 @@ import './../common/RxJsOperators';
 import { CallDetails } from './../models/CallDetails';
 import { RefData } from './../models/RefData';
 import { RefDataValue } from './../models/RefDataValue';
+import { ReferenceData } from './../models/ReferenceData.interface';
 import { IdentityCheck } from './../models/IdentityCheck';
 import { EngagementBody } from './../models/EngagementBody.interface';
 
 // services
 import { SharedService } from './../services/Shared.service'; // singleton
-import { RefDataApi } from './../services/RefDataApi';
+import { ReferenceDataService } from './../services/ReferenceData.service';
 
 @Component({
     moduleId: module.id,
     templateUrl: 'Call.xhtml',
-    providers:[RefDataApi]
+    providers: [ReferenceDataService]
 })
 export class CallComponent implements OnInit {
         
@@ -33,7 +34,7 @@ export class CallComponent implements OnInit {
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
-    constructor(private route: ActivatedRoute, public refDataApi : RefDataApi,private sharedService: SharedService) {}
+    constructor(private route: ActivatedRoute, public referenceDataService: ReferenceDataService, private sharedService: SharedService) {}
     
     ngOnInit() {
         // TODO this should be an api to retrieve the call if the id was provided in the route
@@ -45,7 +46,7 @@ export class CallComponent implements OnInit {
         this.points = 0;
         this.call = new CallDetails(); // used in the HTML (for now)
 
-        if(this.route.snapshot.params['id']) {
+        if( this.route.snapshot.params['id']) {
             let engagement: EngagementBody = this.sharedService.currentEngagementBody;
             console.log("CallComponent::ngOnInit(): current engagement = " + JSON.stringify(engagement));
 
@@ -56,46 +57,46 @@ export class CallComponent implements OnInit {
 
             // Identity checks
             // this.sharedService.currentMember - contains member info (including identity check)
+
             // name
             this.identityChecks.push(new IdentityCheck('Name', 40, this.sharedService.currentMember.title + " " + 
                         this.sharedService.currentMember.givenName + " " + this.sharedService.currentMember.surname));
-            // this.identityChecks.push(new IdentityCheck('Name', 40, 'John Smith'));
     
             // DOB
             this.identityChecks.push(new IdentityCheck('DOB', 40, this.sharedService.currentMember.dateOfBirth));
-            // this.identityChecks.push(new IdentityCheck('DOB', 40, '03-07-1985'));
     
             // checks in the identities array
             for (let identity of this.sharedService.currentMember.identities) {
                 this.identityChecks.push(new IdentityCheck(identity.type, 30, identity.documentNumber));
             }
-            // this.identityChecks.push(new IdentityCheck('Licence #', 30, 'L87239847'));
-            // this.identityChecks.push(new IdentityCheck('Passport #', 40, 'P789374985'));
     
             // last employer
-            this.identityChecks.push(new IdentityCheck('Last Employer', 40, this.sharedService.currentMember.lastEmployer));  
-            // this.identityChecks.push(new IdentityCheck('Last Employer', 40, 'Link Group'));       
+            this.identityChecks.push(new IdentityCheck('Last Employer', 40, this.sharedService.currentMember.lastEmployer));     
         }
-        // getCallReason API call
+
         this.getCallReasons();
     }
 
-    setupCallReasonSelectItems(refData : RefData) {
-        for (let refDataValue of refData.values) {
-            this.callReasonsSelectItems.push({label:refDataValue.descr,value:refDataValue.value});
-        }
-    }
-
+    // TODO: enum for reference data id's
+    // Retrieve call reasons from the API
     getCallReasons() {
-        this.refDataApi.getById('CALLRSN').subscribe(refData => this.setupCallReasonSelectItems(refData));
+        this.referenceDataService.getById('discussion-topics').subscribe(refData => this.consumeCallReasons(refData));
+    }
+    
+    // the API has returned some call reasons
+    consumeCallReasons(refDataArray: [ReferenceData]) {
+        console.log("CallComponent::consumeCallReasons(): " + JSON.stringify(refDataArray));
+
+       for (let refData of refDataArray) {
+           this.callReasonsSelectItems.push({label: refData.description, value: refData.longDescription});
+       }
     }
     
     onRowSelect(event) {
- 
         // add points based in identifier type
         let currentTotal = 0;
         
-        for(let identifier of this.selectedIdentifiers) {
+        for (let identifier of this.selectedIdentifiers) {
             currentTotal = currentTotal + identifier.points;
         }
         
@@ -112,11 +113,9 @@ export class CallComponent implements OnInit {
     }
     
     onWrapUp() {
-        
         // call "save" api and then display call with the updated call object
         // the status should change to "closed" which should then disable all toolbar buttons except for "search"
         this.call.status='closed';
-        
     }
     
     search() {
