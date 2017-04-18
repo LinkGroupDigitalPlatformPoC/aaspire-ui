@@ -48,7 +48,7 @@
 			<label for="dropdown">Primary Call Reason</label>
 		</div>
 		<div class="ui-g-12 ui-md-4">
-			<span class="md-inputfield"> 
+			<span class="ui-dropdown"> 
 				<p-dropdown id="dropdown" [autoWidth]="false" placeholder="Primary call reason" [options]="callReasonsSelectItems" [(ngModel)]="call.primaryCallReason"></p-dropdown>
 			</span>
 		</div>
@@ -62,11 +62,10 @@
 			<label for="othercallreasons">Other Call Reasons</label>
 		</div>
 		<div class="ui-g-12 ui-md-4">
-			<span class="md-inputfield"> 
+			<span class="ui-multiselect"> 
 				<p-multiSelect id="othercallreasons" [options]="callReasonsSelectItems" [(ngModel)]="call.otherSelectedCallReasons"></p-multiSelect>
 			</span>
 		</div>
-
 
 		<div class="ui-g-12 ui-md-12"></div>
 

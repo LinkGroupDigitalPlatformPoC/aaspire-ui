@@ -128,7 +128,7 @@ export class MemberCentralComponent {
         this.searchResults = new Array<MemberGridRow>(); // for populating the UI
 
         for (var member of memberDetails) {
-            // console.log("MemberCentralComponent::consumeMemberDetails(): display member: " + JSON.stringify(member));
+            console.log("MemberCentralComponent::consumeMemberDetails(): display member: " + JSON.stringify(member));
 
             // create a grid row (member) for the UI
             var gridRow: MemberGridRow = {

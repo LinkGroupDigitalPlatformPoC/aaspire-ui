@@ -3,14 +3,19 @@ import { TreeNode } from 'primeng/primeng';
 
 import { ActivatedRoute } from '@angular/router';
 import './../common/RxJsOperators';
+
+// models
+import { ReferenceData } from './../models/ReferenceData.interface';
 import { RefData } from './../models/RefData';
 import { RefDataValue } from './../models/RefDataValue';
+
+// services
 import { ReferenceDataService } from './../services/ReferenceData.service';
 
 @Component({
     moduleId: module.id,
     templateUrl: 'RefData.xhtml',
-    providers:[ReferenceDataService]
+    providers: [ReferenceDataService]
 })
 
 export class RefDataComponent implements OnInit {
@@ -90,6 +95,6 @@ export class RefDataComponent implements OnInit {
     }
 
     onRefresh() {
-        this.referenceDataService.getById(this.refData.name).subscribe(refData => this.saved(refData), error => this.displayError(error));
+        // TODO: this.referenceDataService.getById(this.refData.name).subscribe(refDataArray => this.saved(refDataArray), error => this.displayError(error));
     }
 }

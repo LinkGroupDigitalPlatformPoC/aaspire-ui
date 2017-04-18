@@ -10,6 +10,7 @@ import { AppSettings } from '../../AppSettings';
 // models
 import { RefData } from '../models/RefData';
 import { RefDataValue } from '../models/RefDataValue';
+import { ReferenceData } from './../models/ReferenceData.interface';
 
 declare var JSOG: any;
 
@@ -200,7 +201,7 @@ export class ReferenceDataService {
             "version": 0
         }
      */
-    public getById(id: string) : Observable<RefData> {
+    public getById(id: string) : Observable<[ReferenceData]> {
         console.info('ReferenceDataService::getById(' + id + ')');
 
         let headers = new Headers({

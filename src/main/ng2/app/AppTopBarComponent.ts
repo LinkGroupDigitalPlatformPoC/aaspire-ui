@@ -164,6 +164,7 @@ import { MemberService } from './modules/services/Member.service';
                             </li>
                         </ul>
                     </li>
+                    <!--
                     <li #search class="search-item" [ngClass]="{'active-top-menu':app.activeTopbarItem === search}"
                         (click)="searchForMembers(name.value)">
                         <span class="md-inputfield">
@@ -172,6 +173,7 @@ import { MemberService } from './modules/services/Member.service';
                             <i class="topbar-icon material-icons">search</i>
                         </span>
                     </li>
+                    -->
                 </ul>
             </div>
         </div>
