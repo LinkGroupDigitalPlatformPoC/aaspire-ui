@@ -1,5 +1,5 @@
 import { EventEmitter, Component, OnInit } from '@angular/core';
-import { TreeNode, SelectItem } from 'primeng/primeng';
+import { TreeNode, SelectItem, DropdownModule, MultiSelectModule } from 'primeng/primeng';
 
 import { ActivatedRoute } from '@angular/router';
 import './../common/RxJsOperators';
@@ -21,12 +21,13 @@ import { ReferenceDataService } from './../services/ReferenceData.service';
     templateUrl: 'Call.xhtml',
     providers: [ReferenceDataService]
 })
+
 export class CallComponent implements OnInit {
         
     displaySearch: boolean = false;
 
-    private call : CallDetails;
-    private callReasonsSelectItems : SelectItem[];
+    private call: CallDetails;
+    private callReasonsSelectItems: SelectItem[];
     private identityChecks: IdentityCheck[];
     private points: number; // id verification
     private selectedIdentifiers: IdentityCheck[];
@@ -54,6 +55,7 @@ export class CallComponent implements OnInit {
             this.call.memberId = parseInt(engagement.memberId);
             this.call.status = engagement.status;
             this.call.startTime = engagement.dateTimeInitiated;
+            this.call.memberName = this.sharedService.currentMember.title + " " + this.sharedService.currentMember.givenName + " " + this.sharedService.currentMember.surname;
 
             // Identity checks
             // this.sharedService.currentMember - contains member info (including identity check)
@@ -80,7 +82,7 @@ export class CallComponent implements OnInit {
     // TODO: enum for reference data id's
     // Retrieve call reasons from the API
     getCallReasons() {
-        this.referenceDataService.getById('discussion-topics').subscribe(refData => this.consumeCallReasons(refData));
+        this.referenceDataService.getById('discussion-topics').subscribe(refDataArray => this.consumeCallReasons(refDataArray));
     }
     
     // the API has returned some call reasons
@@ -115,7 +117,7 @@ export class CallComponent implements OnInit {
     onWrapUp() {
         // call "save" api and then display call with the updated call object
         // the status should change to "closed" which should then disable all toolbar buttons except for "search"
-        this.call.status='closed';
+        this.call.status = 'closed';
     }
     
     search() {
