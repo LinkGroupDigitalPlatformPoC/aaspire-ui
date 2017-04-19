@@ -27,11 +27,7 @@
 		<p-dataTable selectionMode="single" [paginator]="false" [rows]="10" [responsive]="true" [value]="searchResults"> 
 			<p-column header="Member#" >
 				<template let-col let-member="rowData" pTemplate="body">
-					<!-- <a style="color: blue;text-decoration: underline;" onClick="return onStartCall(result)"><span>{{member.id}}</span></a> -->
-					<!-- <a style="color: blue;text-decoration: underline;" routerLink="/member/{{member.id}}"><span>{{member.id}}</span></a> -->
-
-					<button pButton type="button" label={{member.id}} (click)="onSelectMember(member)"></button>
-
+					<a style="color: blue;text-decoration: underline;" (click)="onSelectMember(member)"><span>{{member.id}}</span></a>
 				</template>
 			</p-column>
 			<p-column field="name" header="Name" ></p-column>
