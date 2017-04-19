@@ -1,12 +1,6 @@
 <h1>Member Central</h1>
+
 <hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
-
-
-            <!--sentiment_very_dissatisfied: 'darkred',
-            sentiment_dissatisfied: 'darkred',
-            sentiment_neutral: 'gray',
-            sentiment_satisfied: 'green',
-            sentiment_very_satisfied: 'darkgreen',-->
 
 <!-- TODO: make this a form so keyboard works -->
 <div class="ui-g form-group">
@@ -36,7 +30,6 @@
 
  			<p-column header="Sentiment" >
 				<template let-member="rowData" pTemplate="body">
-					<!--<label>{{member.sentimentScore}}</label>-->
 					<i class={{member.className}} >{{member.icon}}</i>
 				</template>
 			</p-column>

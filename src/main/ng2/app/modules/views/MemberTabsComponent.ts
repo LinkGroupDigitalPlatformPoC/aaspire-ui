@@ -12,6 +12,7 @@ import { MemberDetails } from './../models/MemberDetails.interface';
 
 // components
 import { MemberMainComponent } from './MemberMainComponent';
+import { MemberCallsComponent } from './MemberCallsComponent';
 
 // services
 import { SharedService } from './../services/Shared.service';
@@ -29,12 +30,12 @@ export class MemberTabsComponent implements OnInit {
     constructor(private route: ActivatedRoute, private sharedService: SharedService) {}
     
     ngOnInit() {
-        if (this.route.snapshot.params['id']) {
-            console.log("MemberTabsComponent::ngOnInit(): member id from route = " + this.route.snapshot.params['id']);
-        }
-        else {
-            console.log("MemberTabsComponent::ngOnInit(): selected member id (shared service) = " + this.sharedService.currentMember.id);
-        }
+        // if (this.route.snapshot.params['id']) {
+        //     console.log("MemberTabsComponent::ngOnInit(): member id from route = " + this.route.snapshot.params['id']);
+        // }
+        // else {
+        //     console.log("MemberTabsComponent::ngOnInit(): selected member id (shared service) = " + this.sharedService.currentMember.id);
+        // }
 
         this.selectedMember = this.sharedService.currentMember;
     }
