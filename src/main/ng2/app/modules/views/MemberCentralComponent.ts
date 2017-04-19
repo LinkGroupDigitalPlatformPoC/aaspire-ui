@@ -91,9 +91,12 @@ export class MemberCentralComponent {
     }
 
     // member row selected in the grid: display member screen
-    onSelectMember() {
-        // console.log("MemberCentralComponent::onSelectMember(): setting shared service: id = " + memberRow.id);
+    onSelectMember(memberRow: MemberGridRow) {
+        console.log("MemberCentralComponent::onSelectMember(): setting shared service: id = " + memberRow.id);
 
+        // store the selected member's details in the shared service for use by other components
+        this.storeSelectedMember(memberRow.id);
+        this.router.navigateByUrl('/member/' + memberRow.id);
     }
 
     /**
@@ -160,10 +163,5 @@ export class MemberCentralComponent {
             this.searchResults.push(gridRow);
         }
     }
-
-    // displayMemberScreen() {}
-    //     // navigate to the call
-    //     this.router.navigateByUrl('/call/' + result._id); // waiting for API team to return a call number
-    // }
 
 }
