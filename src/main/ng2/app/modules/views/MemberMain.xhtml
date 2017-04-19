@@ -1,44 +1,64 @@
+<!--
 <h1>Member Main</h1>
-
-<hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+-->
 
 <div class="ui-g form-group">
 
-	<div class="ui-g-12 ui-md-4">Member#: {{selectedMember.id}}</div>
+	<div class="ui-g-12 ui-md-4" style="text-align:right">Member#:</div>
+	<div class="ui-g-12 ui-md-8" style="text-align:left">{{selectedMember.id}}</div>
 
-	<div class="ui-g-12 ui-md-4">First name: {{selectedMember.givenName}}</div>
+	<div class="ui-g-12 ui-md-4" style="text-align:right">Name:</div>
+	<div class="ui-g-12 ui-md-8" style="text-align:left">{{selectedMember.title}} {{selectedMember.givenName}} {{selectedMember.surname}}</div>
 
-	<div class="ui-g-12 ui-md-4">Surname: {{selectedMember.surname}}</div>
+	<div class="ui-g-12 ui-md-4" style="text-align:right">Date of birth:</div>
+	<div class="ui-g-12 ui-md-8" style="text-align:left">{{selectedMember.dateOfBirth}}</div>
 
-	<div class="ui-g-12 ui-md-12"></div>
+	<hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
-	<div class="ui-g-12 ui-md-4">
+	<div class="ui-g-12 ui-md-4" style="text-align:right">Address:</div>
+	<div class="ui-g-12 ui-md-8">
+		<span class="md-inputfield "> 
+			<input type="text" pInputText>
+			<label>{{selectedMember.address.line1}}</label>
+		</span>
+	</div>
+
+	<div class="ui-g-12 ui-md-4" style="text-align:right"></div>
+	<div class="ui-g-12 ui-md-8">
+		<span class="md-inputfield "> 
+			<input type="text" pInputText>
+			<label>{{selectedMember.address.line2}}</label>
+		</span>
+	</div>
+
+	<div class="ui-g-12 ui-md-4" style="text-align:right">Suburb:</div>
+	<div class="ui-g-12 ui-md-8">
+		<span class="md-inputfield "> 
+			<input type="text" pInputText>
+			<label>{{selectedMember.address.suburb}}</label>
+		</span>
+	</div>
+
+	<div class="ui-g-12 ui-md-4" style="text-align:right">Postcode:</div>
+	<div class="ui-g-12 ui-md-8">
+		<span class="md-inputfield "> 
+			<input type="text" pInputText>
+			<label>{{selectedMember.address.postCode}}</label>
+		</span>
+	</div>
+
+	<div class="ui-g-12 ui-md-4" style="text-align:right">State:</div>
+	<div class="ui-g-12 ui-md-8">
 		<span class="md-inputfield"> 
-			<p-calendar
-				[monthNavigator]="true" [yearNavigator]="true" [showIcon]="true">
-			</p-calendar>
-			<label>{{selectedMember.dateOfBirth}}</label>
+			<p-dropdown id="dropdown" 
+				[options]="stateSelectItems" 
+				[autoWidth]="false" 
+				placeholder={{selectedMember.address.state}}>
+			</p-dropdown>
 		</span>
 	</div>
 
-	<div class="ui-g-12 ui-md-8"></div>
-
-	<div class="ui-g-12 ui-md-12"></div>
-
-	<div class="ui-g-12 ui-md-4">
-		<span class="md-inputfield"> <p-dropdown id="dropdown"
-				[autoWidth]="false" placeholder="Select a State"></p-dropdown>
-		</span>
-	</div>
-
-	<div class="ui-g-12 ui-md-4">
-		<span class="md-inputfield"> <input type="text" pInputText><label>Postcode: {{selectedMember.address.postCode}}</label>
-		</span>
-	</div>
-
-	<div class="ui-g-12 ui-md-4">
-		<span class="md-inputfield"> <input type="text" pInputText><label>Suburb: {{selectedMember.address.suburb}}</label>
-		</span>
-	</div>
+	<div class="ui-g-12 ui-md-4" style="text-align:right">Country:</div>
+	<div class="ui-g-12 ui-md-8">{{selectedMember.address.country}}</div>
 
 </div>
