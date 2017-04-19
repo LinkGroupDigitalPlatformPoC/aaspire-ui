@@ -1,6 +1,7 @@
 <h1>Member Central</h1>
 <hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
+
 <!-- TODO: make this a form so keyboard works -->
 <div class="ui-g form-group">
 	<div class="ui-g-12 ui-md-10">
@@ -18,7 +19,15 @@
 <div class="ui-g form-group">
 	<div class="ui-g-12">
 		<p-dataTable selectionMode="single" [paginator]="false" [rows]="10" [responsive]="true" [value]="searchResults"> 
-			<p-column field="id" header="Member#" ></p-column> 
+			<p-column header="Member#" >
+				<template let-col let-member="rowData" pTemplate="body">
+					<!-- <a style="color: blue;text-decoration: underline;" onClick="return onStartCall(result)"><span>{{member.id}}</span></a> -->
+					<!-- <a style="color: blue;text-decoration: underline;" routerLink="/member/{{member.id}}"><span>{{member.id}}</span></a> -->
+
+					<button pButton type="button" label={{member.id}} (click)="onSelectMember(member)"></button>
+
+				</template>
+			</p-column>
 			<p-column field="name" header="Name" ></p-column>
 			<p-column field="plan" header="Plan" ></p-column>
 			<p-column field="dob" header="D.O.B" ></p-column> 
@@ -29,4 +38,16 @@
 		    </p-column>
 		</p-dataTable>
 	</div>
+</div>
+
+<!-- modal dialog -->
+<div class="ui-dialog">
+	<p-dialog header="" closable="false" width="200" [(visible)]="displayModal">
+		<div class="ui-dialog-content">
+    		{{modalMessage}}
+		</div>
+		<p-footer>
+            <button type="button" (click)="onCloseModal()" label="OK"></button>
+    	</p-footer>
+	</p-dialog>
 </div>

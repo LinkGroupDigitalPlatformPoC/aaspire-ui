@@ -135,6 +135,7 @@ export class ReferenceDataService {
         ]
 
 
+        What are these extra id's? ... and where has the array gone?
 
         {
             "0": {
@@ -201,7 +202,7 @@ export class ReferenceDataService {
             "version": 0
         }
      */
-    public getById(id: string) : Observable<[ReferenceData]> {
+    public getById(id: string): Observable<[ReferenceData]> {
         console.info('ReferenceDataService::getById(' + id + ')');
 
         let headers = new Headers({
@@ -217,71 +218,31 @@ export class ReferenceDataService {
         return this.http.get(completeURL, options)
             .map((res : Response) => this.extractData(res))
             .catch(this.handleError);
-        
-        /*
-        // TODO: replace this with the actual api REST call above
-        return Observable.create(observer => {
-            let refDataValues = new Array<RefDataValue>();
-            refDataValues.push(new RefDataValue('A','>66'));
-            refDataValues.push(new RefDataValue('B','Acct. Details Update'));
-            refDataValues.push(new RefDataValue('C','Acct. Details Confirm'));
-            refDataValues.push(new RefDataValue('D','ATO / Lost Super'));
-            refDataValues.push(new RefDataValue('E','Advisor'));
-            refDataValues.push(new RefDataValue('F','Balances'));
-            refDataValues.push(new RefDataValue('G','Beneficiaries'));
-            refDataValues.push(new RefDataValue('H','Beneficiary Update'));
-            refDataValues.push(new RefDataValue('I','Campaign 1'));
-            refDataValues.push(new RefDataValue('J','Campaign 2'));
-            refDataValues.push(new RefDataValue('K','Campaign 3'));
-            
-            let refData = new RefData('CALLRSN','Call Reasons',refDataValues);
-            refData.version = 1;
-            
-            observer.next(refData);
-            //call complete if you want to close this stream (like a promise)
-            observer.complete();            
-        });
-        */
+
     }
     
     /**
      * FIXME this needs to be done with pagination.
      */
-    public getAll() : Observable<RefData[]> {
-        this.url = "xxx";
+    public getAll(): Observable<[ReferenceData]> {
+        console.info('ReferenceDataService::getAll()');
 
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        
-        /*
-        return this.http.get(this.url + 'refdata', options)
-        .map((res : Response) => this.extractListData(res))
-        .catch(this.handleError);    
-        */    
-        return Observable.create(observer => {
-        
-            let refDataValues = new Array<RefDataValue>();
-            refDataValues.push(new RefDataValue('A','>66'));
-            refDataValues.push(new RefDataValue('B','Acct. Details Update'));
-            refDataValues.push(new RefDataValue('C','Acct. Details Confirm'));
-            refDataValues.push(new RefDataValue('D','ATO / Lost Super'));
-            refDataValues.push(new RefDataValue('E','Advisor'));
-            refDataValues.push(new RefDataValue('F','Balances'));
-            refDataValues.push(new RefDataValue('G','Beneficiaries'));
-            refDataValues.push(new RefDataValue('H','Beneficiary Update'));
-            refDataValues.push(new RefDataValue('I','Campaign 1'));
-            refDataValues.push(new RefDataValue('J','Campaign 2'));
-            refDataValues.push(new RefDataValue('K','Campaign 3'));
-            
-            let refData = new RefData('CALLRSN','Call Reasons',refDataValues);
-            refData.version = 1;
-            
-            observer.next([refData]);
-            //call complete if you want to close this stream (like a promise)
-            observer.complete();            
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'X-IBM-Client-Id': '01493a98-9ab1-47f8-8943-afee23978816' // @ICtodo: security: inject this during the build process, as an environment variable
         });
+
+        let options = new RequestOptions({headers: headers});
+        
+        // via API connect
+        let completeURL = AppSettings.API_REFERENCE_DATA_ALL;
+        
+        return this.http.get(completeURL, options)
+            .map((res: Response) => this.extractListData(res))
+            .catch(this.handleError);
     }
 
+    // reference data for a particular id
     protected extractData(res: Response) {
         console.info('ReferenceData::extractData(): ' + res);
         
@@ -295,20 +256,17 @@ export class ReferenceDataService {
         }
     }
 
-    /**
-     * This method return either a test string representing an error or a model object 
-     */
-    protected extractListData(res: Response) {
-        let body = res.json()
-        
-        console.info('Calling extractListData ' + res);
+    // all reference data
+    protected extractListData(res: Response) {   
+        console.info('ReferenceData::extractListData(): ' + res);
         
         if (res.status == 200) {
-            return JSOG.parse(JSOG.stringify(body));
+            let body = res.json();
+            return body;
         } 
         else {
-            // an error occured in request
-            return body
+            console.error('ReferenceDataService: extractListData(): ERROR; Status = ' + res.status);
+            return "";
         }
     }
 

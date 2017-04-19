@@ -1,4 +1,4 @@
-<h1>Member - 123456 - Joe Smith</h1>
+<h1>Member - {{selectedMember.id}} - {{selectedMember.title}} {{selectedMember.givenName}} {{selectedMember.surname}}</h1>
 
 <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
@@ -36,3 +36,20 @@
         Content 5   
     </p-tabPanel>
 </p-tabView>
+
+<!--
+<p-dialog header="Search" [(visible)]="displaySearch" width="800">
+	<div class="ui-g form-group dashboard">
+		<div class="ui-g-12 ui-md-2">
+			<label for="dropdown">Member Id</label>
+		</div>
+		<div class="ui-g-12 ui-md-8"><input type="text" pInputText></div>
+		<div class="ui-g-12 ui-md-2"><button pButton type="button" icon="ui-icon-search" class="" (click)="performSearch()"></button></div>	
+	</div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="displaySearch=false" label="Ok"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+-->

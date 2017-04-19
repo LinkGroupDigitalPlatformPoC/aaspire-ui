@@ -23,7 +23,7 @@ export class RefDataComponent implements OnInit {
     refData : RefData;
     refDataSearchName : string;
     displaySearch : boolean;
-    searchResults : RefData[];
+    searchResults : ReferenceData[];
     searchColumns : any[];
     settings : any;
 
@@ -46,7 +46,7 @@ export class RefDataComponent implements OnInit {
                          };
         
         this.refData = new RefData();
-        this.searchResults = new Array<RefData>();
+        this.searchResults = new Array<ReferenceData>();
         
         this.searchColumns = [
             {field: 'name', header: 'Name'},
@@ -75,7 +75,7 @@ export class RefDataComponent implements OnInit {
         this.refData = refData;
     }
 
-    searched(results : RefData[]) {
+    searched(results : [ReferenceData]) {
         this.searchResults = results;
     }
 
