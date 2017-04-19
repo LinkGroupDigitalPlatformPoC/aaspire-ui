@@ -169,7 +169,7 @@ export class MemberCentralComponent {
                 'dob': member.dateOfBirth,
                 'sentimentScore': sentimentScore,
                 'icon': icon,
-                'className': "material-icons " + icon;
+                'className': "material-icons " + icon
             };
 
              // add the member row to the UI grid
