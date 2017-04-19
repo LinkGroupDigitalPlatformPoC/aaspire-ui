@@ -2,6 +2,12 @@
 <hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
 
+            <!--sentiment_very_dissatisfied: 'darkred',
+            sentiment_dissatisfied: 'darkred',
+            sentiment_neutral: 'gray',
+            sentiment_satisfied: 'green',
+            sentiment_very_satisfied: 'darkgreen',-->
+
 <!-- TODO: make this a form so keyboard works -->
 <div class="ui-g form-group">
 	<div class="ui-g-12 ui-md-10">
@@ -27,6 +33,14 @@
 			<p-column field="name" header="Name" ></p-column>
 			<p-column field="plan" header="Plan" ></p-column>
 			<p-column field="dob" header="D.O.B" ></p-column> 
+
+ 			<p-column header="Sentiment" >
+				<template let-member="rowData" pTemplate="body">
+					<!--<label>{{member.sentimentScore}}</label>-->
+					<i class={{member.className}} >{{member.icon}}</i>
+				</template>
+			</p-column>
+
 		    <p-column styleClass="col-button">
 		        <template let-result="rowData" pTemplate="body">
 					<button pButton type="button" label="Start Call" (click)="onStartCall(result)"></button>

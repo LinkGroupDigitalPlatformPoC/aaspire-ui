@@ -1,5 +1,6 @@
 
 import { AddressDetails } from '../models/AddressDetails.interface';
+import { MemberAnalysis } from '../models/MemberAnalysis.interface';
 import { IdentityVerification } from '../models/IdentityVerification.interface';
 
 export interface MemberDetails {
@@ -16,6 +17,7 @@ export interface MemberDetails {
     status: string;
     surname: string;
     title: string;
+    analysis: MemberAnalysis;
 }
 
 
