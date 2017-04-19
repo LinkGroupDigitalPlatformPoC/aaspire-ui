@@ -3,5 +3,7 @@ export interface MemberGridRow {
     name: string,
     plan: string,
     dob: string,
-    sentimentScore: number;
+    sentimentScore: number,
+    icon: string,
+    className: string;
 }

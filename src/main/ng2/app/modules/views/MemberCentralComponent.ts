@@ -27,6 +27,7 @@ import { EngagementService } from '../services/Engagement.service'; // engagemen
 @Component({
     moduleId: module.id,
     templateUrl: 'MemberCentral.xhtml',
+    styleUrls: ['Sentiment.style.scss'], 
     providers: [MemberService, EngagementService]
 })
 
@@ -151,18 +152,49 @@ export class MemberCentralComponent {
         for (var member of memberDetails) {
             console.log("MemberCentralComponent::consumeMemberDetails(): display member: " + JSON.stringify(member));
 
+            const sentimentScore = member.analysis.sentiment.score;
+            const icon = this.sentimentIcon(sentimentScore);
+
             // create a grid row (member) for the UI
             var gridRow: MemberGridRow = {
                 'id': member.id,
                 'name': member.title + " " + member.givenName + " " + member.surname,
                 'plan': member.plan,
                 'dob': member.dateOfBirth,
-                'sentimentScore': member.analysis.sentiment.score
+                'sentimentScore': sentimentScore,
+                'icon': icon,
+                'className': "material-icons " + icon;
             };
 
              // add the member row to the UI grid
             this.searchResults.push(gridRow);
         }
+    }
+
+    private sentimentIcon(score) {
+        if (score <= -0.5){
+            return 'sentiment_very_dissatisfied';
+        } else if(score > -0.5 && score <= -0.1) {
+            return 'sentiment_dissatisfied';
+        } else if(score > -0.1 && score <= 0.1) {
+            return 'sentiment_neutral';
+        } else if(score > 0.2 && score <= 0.5) {
+            return 'sentiment_satisfied';
+        } else {
+            return 'sentiment_very_satisfied';
+        }
+    }
+
+    private colourIcon(icon) {
+        debugger
+        const lookUp = {
+            sentiment_very_dissatisfied: "'darkred'",
+            sentiment_dissatisfied: "'darkred'",
+            sentiment_neutral: "'gray'",
+            sentiment_satisfied: "'green'",
+            sentiment_very_satisfied: "'darkgreen'",
+        }
+        return lookUp[icon];
     }
 
 }
