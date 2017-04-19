@@ -192,7 +192,6 @@ export class MemberCentralComponent {
     }
 
     private colourIcon(icon) {
-        debugger
         const lookUp = {
             sentiment_very_dissatisfied: "'darkred'",
             sentiment_dissatisfied: "'darkred'",

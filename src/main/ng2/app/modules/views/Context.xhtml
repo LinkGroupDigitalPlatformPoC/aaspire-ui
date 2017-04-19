@@ -44,7 +44,8 @@
         </div>
     </div>
 </p-fieldset>
-<p-fieldset legend="Personality Insights" [toggleable]="true" *ngIf="currentCall">
+<p-fieldset legend="Sentiment and Emotions" [toggleable]="true" *ngIf="currentCall">
+    <p-chart type="radar" [options]="emoRadarChartOptions" [data]="emoRadarChartData"></p-chart>
 </p-fieldset>
 <p-fieldset legend="Alerts" [toggleable]="true" *ngIf="currentCall">
 </p-fieldset>
