@@ -4,7 +4,7 @@
 import { EventEmitter, Component, OnInit, Inject, forwardRef } from '@angular/core';
 
 // PrimeNG
-import { TreeNode } from 'primeng/primeng';
+import { TreeNode, DialogModule } from 'primeng/primeng';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import './../common/RxJsOperators';
@@ -38,6 +38,9 @@ export class MemberCentralComponent {
     private subscriptionToAddEngagement: any;
     private engagementBody: EngagementBody;
     private matchingMemberDetails: [MemberDetails]; // members matching the search - used for start call
+
+    private displayModal: boolean = false;
+    private modalMessage: string = "some message";
       
     constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService: ContextMediatorService, private sharedService: SharedService, 
                 protected memberService: MemberService, private engagementService: EngagementService) {}
@@ -83,6 +86,16 @@ export class MemberCentralComponent {
                 error => console.error("ERROR: " + <any>error));  
     }
 
+    onCloseModal() {
+        this.displayModal = false;
+    }
+
+    // member row selected in the grid: display member screen
+    onSelectMember() {
+        // console.log("MemberCentralComponent::onSelectMember(): setting shared service: id = " + memberRow.id);
+
+    }
+
     /**
      * Store the selected member in the shared service (for use by other components)
      */
@@ -123,6 +136,11 @@ export class MemberCentralComponent {
     private consumeMemberDetails(memberDetails: [MemberDetails]) {
         console.log('MemberCentralComponent::consumeMemberDetails(): number of results = ' + memberDetails.length);
 
+        if (memberDetails.length == 0) {
+            this.modalMessage = "No members were found for the search criteria entered. Please try again with new search criteria";
+            this.displayModal = true;
+        }
+
         this.matchingMemberDetails = memberDetails; // array of matching members
 
         this.searchResults = new Array<MemberGridRow>(); // for populating the UI
@@ -142,5 +160,10 @@ export class MemberCentralComponent {
             this.searchResults.push(gridRow);
         }
     }
+
+    // displayMemberScreen() {}
+    //     // navigate to the call
+    //     this.router.navigateByUrl('/call/' + result._id); // waiting for API team to return a call number
+    // }
 
 }

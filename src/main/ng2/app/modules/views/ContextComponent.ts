@@ -28,7 +28,6 @@ import { CallDetails } from '../models/CallDetails';
 })
 
 export class ContextComponent {
-    // private callActions: MenuItem[]; // "Wrap Up" split button
     private currentCall: CallDetails;
 
     _onStartCall$: Subscription;
@@ -43,22 +42,6 @@ export class ContextComponent {
         // subscribe to start and end call events
         this._onStartCall$ = this.contextMediatorService.onStartCall$.subscribe(call => this.startCall(call));
         this._onEndCall$ = this.contextMediatorService.onEndCall$.subscribe(call => this.endCall(call));
-
-        // items for the dropdown menu in the "Wrap Up" split button
-        // this.callActions = [{
-        //     label: 'File',
-        //     items: [
-        //         {label: 'New', icon: 'fa-plus'},
-        //         {label: 'Open', icon: 'fa-download'}
-        //     ]
-        // },
-        // {
-        //     label: 'Edit',
-        //     items: [
-        //         {label: 'Undo', icon: 'fa-refresh'},
-        //         {label: 'Redo', icon: 'fa-repeat'}
-        //     ]
-        // }];
     }
 
     ngOnDestroy() {

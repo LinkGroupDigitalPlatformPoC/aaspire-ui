@@ -164,16 +164,6 @@ import { MemberService } from './modules/services/Member.service';
                             </li>
                         </ul>
                     </li>
-                    <!--
-                    <li #search class="search-item" [ngClass]="{'active-top-menu':app.activeTopbarItem === search}"
-                        (click)="searchForMembers(name.value)">
-                        <span class="md-inputfield">
-                            <input type="text" pInputText #name>
-                            <label>Search</label>
-                            <i class="topbar-icon material-icons">search</i>
-                        </span>
-                    </li>
-                    -->
                 </ul>
             </div>
         </div>
@@ -182,10 +172,5 @@ import { MemberService } from './modules/services/Member.service';
 export class AppTopBarComponent {
 
     constructor(@Inject(forwardRef(() => AppComponent)) public app:AppComponent) {}
-
-    public searchForMembers(userEnteredSearchString: string) {
-        // debugger;
-        console.log("AppTopBarComponent:: searchForMembers(): " + userEnteredSearchString);
-    }
 
 }
