@@ -31,6 +31,14 @@
 			<p-column field="name" header="Name" ></p-column>
 			<p-column field="plan" header="Plan" ></p-column>
 			<p-column field="dob" header="D.O.B" ></p-column> 
+
+ 			<p-column header="Sentiment" >
+				<template let-member="rowData" pTemplate="body">
+					<!--<label>{{member.sentimentScore}}</label>-->
+					<i class="material-icons" style="color: red">sentiment_dissatisfied</i>
+				</template>
+			</p-column>
+
 		    <p-column styleClass="col-button">
 		        <template let-result="rowData" pTemplate="body">
 					<button pButton type="button" label="Start Call" (click)="onStartCall(result)"></button>

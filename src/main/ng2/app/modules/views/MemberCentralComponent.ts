@@ -156,7 +156,8 @@ export class MemberCentralComponent {
                 'id': member.id,
                 'name': member.title + " " + member.givenName + " " + member.surname,
                 'plan': member.plan,
-                'dob': member.dateOfBirth
+                'dob': member.dateOfBirth,
+                'sentimentScore': member.analysis.sentiment.score
             };
 
              // add the member row to the UI grid

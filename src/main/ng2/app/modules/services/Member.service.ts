@@ -34,12 +34,47 @@ export class MemberService {
             'X-IBM-Client-Id': '01493a98-9ab1-47f8-8943-afee23978816' // @ICtodo: security: inject this during the build process, as an environment variable
         });
 
+        let that = this;
         let options = new RequestOptions({headers: headers});
 
         // via API connect
         let completeURL = AppSettings.API_MEMBER_SEARCH + encodeURI(srchStr);
 
-        return this.http.get(completeURL, options).map(this.extractData).catch(this.handleError);
+        return this.http.get(completeURL, options).map(this.extractData).flatMap(this.addAnalysis.bind(that)).catch(this.handleError);
+    }
+
+    public getAnalysisForMember(member) {
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'X-IBM-Client-Id': '01493a98-9ab1-47f8-8943-afee23978816' // @ICtodo: security: inject this during the build process, as an environment variable
+        });
+
+        let options = new RequestOptions({headers: headers});
+
+        // via API connect
+        let completeURL = /*AppSettings.API_ENGAGEMENT_SEARCH*/"http://call-mgmt-services.mybluemix.net/members/" + member.id.toString() + "/analysis";
+
+        return this.http.get(completeURL, options).map(this.extractData).map(a => this.memberWithAnalysis(member, a)).catch(this.handleError);
+    }
+
+    private memberWithAnalysis(member, analysis){
+        // debugger
+        // TODO move this logic to the server
+        if(Object.keys(analysis).length === 0) {
+            analysis = {
+                sentiment: {score: 0},
+                emotion: {sadness: 0, joy: 0, fear: 0, disgust: 0, anger: 0}
+            }
+        }
+        member.analysis = analysis; 
+        return member;
+    }
+
+    private addAnalysis(members) {
+        var that = this;
+        let memberWithAnalysesObservables = members.map(this.getAnalysisForMember.bind(that))
+        let membersObservable = Observable.forkJoin(memberWithAnalysesObservables);
+        return membersObservable;
     }
 
     /**
