@@ -1,0 +1,32 @@
+<div class="ui-g form-group">
+	
+	<div class="ui-g-12">
+		<p-dataTable selectionMode="single" [paginator]="true" [rows]="10" [responsive]="true" [value]="gridContent"> 
+			<!--
+			<p-column field=header="Call#" >
+				<template let-col let-member="rowData" pTemplate="body">
+					<a style="color: blue;text-decoration: underline;" (click)="onSelectMember(member)"><span>{{member.id}}</span></a>
+				</template>
+			</p-column>
+			-->
+
+			<p-column field="_id" header="Call #" ></p-column>
+
+			<p-column field="dateTimeInitiated" header="Initiated" ></p-column>
+
+			<p-column field="status" header="Status" ></p-column>
+
+			<p-column field="primaryTopic" header="Primary" ></p-column>
+
+<!--
+ 			<p-column header="Transcript" >
+				<template let-member="rowData" pTemplate="body">
+					<i class={{member.className}} >{{member.icon}}</i>
+				</template>
+			</p-column>
+			-->
+
+		</p-dataTable>
+	</div>
+
+</div>

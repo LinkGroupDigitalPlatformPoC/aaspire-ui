@@ -43,8 +43,13 @@ export class MemberCentralComponent {
     private displayModal: boolean = false;
     private modalMessage: string = "some message";
       
-    constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService: ContextMediatorService, private sharedService: SharedService, 
-                protected memberService: MemberService, private engagementService: EngagementService) {}
+    constructor(private route: ActivatedRoute, 
+                private router: Router, 
+                protected contextMediatorService: 
+                ContextMediatorService, 
+                private sharedService: SharedService, 
+                protected memberService: MemberService, 
+                private engagementService: EngagementService) {}
     
     /**
      * From the "Search"" button on this component
@@ -118,6 +123,7 @@ export class MemberCentralComponent {
     private consumeAddEngagementResult(result: any) {
         console.log("MemberCentralComponent::consumeAddEngagementResult(): with result: " + JSON.stringify(result));
 
+        this.storeSelectedMember(parseInt(this.engagementBody.memberId));
         this.sharedService.currentEngagementBody = this.engagementBody;
 
         // trigger an event for any interested component/s

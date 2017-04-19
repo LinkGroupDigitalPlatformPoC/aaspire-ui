@@ -52,7 +52,7 @@ export class MemberService {
         let options = new RequestOptions({headers: headers});
 
         // via API connect
-        let completeURL = AppSettings.API_ENGAGEMENT_SEARCH + member.id.toString() + "/analysis";
+        let completeURL = AppSettings.API_ENGAGEMENT_SEARCH_SPECIFIC_MEMBER + member.id.toString() + "/analysis";
 
         return this.http.get(completeURL, options).map(this.extractData).map(a => this.memberWithAnalysis(member, a)).catch(this.handleError);
     }

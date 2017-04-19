@@ -36,6 +36,7 @@ import { VerifyIdentityComponent }  from './modules/views/VerifyIdentityComponen
 import { RefDataComponent }  from './modules/views/RefDataComponent';
 import { MemberTabsComponent }  from './modules/views/MemberTabsComponent';
 import { MemberMainComponent } from './modules/views/MemberMainComponent';
+import { MemberCallsComponent } from './modules/views/MemberCallsComponent';
 import { CallComponent }  from './modules/views/CallComponent';
 
 import { ContextMediatorService } from './modules/common/ContextMediatorService';
@@ -97,6 +98,7 @@ import { SharedService } from './modules/services/Shared.service';
         RefDataComponent,
         MemberTabsComponent,
         MemberMainComponent,
+        MemberCallsComponent,
         CallComponent,
         ContextComponent,
         TimerComponent

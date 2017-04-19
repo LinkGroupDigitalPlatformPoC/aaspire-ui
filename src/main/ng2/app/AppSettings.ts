@@ -10,8 +10,8 @@ export class AppSettings {
     public static API_ENGAGEMENT_ADD = "https://api.us.apiconnect.ibmcloud.com/mangluibmorg-linkgrouppoc-dev/sb/engagements";
     // PUT - modify engagement
     public static API_ENGAGEMENT_MODIFY = "";
-    // GET - retrieve engagement
-    public static API_ENGAGEMENT_SEARCH = "https://api.us.apiconnect.ibmcloud.com/mangluibmorg-linkgrouppoc-dev/sb/members/"; // {id}/engagements
+    // GET - retrieve engagements for a specified member
+    public static API_ENGAGEMENT_SEARCH_SPECIFIC_MEMBER = "https://api.us.apiconnect.ibmcloud.com/mangluibmorg-linkgrouppoc-dev/sb/members/"; // {id}/engagements
 
     // reference data
     // GET - all reference data
