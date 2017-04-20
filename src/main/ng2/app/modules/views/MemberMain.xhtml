@@ -1,10 +1,18 @@
 <div class="ui-g form-group">
+	<p-dialog header="Emotions" responsive=true appendTo="body" modal=true closeOnEscape=true [(visible)]="displayEmotions" [width]="350">
+		<div *ngIf="displayEmotions">
+			<p-chart type="radar" [options]="emoChartData.options" [data]="emoChartData.radarChartData"></p-chart>
+		</div>
+	</p-dialog>
 
 	<div class="ui-g-12 ui-md-4" style="text-align:right">Member#:</div>
 	<div class="ui-g-12 ui-md-8" style="text-align:left">{{selectedMember.id}}</div>
 
 	<div class="ui-g-12 ui-md-4" style="text-align:right">Name:</div>
-	<div class="ui-g-12 ui-md-8" style="text-align:left">{{selectedMember.title}} {{selectedMember.givenName}} {{selectedMember.surname}}</div>
+	<div class="ui-g-12 ui-md-8" style="text-align:left">
+		<i class={{selectedMember.className}} (click)="onSentimentClick(selectedMember)"> {{selectedMember.icon}} </i>
+		{{selectedMember.title}} {{selectedMember.givenName}} {{selectedMember.surname}}
+	</div>
 
 	<div class="ui-g-12 ui-md-4" style="text-align:right">Date of birth:</div>
 	<div class="ui-g-12 ui-md-8" style="text-align:left">{{selectedMember.dateOfBirth}}</div>
