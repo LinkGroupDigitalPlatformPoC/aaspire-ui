@@ -10,6 +10,12 @@
 			</div>
 		</p-dialog>
 
+		<p-dialog header="Emotions" responsive=true appendTo="body" modal=true closeOnEscape=true [(visible)]="displayEmotions" [width]="300">
+			<div *ngIf="displayEmotions">
+				<p-chart type="radar" [options]="emoChartData.options" [data]="emoChartData.radarChartData"></p-chart>
+			</div>
+		</p-dialog>
+
 		<p-dataTable selectionMode="single" [paginator]="true" [rows]="10" [responsive]="true" [value]="gridContent"> 
 			<!--
 			<p-column field=header="Call#" >
@@ -32,6 +38,12 @@
 			<p-column header="Transcript" >
 				<template let-call="rowData" pTemplate="body">
 					<i class="material-icons" (click)="onTranscriptClick(call)">{{call.icon}}</i>
+				</template>
+			</p-column>
+
+			<p-column header="Icon" >
+				<template let-call="rowData" pTemplate="body">
+					<i class="material-icons" (click)="onSentimentClick(call)">content_paste</i>
 				</template>
 			</p-column>
 
