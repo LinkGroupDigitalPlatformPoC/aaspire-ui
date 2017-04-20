@@ -3,7 +3,7 @@
 <hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
 
-<p-dialog header="Emotions" responsive=true appendTo="body" modal=true closeOnEscape=true [(visible)]="displayEmotions" [width]="300">
+<p-dialog header="Emotions" responsive=true modal=true closeOnEscape=true [(visible)]="displayEmotions" [width]="350">
 	<div *ngIf="displayEmotions">
 		<p-chart type="radar" [options]="emoChartData.options" [data]="emoChartData.radarChartData"></p-chart>
 	</div>

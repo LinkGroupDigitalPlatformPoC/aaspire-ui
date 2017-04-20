@@ -8,6 +8,8 @@ import './../common/RxJsOperators';
 
 // models
 import { MemberDetails } from './../models/MemberDetails.interface';
+import { MemberGridRow } from './../models/MemberGridRow.interface';
+import { EmotionChartModel } from '../models/EmotionChartModel';
 
 // services
 import { SharedService } from './../services/Shared.service';
@@ -15,6 +17,7 @@ import { SharedService } from './../services/Shared.service';
 @Component({
     moduleId: module.id,
     selector: 'member-main',
+    styleUrls: ['Sentiment.style.scss'],
     templateUrl: 'MemberMain.xhtml'
 })
 
@@ -22,6 +25,9 @@ export class MemberMainComponent implements OnInit {
 
     private selectedMember: MemberDetails;
     private stateSelectItems: SelectItem[];
+
+    private displayEmotions: boolean;
+    private emoChartData: EmotionChartModel;
  
     constructor(private sharedService: SharedService) {}
     
@@ -37,7 +43,13 @@ export class MemberMainComponent implements OnInit {
         this.stateSelectItems.push({label: "VIC", value: "Victoria"});
         this.stateSelectItems.push({label: "WA", value: "Western Australia"});
 
-        this.selectedMember = this.sharedService.currentMember;
+        this.selectedMember = new MemberGridRow(this.sharedService.currentMember);
     }
-    
+
+    onSentimentClick(member: MemberGridRow){
+        if(member.analysis) {
+            this.emoChartData = new EmotionChartModel(member.analysis.emotion);
+            this.displayEmotions = true;
+        }
+    }
 }

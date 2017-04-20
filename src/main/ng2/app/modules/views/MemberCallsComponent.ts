@@ -30,7 +30,7 @@ export class MemberCallsComponent implements OnInit {
     private selectedMember: MemberDetails;
     private subscriptionToGetEngagementsForMember: any;
     private gridContent: Array<CallGridRow>;
-    private displayedTranscript: Array<string>;
+    private displayedTranscript: Array<Array<string>>;
     private displayTranscript: boolean;
     private displayEmotions: boolean;
     private emoChartData: EmotionChartModel;
@@ -66,9 +66,15 @@ export class MemberCallsComponent implements OnInit {
 
     onTranscriptClick(call: CallGridRow){
         if(call.transcript) {
-            this.displayedTranscript = call.transcript.split("\n");
+            this.displayedTranscript = call.transcript.split("\n").map(this.splitBySpeakerLabel);
             this.displayTranscript = true;
         }
+    }
+
+    splitBySpeakerLabel(line: string) {
+        const speaker = line.substr(0,line.indexOf(' '));
+        const txt = line.substr(line.indexOf(' ')+1);
+        return [speaker, txt]
     }
     
     onSentimentClick(call: CallGridRow){

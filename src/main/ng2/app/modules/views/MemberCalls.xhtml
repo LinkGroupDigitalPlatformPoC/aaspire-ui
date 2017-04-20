@@ -5,12 +5,13 @@
 		<p-dialog header="Transcript" responsive=true appendTo="body" modal=true closeOnEscape=true [(visible)]="displayTranscript" [width]="800">
 			<div style="overflow-y: scroll; height:400px;">
 				<p *ngFor="let line of displayedTranscript;">
-					{{line}}
+					<strong>{{line[0]}}</strong>
+					{{line[1]}}
 				</p>
 			</div>
 		</p-dialog>
 
-		<p-dialog header="Emotions" responsive=true appendTo="body" modal=true closeOnEscape=true [(visible)]="displayEmotions" [width]="300">
+		<p-dialog header="Emotions" responsive=true appendTo="body" modal=true closeOnEscape=true [(visible)]="displayEmotions" [width]="350">
 			<div *ngIf="displayEmotions">
 				<p-chart type="radar" [options]="emoChartData.options" [data]="emoChartData.radarChartData"></p-chart>
 			</div>

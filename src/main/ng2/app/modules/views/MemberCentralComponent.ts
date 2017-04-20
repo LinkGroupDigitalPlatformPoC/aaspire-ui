@@ -156,44 +156,7 @@ export class MemberCentralComponent {
         }
 
         this.matchingMemberDetails = memberDetails; // array of matching members
-
-        this.searchResults = new Array<MemberGridRow>(); // for populating the UI
-
-        for (var member of memberDetails) {
-            console.log("MemberCentralComponent::consumeMemberDetails(): display member: " + JSON.stringify(member));
-
-            const sentimentScore = member.analysis.sentiment.score;
-            const icon = this.sentimentIcon(sentimentScore);
-
-            // create a grid row (member) for the UI
-            var gridRow: MemberGridRow = {
-                'id': member.id,
-                'name': member.title + " " + member.givenName + " " + member.surname,
-                'plan': member.plan,
-                'dob': member.dateOfBirth,
-                'sentimentScore': sentimentScore,
-                'icon': icon,
-                'className': "material-icons " + icon,
-                'analysis': member.analysis,
-            };
-
-             // add the member row to the UI grid
-            this.searchResults.push(gridRow);
-        }
-    }
-
-    private sentimentIcon(score) {
-        if (score <= -0.5){
-            return 'sentiment_very_dissatisfied';
-        } else if(score > -0.5 && score <= -0.1) {
-            return 'sentiment_dissatisfied';
-        } else if(score > -0.1 && score <= 0.1) {
-            return 'sentiment_neutral';
-        } else if(score > 0.2 && score <= 0.5) {
-            return 'sentiment_satisfied';
-        } else {
-            return 'sentiment_very_satisfied';
-        }
+        this.searchResults = memberDetails.map(m => new MemberGridRow(m));
     }
 
     onSentimentClick(member: MemberGridRow){
