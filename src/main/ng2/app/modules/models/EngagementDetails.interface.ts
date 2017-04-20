@@ -8,5 +8,6 @@ export interface EngagementDetails {
     dateTimeInitiated: string;
     primaryTopic: string;
     secondaryTopic: [string];
+    transcript: string;
     analysis: any;
 }

@@ -80,7 +80,7 @@ export class EngagementService {
         let options = new RequestOptions({headers: headers});
 
         // via API connect
-        let completeURL = AppSettings.API_ENGAGEMENT_SEARCH_SPECIFIC_MEMBER + memberId.toString() + "/engagements";
+        let completeURL = AppSettings.API_ENGAGEMENT_SEARCH_SPECIFIC_MEMBER + memberId.toString() + "/engagements";;
 
         return this.http.get(completeURL, options).map(this.extractData).catch(this.handleError);
     }
