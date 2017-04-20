@@ -19,22 +19,22 @@
 <div class="ui-g form-group">
 	<div class="ui-g-12">
 		<p-dataTable selectionMode="single" [paginator]="false" [rows]="10" [responsive]="true" [value]="searchResults"> 
-			<p-column header="Member#" >
+			<p-column header="Mem#" [style]="{'width':'60px'}">
 				<template let-col let-member="rowData" pTemplate="body">
 					<a style="color: blue;text-decoration: underline;" (click)="onSelectMember(member)"><span>{{member.id}}</span></a>
 				</template>
 			</p-column>
 			<p-column field="name" header="Name" ></p-column>
-			<p-column field="plan" header="Plan" ></p-column>
-			<p-column field="dob" header="D.O.B" ></p-column> 
+			<p-column field="plan" header="Plan" [style]="{'width':'100px'}"></p-column>
+			<p-column field="dob" header="D.O.B" [style]="{'width':'100px'}"></p-column> 
 
- 			<p-column header="Sentiment" >
+ 			<p-column header="Sentiment" [style]="{'width':'90px'}">
 				<template let-member="rowData" pTemplate="body">
 					<i class={{member.className}} >{{member.icon}}</i>
 				</template>
 			</p-column>
 
-		    <p-column styleClass="col-button">
+		    <p-column styleClass="col-button" [style]="{'width':'140px'}">
 		        <template let-result="rowData" pTemplate="body">
 					<button pButton type="button" label="Start Call" (click)="onStartCall(result)"></button>
 		        </template>

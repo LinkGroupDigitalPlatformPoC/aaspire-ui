@@ -95,14 +95,16 @@
 		
 		<div class="ui-g-12 ui-md-6"></div>
 
-		<div class="ui-g-12 ui-md-6">
+		<div class="ui-g-12 ui-md-12">
 			<p-dataTable [value]="identityChecks" [(selection)]="selectedIdentifiers" dataKey="identifier" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
 			    <p-column [style]="{'width':'38px'}" selectionMode="multiple" ></p-column>
 			    <p-column field="identifier" header="Identity Type"></p-column>
 			    <p-column field="value" header="Cross Reference Value"></p-column>
-			    <p-column field="points" header="Points"></p-column>
+			    <p-column field="points" header="Points" [style]="{'width':'90px'}"></p-column>
 			</p-dataTable>	
 		</div>
+
+		<div class="ui-g-12 ui-md-6"></div>
 		<div class="ui-g-12 ui-md-6">
 	    	<div class="ui-g card colorbox colorbox-2">
 			    <div class="ui-g-12">
@@ -111,6 +113,7 @@
 			    </div>
 			</div>
 		</div>
+
 	</div>    	
     </p-tabPanel>
 
