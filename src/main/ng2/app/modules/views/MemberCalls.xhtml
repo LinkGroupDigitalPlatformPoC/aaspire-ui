@@ -16,7 +16,7 @@
 			</div>
 		</p-dialog>
 
-		<p-dataTable selectionMode="single" [paginator]="true" [rows]="10" [responsive]="true" [value]="gridContent">
+		<p-dataTable [paginator]="true" [rows]="10" [responsive]="true" [value]="gridContent">
 
 			<p-column header="Sentiment" [style]="{'width':'90px'}">
 				<template let-call="rowData" pTemplate="body">
