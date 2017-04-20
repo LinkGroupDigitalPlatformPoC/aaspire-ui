@@ -1242,7 +1242,7 @@ body {
         -webkit-transition: color 0.3s;
         transition: color 0.3s; }
         .layout-container .topbar-items > li .topbar-icon:hover {
-          color: #e8e8e8; }
+          color: #EF5015; /* @IC: #e8e8e8; link_group_orange */ }
       .layout-container .topbar-items > li.profile-item .profile-image {
         width: 36px;
         height: 36px;
@@ -1370,7 +1370,7 @@ body {
           display: block; }
       .layout-container.menu-layout-horizontal .layout-menu ul.ultima-menu > li.active-menuitem > a {
         color: #ffffff;
-        background-color: #E91E63; }
+        background-color: #EF5015; /* @IC #E91E63;*/ }
         .layout-container.menu-layout-horizontal .layout-menu ul.ultima-menu > li.active-menuitem > a i {
           color: #ffffff; }
       .layout-container.menu-layout-horizontal .layout-menu ul.ultima-menu > li.active-menuitem > ul {
