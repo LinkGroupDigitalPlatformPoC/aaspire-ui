@@ -26,12 +26,12 @@
 <div class="ui-g form-group">
 	<div class="ui-g-12">
 		<p-dataTable [paginator]="false" [rows]="10" [responsive]="true" [value]="searchResults"> 
-			<p-column header="Mem#" [style]="{'width':'70px'}">
+			<p-column header="Mem#" [style]="{'width':'15%'}">
 				<template let-col let-member="rowData" pTemplate="body">
 					<a style="color: blue;text-decoration: underline;" (click)="onSelectMember(member)"><span>{{member.id}}</span></a>
 				</template>
 			</p-column>
- 			<p-column header="Name" [style]="{'width':'150px'}">
+ 			<p-column header="Name" [style]="{'width':'39%'}">
 				<template let-member="rowData" pTemplate="body">
 					<span>
 						<i class={{member.className}} (click)="onSentimentClick(member)"> {{member.icon}} </i>
@@ -40,10 +40,10 @@
 				</template>
 			</p-column>
 
-			<p-column field="plan" header="Plan" [style]="{'width':'100px'}"></p-column>
-			<p-column field="dob" header="D.O.B" [style]="{'width':'100px'}"></p-column> 
+			<p-column field="plan" header="Plan" [style]="{'width':'15%'}"></p-column>
+			<p-column field="dob" header="D.O.B" [style]="{'width':'16%'}"></p-column> 
 
-		    <p-column styleClass="col-button" [style]="{'width':'140px'}">
+		    <p-column styleClass="col-button" [style]="{'width':'15%'}">
 		        <template let-result="rowData" pTemplate="body">
 					<button pButton type="button" label="Start Call" (click)="onStartCall(result)"></button>
 		        </template>
