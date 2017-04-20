@@ -12,33 +12,32 @@
         <div class="ui-g-12 ui-md-8">
             <a style="color: blue;text-decoration: underline;" routerLink="/call/{{currentCall.callId}}">{{currentCall.callId}}</a>
         </div>
+        
         <div class="ui-g-12 ui-md-4">
             <label>Member#</label>:
         </div>
         <div class="ui-g-12 ui-md-8">
             <a style="color: blue;text-decoration: underline;" routerLink="/member/{{currentCall.memberNum}}">{{currentCall.memberId}}</a>
         </div>
+
         <div class="ui-g-12 ui-md-4">
             <label>Name</label>:
         </div>
         <div class="ui-g-12 ui-md-8">
             {{currentCall.memberName}}
         </div>
+
         <div class="ui-g-12 ui-md-12">
             <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
         </div>
+
         <div class="ui-g-12 ui-md-4">
-            <label>Elapsed Time</label>:
+            <label>Duration</label>:
         </div>
-        <!--
-        <div class="ui-g-12 ui-md-8">
-            <div class="call-timer">
-            </div>
-        </div>
-        -->
-        <div class="ui-g-12 ui-md-8">
+        <div class="ui-g-12 ui-md-8" style="font-family:Roboto;font-size:50px;text-align:left">
             <timer-component></timer-component>
         </div>
+
         <div class="ui-g-12 ui-md-12">
             <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
         </div>
