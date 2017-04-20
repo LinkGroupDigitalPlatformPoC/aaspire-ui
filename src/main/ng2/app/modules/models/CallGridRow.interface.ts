@@ -14,9 +14,19 @@ export class CallGridRow {
     secondaryTopic: [string];
     transcript: string;
     analysis: any;
-    icon: string;
+    transcriptIcon: string;
+    sentimentIcon: string;
+    className: string;
 
-    constructor(call: EngagementDetails){
+    constructor(call: EngagementDetails) {
+        var callSentimentScore: string;
+        var callSentimentIcon: string;
+
+        if (call.analysis != undefined) {
+            callSentimentScore = call.analysis.sentiment.score;
+            callSentimentIcon = this.findSentimentIcon(callSentimentScore);
+        }
+
         this._id = call._id;
         this.memberId = call.memberId;
         this.csrId = call.csrId;
@@ -27,6 +37,26 @@ export class CallGridRow {
         this.secondaryTopic = call.secondaryTopic;
         this.transcript = call.transcript;
         this.analysis = call.analysis;
-        this.icon = this.transcript ? 'wrap_text' : '';
+        this.transcriptIcon = call.transcript ? 'wrap_text' : '';
+        this.sentimentIcon = call.analysis? callSentimentIcon : '';
+        this.className = call.analysis? 'material-icons ' + callSentimentIcon : '';
+    }
+
+    private findSentimentIcon(score) {
+        if (score <= -0.5){
+            return 'sentiment_very_dissatisfied';
+        } 
+        else if(score > -0.5 && score <= -0.1) {
+            return 'sentiment_dissatisfied';
+        } 
+        else if(score > -0.1 && score <= 0.1) {
+            return 'sentiment_neutral';
+        } 
+        else if(score > 0.2 && score <= 0.5) {
+            return 'sentiment_satisfied';
+        } 
+        else {
+            return 'sentiment_very_satisfied';
+        }
     }
 }
