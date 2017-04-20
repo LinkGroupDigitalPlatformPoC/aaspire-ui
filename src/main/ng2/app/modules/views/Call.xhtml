@@ -29,93 +29,99 @@
 
 <p-tabView>
     <p-tabPanel header="Main">
-	<div class="ui-g form-group dashboard">
-	
-		<div class="ui-g-12 ui-md-2">
-			<label for="dropdown">Call Id</label>
-		</div>
-		<div class="ui-g-12 ui-md-4">{{call.callId}}</div>
-		<div class="ui-g-12 ui-md-6"></div>
+		<div class="ui-g form-group dashboard">
 		
-		<div class="ui-g-12 ui-md-2">
-			<label>Member#</label>
-		</div>
-		<div class="ui-g-12 ui-md-4">
-			<a style="color: blue;text-decoration: underline;" routerLink="/member">{{call.memberId}}</a>
-		</div>
-			
-		<div class="ui-g-12 ui-md-2">
-			<label for="dropdown">Primary Call Reason</label>
-		</div>
-		<div class="ui-g-12 ui-md-4">
-			<span class="ui-dropdown"> 
-				<p-dropdown id="dropdown" [autoWidth]="false" placeholder="Primary call reason" [options]="callReasonsSelectItems" [(ngModel)]="call.primaryCallReason"></p-dropdown>
-			</span>
-		</div>
-		
-		<div class="ui-g-12 ui-md-2">
-			<label for="dropdown">Name</label>
-		</div>
-		<div class="ui-g-12 ui-md-4">{{call.memberName}}</div>
-
-		<div class="ui-g-12 ui-md-2">
-			<label for="othercallreasons">Other Call Reasons</label>
-		</div>
-		<div class="ui-g-12 ui-md-4">
-			<span class="ui-multiselect"> 
-				<p-multiSelect id="othercallreasons" [options]="callReasonsSelectItems" [(ngModel)]="call.otherSelectedCallReasons"></p-multiSelect>
-			</span>
-		</div>
-
-		<div class="ui-g-12 ui-md-12"></div>
-
-		<div class="ui-g-12 ui-md-2">
-			<label>Status</label>
-		</div>
-		<div class="ui-g-12 ui-md-4">{{call.status}}</div>
-		
-		<div class="ui-g-12 ui-md-6"></div>
-
-		<div class="ui-g-12 ui-md-2">
-			<label>Start Time</label>
-		</div>
-		<div class="ui-g-12 ui-md-4">{{call.startTime}}</div>
-
-		<div class="ui-g-12 ui-md-2">
-			<label>End Time</label>
-		</div>
-		<div class="ui-g-12 ui-md-4">{{call.endTime}}</div>
-
-		<div class="ui-g-12 ui-md-12"></div>
-		
-		<div class="ui-g-12 ui-md-2">
-			<label>Duration</label>
-		</div>
-		<div class="ui-g-12 ui-md-4">{{call.duration}}</div>
-		
-		<div class="ui-g-12 ui-md-6"></div>
-
-		<div class="ui-g-12 ui-md-12">
-			<p-dataTable [value]="identityChecks" [(selection)]="selectedIdentifiers" dataKey="identifier" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
-			    <p-column [style]="{'width':'38px'}" selectionMode="multiple" ></p-column>
-			    <p-column field="identifier" header="Identity Type"></p-column>
-			    <p-column field="value" header="Cross Reference Value"></p-column>
-			    <p-column field="points" header="Points" [style]="{'width':'90px'}"></p-column>
-			</p-dataTable>	
-		</div>
-
-		<div class="ui-g-12 ui-md-6"></div>
-		<div class="ui-g-12 ui-md-6">
-	    	<div class="ui-g card colorbox colorbox-2">
-			    <div class="ui-g-12">
-			        <span class="colorbox-name">Total Points</span>
-			        <span class="colorbox-count">{{points}}</span>
-			    </div>
+			<div class="ui-g-12 ui-md-2">
+				<label for="dropdown">Call Id</label>
 			</div>
-		</div>
+			<div class="ui-g-12 ui-md-4">{{call.callId}}</div>
+			<div class="ui-g-12 ui-md-6"></div>
+			
+			<div class="ui-g-12 ui-md-2">
+				<label>Member#</label>
+			</div>
+			<div class="ui-g-12 ui-md-4">
+				<a style="color: blue;text-decoration: underline;" routerLink="/member">{{call.memberId}}</a>
+			</div>
+				
+			<div class="ui-g-12 ui-md-2">
+				<label for="dropdown">Primary Call Reason</label>
+			</div>
+			<div class="ui-g-12 ui-md-4">
+				<span class="ui-dropdown"> 
+					<p-dropdown id="dropdown" [autoWidth]="false" placeholder="Primary call reason" [options]="callReasonsSelectItems" [(ngModel)]="call.primaryCallReason"></p-dropdown>
+				</span>
+			</div>
+			
+			<div class="ui-g-12 ui-md-2">
+				<label for="dropdown">Name</label>
+			</div>
+			<div class="ui-g-12 ui-md-4">{{call.memberName}}</div>
 
-	</div>    	
+			<div class="ui-g-12 ui-md-2">
+				<label for="othercallreasons">Other Call Reasons</label>
+			</div>
+			<div class="ui-g-12 ui-md-4">
+				<span class="ui-multiselect"> 
+					<p-multiSelect id="othercallreasons" [options]="callReasonsSelectItems" [(ngModel)]="call.otherSelectedCallReasons"></p-multiSelect>
+				</span>
+			</div>
+
+			<div class="ui-g-12 ui-md-12"></div>
+
+			<div class="ui-g-12 ui-md-2">
+				<label>Status</label>
+			</div>
+			<div class="ui-g-12 ui-md-4">{{call.status}}</div>
+			
+			<div class="ui-g-12 ui-md-6"></div>
+
+			<div class="ui-g-12 ui-md-2">
+				<label>Start Time</label>
+			</div>
+			<div class="ui-g-12 ui-md-4">{{call.startTime}}</div>
+
+			<div class="ui-g-12 ui-md-2">
+				<label>End Time</label>
+			</div>
+			<div class="ui-g-12 ui-md-4">{{call.endTime}}</div>
+
+			<div class="ui-g-12 ui-md-12"></div>
+			
+			<div class="ui-g-12 ui-md-2">
+				<label>Duration</label>
+			</div>
+			<div class="ui-g-12 ui-md-4">{{call.duration}}</div>
+			
+			<div class="ui-g-12 ui-md-6"></div>
+
+			<div class="ui-g-12 ui-md-12">
+				<p-dataTable [value]="identityChecks" [(selection)]="selectedIdentifiers" dataKey="identifier" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+					<p-column [style]="{'width':'38px'}" selectionMode="multiple" ></p-column>
+					<p-column field="identifier" header="Identity Type"></p-column>
+					<p-column field="value" header="Cross Reference Value"></p-column>
+					<p-column field="points" header="Points" [style]="{'width':'90px'}"></p-column>
+				</p-dataTable>	
+			</div>
+
+			<div class="ui-g-12 ui-md-6">
+				<div class="ui-g card colorbox colorbox-2">
+					<div class="ui-g-12">
+						<span class="colorbox-name">Total Points</span>
+						<span class="colorbox-count">{{points}}</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="ui-g-12 ui-md-8"></div>
+			<div class="ui-g-12 ui-md-2">
+				<button pButton type="button" label="Cancel" (click)="onCancel()" class="red-btn"></button>
+			</div>	
+			<div class="ui-g-12 ui-md-2">
+				<button pButton type="button" label="Verified" (click)="onVerified()" [disabled]="points < 50" class="green-btn"></button>
+			</div>
+
+		</div>    	
     </p-tabPanel>
 
 </p-tabView>
-

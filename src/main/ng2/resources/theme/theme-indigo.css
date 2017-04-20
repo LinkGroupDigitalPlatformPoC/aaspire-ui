@@ -3332,7 +3332,7 @@ body {
         left: 0; }
   body .ui-button, body .ui-datepicker-buttonpane > button {
     overflow: hidden;
-    background-color: #3F51B5;
+    background-color: #EF5015; /* @IC #3F51B5; @IC_link_orange */
     color: #ffffff;
     font-size: 1em;
     height: 2.25em;
@@ -3346,10 +3346,10 @@ body {
     -webkit-transition: background-color 0.3s;
     transition: background-color 0.3s; }
     body .ui-button:enabled:not(:focus):hover, body .ui-datepicker-buttonpane > button:enabled:not(:focus):hover {
-      background-color: #283593; }
+      background-color: #EF5015; /* @IC: #283593;*/ }
     body .ui-button:focus, body .ui-datepicker-buttonpane > button:focus {
       outline: 0 none;
-      background-color: #606fc7; }
+      background-color: #EF5015; /* @IC: #606fc7;*/ }
     body .ui-button .ui-button-text, body .ui-datepicker-buttonpane > button .ui-button-text {
       padding: 0;
       line-height: 2.25em; }
@@ -4341,7 +4341,7 @@ body .ui-fieldset {
       padding: .5em;
       height: 2em;
       width: 2em;
-      background-color: #3F51B5;
+      background-color: #EF5015 /* @IC: #3F51B5 */;
       color: #ffffff;
       font-size: 1.5em;
       -moz-border-radius: 50%;

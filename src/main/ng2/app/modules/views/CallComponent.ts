@@ -1,7 +1,7 @@
 import { EventEmitter, Component, OnInit } from '@angular/core';
 import { TreeNode, SelectItem, DropdownModule, MultiSelectModule } from 'primeng/primeng';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import './../common/RxJsOperators';
 
 // models
@@ -9,10 +9,11 @@ import { CallDetails } from './../models/CallDetails';
 import { RefData } from './../models/RefData';
 import { RefDataValue } from './../models/RefDataValue';
 import { ReferenceData } from './../models/ReferenceData.interface';
-import { IdentityCheck } from './../models/IdentityCheck';
+import { IdentityCheckGridRow } from './../models/IdentityCheckGridRow';
 import { EngagementBody } from './../models/EngagementBody.interface';
 
 // services
+import { ContextMediatorService } from './../common/ContextMediatorService'; // singleton
 import { SharedService } from './../services/Shared.service'; // singleton
 import { ReferenceDataService } from './../services/ReferenceData.service';
 
@@ -28,27 +29,29 @@ export class CallComponent implements OnInit {
 
     private call: CallDetails;
     private callReasonsSelectItems: SelectItem[];
-    private identityChecks: IdentityCheck[];
+    private identityChecks: IdentityCheckGridRow[];
     private points: number; // id verification
-    private selectedIdentifiers: IdentityCheck[];
+    private selectedIdentifiers: IdentityCheckGridRow[];
 
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
-    constructor(private route: ActivatedRoute, 
-                public referenceDataService: ReferenceDataService, 
+    constructor(private route: ActivatedRoute,
+                private router: Router,
+                public referenceDataService: ReferenceDataService,
+                protected contextMediatorService : ContextMediatorService,
                 private sharedService: SharedService) {}
     
     ngOnInit() {
         // TODO this should be an api to retrieve the call if the id was provided in the route
         
         this.callReasonsSelectItems = new Array<SelectItem>();
-        this.identityChecks = new Array<IdentityCheck>();
-        this.selectedIdentifiers = new Array<IdentityCheck>();
+        this.identityChecks = new Array<IdentityCheckGridRow>();
+        this.selectedIdentifiers = new Array<IdentityCheckGridRow>();
         this.points = 0;
         this.call = new CallDetails(); // used in the HTML (for now)
 
-        if( this.route.snapshot.params['id']) {
+        if (this.route.snapshot.params['id']) {
             let engagement: EngagementBody = this.sharedService.currentEngagementBody;
             console.log("CallComponent::ngOnInit(): current engagement = " + JSON.stringify(engagement));
 
@@ -58,23 +61,22 @@ export class CallComponent implements OnInit {
             this.call.startTime = engagement.dateTimeInitiated;
             this.call.memberName = this.sharedService.currentMember.title + " " + this.sharedService.currentMember.givenName + " " + this.sharedService.currentMember.surname;
 
-            // Identity checks
+            // checks in the identities array
+            for (let identity of this.sharedService.currentMember.identities) {
+                this.identityChecks.push(new IdentityCheckGridRow(identity.type, 30, identity.documentNumber));
+            }
+    
             // this.sharedService.currentMember - contains member info (including identity check)
 
             // name
-            // this.identityChecks.push(new IdentityCheck('Name', 40, this.sharedService.currentMember.title + " " + 
+            // this.identityChecks.push(new IdentityCheckGridRow('Name', 40, this.sharedService.currentMember.title + " " + 
             //             this.sharedService.currentMember.givenName + " " + this.sharedService.currentMember.surname));
     
             // DOB
-            // this.identityChecks.push(new IdentityCheck('DOB', 40, this.sharedService.currentMember.dateOfBirth));
-    
-            // checks in the identities array
-            for (let identity of this.sharedService.currentMember.identities) {
-                this.identityChecks.push(new IdentityCheck(identity.type, 30, identity.documentNumber));
-            }
+            // this.identityChecks.push(new IdentityCheckGridRow('DOB', 40, this.sharedService.currentMember.dateOfBirth));
     
             // last employer
-            // this.identityChecks.push(new IdentityCheck('Last Employer', 40, this.sharedService.currentMember.lastEmployer));     
+            // this.identityChecks.push(new IdentityCheckGridRow('Last Employer', 40, this.sharedService.currentMember.lastEmployer));     
         }
 
         this.getCallReasons();
@@ -99,9 +101,13 @@ export class CallComponent implements OnInit {
         // add points based in identifier type
         let currentTotal = 0;
         
+        console.log("CallComponent::onRowSelect(): selectedIdentifiers = " + JSON.stringify(this.selectedIdentifiers));
+
         for (let identifier of this.selectedIdentifiers) {
             currentTotal = currentTotal + identifier.points;
         }
+
+        console.log("CallComponent::onRowSelect(): total = " + currentTotal);
         
         this.points = currentTotal;
     }
@@ -121,6 +127,15 @@ export class CallComponent implements OnInit {
         this.call.status = 'closed';
     }
     
-    search() {
+    onVerified() {
+        // go to member screen
+        this.router.navigateByUrl('/member/' + this.call.memberId);  
+    }
+    
+    onCancel() {
+        this.contextMediatorService.onEndCall(null);
+        
+        // go (back) to member central
+        this.router.navigateByUrl('/membercentral');  
     }
 }
