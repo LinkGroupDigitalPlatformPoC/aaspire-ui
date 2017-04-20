@@ -27,16 +27,10 @@ export class CallGridRow {
             callSentimentIcon = this.findSentimentIcon(callSentimentScore);
         }
 
-        this._id = call._id;
-        this.memberId = call.memberId;
-        this.csrId = call.csrId;
-        this.notes = call.notes;
-        this.status = call.status;
-        this.dateTimeCompleted = call.dateTimeCompleted;
-        this.dateTimeInitiated = call.dateTimeInitiated;
-        this.secondaryTopic = call.secondaryTopic;
-        this.transcript = call.transcript;
-        this.analysis = call.analysis;
+        for(var k in call) {
+            this[k]=call[k];
+        }
+
         this.transcriptIcon = call.transcript ? 'wrap_text' : '';
         this.sentimentIcon = call.analysis? callSentimentIcon : '';
         this.className = call.analysis? 'material-icons ' + callSentimentIcon : '';
