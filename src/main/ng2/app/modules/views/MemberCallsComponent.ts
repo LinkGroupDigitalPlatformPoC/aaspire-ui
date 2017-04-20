@@ -4,6 +4,7 @@ import './../common/RxJsOperators';
 
 // third party - endorsed by Angular
 import { Observable } from 'rxjs/Observable';
+import { CallGridRow } from '../models/CallGridRow.interface';
 
 // PrimeNG
 
@@ -26,7 +27,9 @@ export class MemberCallsComponent implements OnInit {
 
     private selectedMember: MemberDetails;
     private subscriptionToGetEngagementsForMember: any;
-    private gridContent: Array<EngagementDetails>;
+    private gridContent: Array<CallGridRow>;
+    private displayedTranscript: Array<string>;
+    private displayTranscript: boolean;
  
     constructor(private sharedService: SharedService, 
                 private engagementService: EngagementService) {}
@@ -47,7 +50,7 @@ export class MemberCallsComponent implements OnInit {
     // display the calls in a grid
     private consumeEngagementsForMember(calls: [EngagementDetails]) {
         console.log("MemberCallsComponent::consumeEngagementsForMember(): " + JSON.stringify(calls));
-        this.gridContent = calls;
+        this.gridContent = calls.map(c => new CallGridRow(c));
     }
 
     // API error
@@ -55,6 +58,13 @@ export class MemberCallsComponent implements OnInit {
         let errMsg = (error.message) ? error.message : error.status ? `${ error.status } - ${ error.statusText}` : 'Engagement service: ERROR';
         console.error(errMsg);
         return Observable.throw(errMsg);
+    }
+
+    onTranscriptClick(call: CallGridRow){
+        if(call.transcript) {
+            this.displayedTranscript = call.transcript.split("\n");
+            this.displayTranscript = true;
+        }
     }
     
 }

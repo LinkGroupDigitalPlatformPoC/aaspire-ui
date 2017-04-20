@@ -1,6 +1,15 @@
 <div class="ui-g form-group">
 	
 	<div class="ui-g-12">
+
+		<p-dialog header="Transcript" responsive=true appendTo="body" modal=true closeOnEscape=true [(visible)]="displayTranscript" [width]="800">
+			<div style="overflow-y: scroll; height:400px;">
+				<p *ngFor="let line of displayedTranscript;">
+					{{line}}
+				</p>
+			</div>
+		</p-dialog>
+
 		<p-dataTable selectionMode="single" [paginator]="true" [rows]="10" [responsive]="true" [value]="gridContent"> 
 			<!--
 			<p-column field=header="Call#" >
@@ -17,6 +26,14 @@
 			<p-column field="status" header="Status" ></p-column>
 
 			<p-column field="primaryTopic" header="Primary" ></p-column>
+
+			<!--<p-column field="getX()" header="Transcript" ></p-column>-->
+
+			<p-column header="Transcript" >
+				<template let-call="rowData" pTemplate="body">
+					<i class="material-icons" (click)="onTranscriptClick(call)">{{call.icon}}</i>
+				</template>
+			</p-column>
 
 <!--
  			<p-column header="Transcript" >
