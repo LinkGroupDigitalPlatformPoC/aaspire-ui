@@ -16,16 +16,13 @@
 			</div>
 		</p-dialog>
 
-		<p-dataTable selectionMode="single" [paginator]="true" [rows]="10" [responsive]="true" [value]="gridContent"> 
-			<!--
-			<p-column field=header="Call#" >
-				<template let-col let-member="rowData" pTemplate="body">
-					<a style="color: blue;text-decoration: underline;" (click)="onSelectMember(member)"><span>{{member.id}}</span></a>
+		<p-dataTable selectionMode="single" [paginator]="true" [rows]="10" [responsive]="true" [value]="gridContent">
+
+			<p-column header="Sentiment" [style]="{'width':'90px'}">
+				<template let-call="rowData" pTemplate="body">
+					<i class={{call.className}} (click)="onSentimentClick(call)">{{call.sentimentIcon}}</i>
 				</template>
 			</p-column>
-			-->
-
-			<p-column field="_id" header="Call #" ></p-column>
 
 			<p-column field="dateTimeInitiated" header="Initiated" ></p-column>
 
@@ -33,27 +30,11 @@
 
 			<p-column field="primaryTopic" header="Main Topic" ></p-column>
 
-			<!--<p-column field="getX()" header="Transcript" ></p-column>-->
-
 			<p-column header="Transcript" >
 				<template let-call="rowData" pTemplate="body">
-					<i class="material-icons" (click)="onTranscriptClick(call)">{{call.icon}}</i>
+					<i class="material-icons" (click)="onTranscriptClick(call)">{{call.transcriptIcon}}</i>
 				</template>
 			</p-column>
-
-			<p-column header="Icon" >
-				<template let-call="rowData" pTemplate="body">
-					<i class="material-icons" (click)="onSentimentClick(call)">content_paste</i>
-				</template>
-			</p-column>
-
-<!--
- 			<p-column header="Transcript" >
-				<template let-member="rowData" pTemplate="body">
-					<i class={{member.className}} >{{member.icon}}</i>
-				</template>
-			</p-column>
-			-->
 
 		</p-dataTable>
 	</div>

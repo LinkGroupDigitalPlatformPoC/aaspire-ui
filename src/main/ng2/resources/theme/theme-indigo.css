@@ -3167,14 +3167,14 @@ body .ui-widget-content {
   body .ui-widget-content .fa {
     color: #757575; }
 body .ui-widget-header {
-  background-color: #3F51B5;
+  background-color: #1B1F48; /* link-group-dark-blue */ /* @IC: #3F51B5; */
   color: #ffffff;
   font-size: 1em;
-  border: 1px solid #3F51B5; }
+  border: 1px solid #1B1F48; }
   body .ui-widget-header .fa {
     color: #ffffff; }
 body .ui-state-active, body .ui-state-highlight {
-  background-color: #E91E63;
+  background-color: #1B1F48; /* @IC: #E91E63; */
   color: #ffffff; }
   body .ui-state-active .fa, body .ui-state-highlight .fa {
     color: #ffffff; }
@@ -3313,7 +3313,7 @@ body {
         background-color: #e8e8e8;
         color: #000000; }
       body .ui-listbox .ui-listbox-item.ui-state-highlight {
-        background-color: #E91E63;
+        background-color: #EF5015; /* @IC: #E91E63; */
         color: #ffffff; }
     body .ui-listbox .ui-listbox-header {
       -moz-border-radius: 0;
@@ -4826,8 +4826,8 @@ body .ui-datatable .ui-datatable-data tr {
     body .ui-datatable .ui-datatable-data tr td.ui-selection-column .ui-chkbox-box, body .ui-datatable .ui-datatable-data tr td.ui-selection-column .ui-radiobutton-box {
       box-sizing: content-box; }
   body .ui-datatable .ui-datatable-data tr.ui-state-highlight {
-    background-color: #E91E63;
-    border-color:   #E91E63;
+    background-color: #EF5015; /* @IC: #E91E63; */
+    border-color: #EF5015; /* @IC: #E91E63; */
     color: #ffffff; }
   body .ui-datatable .ui-datatable-data tr .ui-cell-editor-input input {
     color: #ffffff; }
