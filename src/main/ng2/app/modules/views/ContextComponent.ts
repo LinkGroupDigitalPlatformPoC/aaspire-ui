@@ -22,6 +22,7 @@ import { CallDetails } from '../models/CallDetails';
 import { SharedService } from '../services/Shared.service';
 
 import { ChartModule } from 'primeng/primeng';
+import { EmotionChartModel} from '../models/EmotionChartModel';
 
 
 @Component({
@@ -36,20 +37,11 @@ export class ContextComponent {
 
     _onStartCall$: Subscription;
     _onEndCall$: Subscription;
-    emoRadarChartData: any;
-    emoRadarChartOptions: any;
+    chartModel: EmotionChartModel;
+
 
     constructor(protected contextMediatorService: ContextMediatorService, private sharedService: SharedService) {
-        this.emoRadarChartOptions = { 
-            legend: { display: false },
-            scale: {
-                ticks: {
-                    min: 0,
-                    max: 1,
-                    stepSize: 0.2
-                }
-            }
-        };
+
     }
 
     // Lifecycle
@@ -80,24 +72,8 @@ export class ContextComponent {
         console.log('ContextComponent::startCall(): using call details: ' + JSON.stringify(call));
 
         const emo = this.sharedService.currentMember.analysis.emotion;
-        const emoData = [emo.sadness, emo.joy, emo.fear, emo.disgust, emo.anger]
 
-        this.emoRadarChartData = {
-            legend: { display: false },
-            labels: ['Sadness', 'Joy', 'Fear', 'Disgust', 'Anger'],
-            datasets: [
-                {
-                    label: null,
-                    backgroundColor: 'rgba(179,181,198,0.2)',
-                    borderColor: 'rgba(179,181,198,1)',
-                    pointBackgroundColor: 'rgba(179,181,198,1)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(179,181,198,1)',
-                    data: emoData
-                }
-            ]
-        };
+        this.chartModel = new EmotionChartModel(emo);
 
         this.currentCall = call; // shows the whole context panel (see the HTML)
     }
@@ -107,7 +83,7 @@ export class ContextComponent {
         console.log('ContextComponent::endCall()');
 
         this.currentCall = null; // hides the whole context panel (see the HTML)
-        this.emoRadarChartData = null;
+        this.chartModel = null;
     }
 
 }

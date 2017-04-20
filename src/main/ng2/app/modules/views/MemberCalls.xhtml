@@ -10,11 +10,17 @@
 			</div>
 		</p-dialog>
 
-		<p-dataTable [paginator]="true" [rows]="10" [responsive]="true" [value]="gridContent"> 
+		<p-dialog header="Emotions" responsive=true appendTo="body" modal=true closeOnEscape=true [(visible)]="displayEmotions" [width]="300">
+			<div *ngIf="displayEmotions">
+				<p-chart type="radar" [options]="emoChartData.options" [data]="emoChartData.radarChartData"></p-chart>
+			</div>
+		</p-dialog>
+
+		<p-dataTable [paginator]="true" [rows]="10" [responsive]="true" [value]="gridContent">
 
 			<p-column header="Sentiment" [style]="{'width':'90px'}">
 				<template let-call="rowData" pTemplate="body">
-					<i class={{call.className}} >{{call.sentimentIcon}}</i>
+					<i class={{call.className}} (click)="onSentimentClick(call)">{{call.sentimentIcon}}</i>
 				</template>
 			</p-column>
 

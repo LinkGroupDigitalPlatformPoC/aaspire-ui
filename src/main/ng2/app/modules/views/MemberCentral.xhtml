@@ -24,15 +24,17 @@
 					<a style="color: blue;text-decoration: underline;" (click)="onSelectMember(member)"><span>{{member.id}}</span></a>
 				</template>
 			</p-column>
-			<p-column field="name" header="Name" ></p-column>
-			<p-column field="plan" header="Plan" [style]="{'width':'100px'}"></p-column>
-			<p-column field="dob" header="D.O.B" [style]="{'width':'100px'}"></p-column> 
-
- 			<p-column header="Sentiment" [style]="{'width':'90px'}">
+ 			<p-column header="Name" [style]="{'width':'150px'}">
 				<template let-member="rowData" pTemplate="body">
-					<i class={{member.className}} >{{member.icon}}</i>
+					<span>
+						<i class={{member.className}}> {{member.icon}} </i>
+						<span>{{member.name}}</span>
+					</span>
 				</template>
 			</p-column>
+
+			<p-column field="plan" header="Plan" [style]="{'width':'100px'}"></p-column>
+			<p-column field="dob" header="D.O.B" [style]="{'width':'100px'}"></p-column> 
 
 		    <p-column styleClass="col-button" [style]="{'width':'140px'}">
 		        <template let-result="rowData" pTemplate="body">

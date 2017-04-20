@@ -15,11 +15,13 @@ import { EngagementDetails } from './../models/EngagementDetails.interface';
 // services
 import { SharedService } from './../services/Shared.service';
 import { EngagementService } from '../services/Engagement.service'; // engagements / calls
+import {EmotionChartModel} from '../models/EmotionChartModel';
 
 @Component({
     moduleId: module.id,
     selector: 'member-calls',
     templateUrl: 'MemberCalls.xhtml',
+    styleUrls: ['Sentiment.style.scss'],
     providers: [EngagementService]
 })
 
@@ -30,9 +32,11 @@ export class MemberCallsComponent implements OnInit {
     private gridContent: Array<CallGridRow>;
     private displayedTranscript: Array<string>;
     private displayTranscript: boolean;
+    private displayEmotions: boolean;
+    private emoChartData: EmotionChartModel;
  
-    constructor(private sharedService: SharedService, 
-                private engagementService: EngagementService) {}
+    constructor(private sharedService: SharedService, private engagementService: EngagementService) {
+    }
     
     ngOnInit() {
         console.log("MemberCallsComponent::ngOnInit()");
@@ -67,4 +71,10 @@ export class MemberCallsComponent implements OnInit {
         }
     }
     
+    onSentimentClick(call: CallGridRow){
+        if(call.analysis) {
+            this.emoChartData = new EmotionChartModel(call.analysis.emotion);
+            this.displayEmotions = true;
+        }
+    }
 }
