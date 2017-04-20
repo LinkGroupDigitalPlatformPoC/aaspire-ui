@@ -23,6 +23,7 @@ import { SharedService } from '../services/Shared.service'; // singleton
 import { ContextMediatorService } from './../common/ContextMediatorService'; // singleton
 import { MemberService } from '../services/Member.service'; // members
 import { EngagementService } from '../services/Engagement.service'; // engagements / calls
+import { EmotionChartModel } from '../models/EmotionChartModel';
 
 @Component({
     moduleId: module.id,
@@ -42,6 +43,9 @@ export class MemberCentralComponent {
 
     private displayModal: boolean = false;
     private modalMessage: string = "some message";
+
+    private displayEmotions: boolean;
+    private emoChartData: EmotionChartModel;
       
     constructor(private route: ActivatedRoute, 
                 private router: Router, 
@@ -169,7 +173,8 @@ export class MemberCentralComponent {
                 'dob': member.dateOfBirth,
                 'sentimentScore': sentimentScore,
                 'icon': icon,
-                'className': "material-icons " + icon
+                'className': "material-icons " + icon,
+                'analysis': member.analysis,
             };
 
              // add the member row to the UI grid
@@ -191,4 +196,10 @@ export class MemberCentralComponent {
         }
     }
 
+    onSentimentClick(member: MemberGridRow){
+        if(member.analysis) {
+            this.emoChartData = new EmotionChartModel(member.analysis.emotion);
+            this.displayEmotions = true;
+        }
+    }
 }
