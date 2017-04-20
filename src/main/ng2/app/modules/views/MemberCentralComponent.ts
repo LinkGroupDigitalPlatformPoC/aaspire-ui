@@ -191,15 +191,4 @@ export class MemberCentralComponent {
         }
     }
 
-    private colourIcon(icon) {
-        const lookUp = {
-            sentiment_very_dissatisfied: "'darkred'",
-            sentiment_dissatisfied: "'darkred'",
-            sentiment_neutral: "'gray'",
-            sentiment_satisfied: "'green'",
-            sentiment_very_satisfied: "'darkgreen'",
-        }
-        return lookUp[icon];
-    }
-
 }
