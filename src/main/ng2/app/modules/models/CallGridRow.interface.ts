@@ -27,6 +27,6 @@ export class CallGridRow {
         this.secondaryTopic = call.secondaryTopic;
         this.transcript = call.transcript;
         this.analysis = call.analysis;
-        this.icon = this.transcript ? 'wrap_text' : 'clear';
+        this.icon = this.transcript ? 'wrap_text' : '';
     }
 }

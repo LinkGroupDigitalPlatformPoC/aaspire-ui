@@ -80,9 +80,7 @@ export class EngagementService {
         let options = new RequestOptions({headers: headers});
 
         // via API connect
-        // debugger 
-        //TODO DO not commit this URL!
-        let completeURL = "https://dev-call-mgmt-services.mybluemix.net/members/" + memberId.toString() + "/calls";
+        let completeURL = AppSettings.API_ENGAGEMENT_SEARCH_SPECIFIC_MEMBER + memberId.toString() + "/engagements";;
 
         return this.http.get(completeURL, options).map(this.extractData).catch(this.handleError);
     }
