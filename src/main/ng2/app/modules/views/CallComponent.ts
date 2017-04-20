@@ -35,11 +35,12 @@ export class CallComponent implements OnInit {
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
-    constructor(private route: ActivatedRoute, public referenceDataService: ReferenceDataService, private sharedService: SharedService) {}
+    constructor(private route: ActivatedRoute, 
+                public referenceDataService: ReferenceDataService, 
+                private sharedService: SharedService) {}
     
     ngOnInit() {
         // TODO this should be an api to retrieve the call if the id was provided in the route
-
         
         this.callReasonsSelectItems = new Array<SelectItem>();
         this.identityChecks = new Array<IdentityCheck>();
@@ -61,11 +62,11 @@ export class CallComponent implements OnInit {
             // this.sharedService.currentMember - contains member info (including identity check)
 
             // name
-            this.identityChecks.push(new IdentityCheck('Name', 40, this.sharedService.currentMember.title + " " + 
-                        this.sharedService.currentMember.givenName + " " + this.sharedService.currentMember.surname));
+            // this.identityChecks.push(new IdentityCheck('Name', 40, this.sharedService.currentMember.title + " " + 
+            //             this.sharedService.currentMember.givenName + " " + this.sharedService.currentMember.surname));
     
             // DOB
-            this.identityChecks.push(new IdentityCheck('DOB', 40, this.sharedService.currentMember.dateOfBirth));
+            // this.identityChecks.push(new IdentityCheck('DOB', 40, this.sharedService.currentMember.dateOfBirth));
     
             // checks in the identities array
             for (let identity of this.sharedService.currentMember.identities) {
@@ -73,7 +74,7 @@ export class CallComponent implements OnInit {
             }
     
             // last employer
-            this.identityChecks.push(new IdentityCheck('Last Employer', 40, this.sharedService.currentMember.lastEmployer));     
+            // this.identityChecks.push(new IdentityCheck('Last Employer', 40, this.sharedService.currentMember.lastEmployer));     
         }
 
         this.getCallReasons();
