@@ -5,5 +5,6 @@ export interface MemberGridRow {
     dob: string,
     sentimentScore: number,
     icon: string,
-    className: string;
+    className: string,
+    analysis: any;
 }

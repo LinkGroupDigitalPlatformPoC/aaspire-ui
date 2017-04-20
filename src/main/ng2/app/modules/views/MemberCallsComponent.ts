@@ -15,7 +15,7 @@ import { EngagementDetails } from './../models/EngagementDetails.interface';
 // services
 import { SharedService } from './../services/Shared.service';
 import { EngagementService } from '../services/Engagement.service'; // engagements / calls
-import {EmotionChartModel} from '../models/EmotionChartModel';
+import { EmotionChartModel } from '../models/EmotionChartModel';
 
 @Component({
     moduleId: module.id,
