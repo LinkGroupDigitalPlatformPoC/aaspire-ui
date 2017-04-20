@@ -870,7 +870,7 @@ body {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
   .layout-container .topbar .logo {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top; /* @IC: middle; */
     width: 99px;
     height: 58px;
     background: url("../images/logo.png") top left no-repeat;
@@ -880,7 +880,7 @@ body {
     padding: 20px;
     height: 75px;
     width: 250px;
-    background-color: #283593;
+    background-color: #FFFFFF; /* @IC #283593; */
     float: left;
     -webkit-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
@@ -897,7 +897,7 @@ body {
       position: relative;
       left: -16px;
       top: 3px;
-      background-color: #E91E63;
+      background-color: #EF5015; /* @IC #E91E63; */
       -moz-border-radius: 50%;
       -webkit-border-radius: 50%;
       border-radius: 50%;
@@ -1288,7 +1288,7 @@ body {
     -webkit-box-shadow: none;
     -moz-box-shadow: none; }
     .layout-container.menu-layout-horizontal .topbar .topbar-left {
-      background-color: #3F51B5;
+      background-color: #FFFFFF; /* @IC: #3F51B5; */
       box-shadow: none;
       -webkit-box-shadow: none;
       -moz-box-shadow: none; }

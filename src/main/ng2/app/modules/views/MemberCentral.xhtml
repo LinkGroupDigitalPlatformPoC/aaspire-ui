@@ -25,8 +25,8 @@
 
 <div class="ui-g form-group">
 	<div class="ui-g-12">
-		<p-dataTable selectionMode="single" [paginator]="false" [rows]="10" [responsive]="true" [value]="searchResults"> 
-			<p-column header="Mem#" [style]="{'width':'60px'}">
+		<p-dataTable [paginator]="false" [rows]="10" [responsive]="true" [value]="searchResults"> 
+			<p-column header="Mem#" [style]="{'width':'70px'}">
 				<template let-col let-member="rowData" pTemplate="body">
 					<a style="color: blue;text-decoration: underline;" (click)="onSelectMember(member)"><span>{{member.id}}</span></a>
 				</template>
