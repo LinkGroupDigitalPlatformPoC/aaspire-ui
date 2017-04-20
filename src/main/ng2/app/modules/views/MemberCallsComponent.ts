@@ -21,6 +21,7 @@ import {EmotionChartModel} from '../models/EmotionChartModel';
     moduleId: module.id,
     selector: 'member-calls',
     templateUrl: 'MemberCalls.xhtml',
+    styleUrls: ['Sentiment.style.scss'],
     providers: [EngagementService]
 })
 
