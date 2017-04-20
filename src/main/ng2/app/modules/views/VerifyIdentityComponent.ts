@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import './../common/RxJsOperators';
 
 // models
-import { IdentityCheck } from './../models/IdentityCheck';
+import { IdentityCheckGridRow } from './../models/IdentityCheckGridRow';
 
 // services
 import { ContextMediatorService } from './../common/ContextMediatorService';
@@ -18,9 +18,9 @@ import { SharedService } from '../services/Shared.service'; // singleton
 
 export class VerifyIdentityComponent implements OnInit {
         
-    private identityChecks: IdentityCheck[];
+    private identityChecks: IdentityCheckGridRow[];
     private points: number; // id verification
-    private selectedIdentifiers: IdentityCheck[];
+    private selectedIdentifiers: IdentityCheckGridRow[];
     private memberId: string;
        
     constructor(private route: ActivatedRoute, private router: Router, protected contextMediatorService : ContextMediatorService, private sharedService: SharedService) {}
@@ -34,15 +34,15 @@ export class VerifyIdentityComponent implements OnInit {
         
         console.log("VerifyIdentityComponent::ngOnInit(): for member " + this.memberId); 
         
-        this.identityChecks = new Array<IdentityCheck>();
-        this.selectedIdentifiers = new Array<IdentityCheck>();
+        this.identityChecks = new Array<IdentityCheckGridRow>();
+        this.selectedIdentifiers = new Array<IdentityCheckGridRow>();
         
         // TODO: get member details for the member id
-        this.identityChecks.push(new IdentityCheck('Name', 40, 'John Smith'));
-        this.identityChecks.push(new IdentityCheck('Licence #' ,30, 'L87239847'));
-        this.identityChecks.push(new IdentityCheck('DOB', 40, '03-07-1985'));
-        this.identityChecks.push(new IdentityCheck('Passport #', 40, 'P789374985'));
-        this.identityChecks.push(new IdentityCheck('Last Employer', 40, 'Link Group'));       
+        this.identityChecks.push(new IdentityCheckGridRow('Name', 40, 'John Smith'));
+        this.identityChecks.push(new IdentityCheckGridRow('Licence #' ,30, 'L87239847'));
+        this.identityChecks.push(new IdentityCheckGridRow('DOB', 40, '03-07-1985'));
+        this.identityChecks.push(new IdentityCheckGridRow('Passport #', 40, 'P789374985'));
+        this.identityChecks.push(new IdentityCheckGridRow('Last Employer', 40, 'Link Group'));       
     }
     
     onRowSelect(event) {

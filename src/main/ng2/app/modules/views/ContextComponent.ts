@@ -77,7 +77,6 @@ export class ContextComponent {
 
     // triggered by an event (eg: "Start Call" button on member central grid - for a particular member)
     startCall(call: CallDetails) {
-        debugger
         console.log('ContextComponent::startCall(): using call details: ' + JSON.stringify(call));
 
         const emo = this.sharedService.currentMember.analysis.emotion;
