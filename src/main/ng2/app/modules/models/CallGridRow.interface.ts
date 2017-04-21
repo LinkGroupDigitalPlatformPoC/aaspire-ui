@@ -15,6 +15,7 @@ export class CallGridRow {
     transcript: string;
     analysis: any;
     transcriptIcon: string;
+    notesIcon: string;
     sentimentIcon: string;
     className: string;
 
@@ -32,6 +33,7 @@ export class CallGridRow {
         }
 
         this.transcriptIcon = call.transcript ? 'wrap_text' : '';
+        this.notesIcon =  call.notes ? 'wrap_text' : '';
         this.sentimentIcon = call.analysis? callSentimentIcon : '';
         this.className = call.analysis? 'material-icons ' + callSentimentIcon : '';
     }

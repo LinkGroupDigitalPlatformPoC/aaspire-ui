@@ -11,6 +11,12 @@
 			</div>
 		</p-dialog>
 
+		<p-dialog header="Notes" responsive=true appendTo="body" modal=true closeOnEscape=true [(visible)]="displayNotes" [width]="800">
+			<div *ngIf="displayNotes">
+				<p>{{notesToDisplay}}</p>
+			</div>
+		</p-dialog>
+
 		<p-dialog header="Emotions" responsive=true appendTo="body" modal=true closeOnEscape=true [(visible)]="displayEmotions" [width]="350">
 			<div *ngIf="displayEmotions">
 				<p-chart type="radar" [options]="emoChartData.options" [data]="emoChartData.radarChartData"></p-chart>
@@ -30,6 +36,12 @@
 			<p-column field="status" header="Status" ></p-column>
 
 			<p-column field="primaryTopic" header="Main Topic" ></p-column>
+
+			<p-column header="Notes" >
+				<template let-call="rowData" pTemplate="body">
+					<i class="material-icons" style="cursor: pointer" (click)="onNotesClick(call)">{{call.notesIcon}}</i>
+				</template>
+			</p-column>
 
 			<p-column header="Transcript" >
 				<template let-call="rowData" pTemplate="body">

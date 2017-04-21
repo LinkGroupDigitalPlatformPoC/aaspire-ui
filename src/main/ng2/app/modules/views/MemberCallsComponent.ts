@@ -34,6 +34,8 @@ export class MemberCallsComponent implements OnInit {
     private displayTranscript: boolean;
     private displayEmotions: boolean;
     private emoChartData: EmotionChartModel;
+    private displayNotes: boolean;
+    private notesToDisplay: string;
  
     constructor(private sharedService: SharedService, private engagementService: EngagementService) {
     }
@@ -68,6 +70,13 @@ export class MemberCallsComponent implements OnInit {
         if(call.transcript) {
             this.displayedTranscript = call.transcript.split("\n").map(this.splitBySpeakerLabel);
             this.displayTranscript = true;
+        }
+    }
+        
+    onNotesClick(call: CallGridRow){
+        if(call.notes) {
+            this.displayNotes = true;
+            this.notesToDisplay = call.notes;
         }
     }
 
