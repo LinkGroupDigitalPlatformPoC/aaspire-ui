@@ -2,6 +2,12 @@
 
 <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
+<p-dialog header="Emotions" responsive=true appendTo="body" modal=true closeOnEscape=true [(visible)]="displayEmotions" [width]="350">
+		<div *ngIf="displayEmotions">
+			 <p-chart type="radar" [options]="chartModel.options" [data]="chartModel.radarChartData"></p-chart>
+		</div>
+</p-dialog>
+
 <div class="ui-g-12 ui-md-12"></div>
 
 <p-fieldset legend="Current Call" [toggleable]="true" *ngIf="currentCall">
@@ -24,6 +30,7 @@
             <label>Name</label>:
         </div>
         <div class="ui-g-12 ui-md-8">
+            <i class={{memberModel.className}} (click)="onSentimentClick(memberModel)"> {{memberModel.icon}} </i>
             {{currentCall.memberName}}
         </div>
 
@@ -43,7 +50,7 @@
         </div>
     </div>
 </p-fieldset>
-<p-fieldset legend="Sentiment and Emotions" [toggleable]="true" *ngIf="currentCall">
+<p-fieldset legend="Sentiment and Emotions" [toggleable]="true" *ngIf="currentCall" [collapsed]="true">
     <p-chart type="radar" [options]="chartModel.options" [data]="chartModel.radarChartData"></p-chart>
 </p-fieldset>
 <p-fieldset legend="Alerts" [toggleable]="true" *ngIf="currentCall">

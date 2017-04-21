@@ -20,6 +20,7 @@ import { ContextMediatorService } from '../common/ContextMediatorService';
 import { MemberDetails } from '../models/MemberDetails.interface';
 import { CallDetails } from '../models/CallDetails';
 import { SharedService } from '../services/Shared.service';
+import { MemberGridRow } from '../models/MemberGridRow.interface';
 
 import { ChartModule } from 'primeng/primeng';
 import { EmotionChartModel} from '../models/EmotionChartModel';
@@ -27,7 +28,7 @@ import { EmotionChartModel} from '../models/EmotionChartModel';
 
 @Component({
     moduleId: module.id,
-    styleUrls: ['Context.style.scss'],
+    styleUrls: ['Context.style.scss','Sentiment.style.scss'],
     selector: 'context-component',
     templateUrl: 'Context.xhtml',
 })
@@ -38,7 +39,8 @@ export class ContextComponent {
     _onStartCall$: Subscription;
     _onEndCall$: Subscription;
     chartModel: EmotionChartModel;
-
+    memberModel : MemberGridRow;
+    displayEmotions: boolean;
 
     constructor(protected contextMediatorService: ContextMediatorService, private sharedService: SharedService) {
 
@@ -73,6 +75,8 @@ export class ContextComponent {
 
         const emo = this.sharedService.currentMember.analysis.emotion;
 
+        this.memberModel  = new MemberGridRow(this.sharedService.currentMember); 
+
         this.chartModel = new EmotionChartModel(emo);
 
         this.currentCall = call; // shows the whole context panel (see the HTML)
@@ -86,4 +90,9 @@ export class ContextComponent {
         this.chartModel = null;
     }
 
+    onSentimentClick(member: MemberGridRow){
+        if(member.analysis) {
+            this.displayEmotions = true;
+        }
+    }
 }
