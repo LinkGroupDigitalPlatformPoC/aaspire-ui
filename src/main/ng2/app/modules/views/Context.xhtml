@@ -50,7 +50,7 @@
         </div>
     </div>
 </p-fieldset>
-<p-fieldset legend="Sentiment and Emotions" [toggleable]="true" *ngIf="currentCall" [collapsed]="true">
+<p-fieldset legend="Emotions" [toggleable]="true" *ngIf="currentCall" [collapsed]="true">
     <p-chart type="radar" [options]="chartModel.options" [data]="chartModel.radarChartData"></p-chart>
 </p-fieldset>
 <p-fieldset legend="Alerts" [toggleable]="true" *ngIf="currentCall">
