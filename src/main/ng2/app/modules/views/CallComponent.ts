@@ -82,10 +82,9 @@ export class CallComponent implements OnInit {
         this.getCallReasons();
     }
 
-    // TODO: enum for reference data id's
     // Retrieve call reasons from the API
     getCallReasons() {
-        this.referenceDataService.getById('discussion-topics').subscribe(refDataArray => this.consumeCallReasons(refDataArray));
+        this.referenceDataService.getByReferenceType('discussion-topics').subscribe(refDataArray => this.consumeCallReasons(refDataArray));
     }
     
     // the API has returned some call reasons

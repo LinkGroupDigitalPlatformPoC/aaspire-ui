@@ -9,8 +9,8 @@ import { AppSettings } from '../../AppSettings';
 
 // models
 import { RefData } from '../models/RefData';
-import { RefDataValue } from '../models/RefDataValue';
 import { ReferenceData } from './../models/ReferenceData.interface';
+import { ReferenceDataBody } from './../models/ReferenceDataBody.interface'; // to add an entry
 
 declare var JSOG: any;
 
@@ -23,32 +23,48 @@ export class ReferenceDataService {
     constructor(public http: Http) {}
 
     /**
-     * This method calls the create API on the backend server and returns a model object.
+     * TODO: hook up API connect - going direct at the moment
+     * 
+     * Create reference data for a particular reference data type (TODO: currently hard coded as "discussion topics"")
+     * 
+     * POST
+     * 
+     * body:
+     *      JSON
+     *          decscription
+     *          longDescription
+     *          
+     * return:
+     *      JSON
+     *          id
+     *          decription
+     *          longDescription
      */
-    public create(model: RefData): Observable<RefData> {
-        //let body = JSON.stringify(modelCopy);
+    public create(model: ReferenceDataBody): Observable<ReferenceData> {
+
         let body = JSOG.stringify(model);
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        
-        /*
-        return this.http.put(this.url + 'refdata', body, options)
-                        .map((res : Response) => this.extractData(res))
-                        .catch(this.handleError);
-        */
-        
-        // replace this with the actual api call above
-        return Observable.create(observer => {
-            model.version = 1;
-            model.descr = "Created";
-            observer.next(model);
-            observer.complete();
+
+        console.info('ReferenceDataService::create() with body: ' + body);
+
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'X-IBM-Client-Id': '01493a98-9ab1-47f8-8943-afee23978816' // @ICtodo: security: inject this during the build process, as an environment variable
         });
+
+        let options = new RequestOptions({headers: headers});
         
+        // via API connect
+        let completeURL = "http://dev-refdata-mgmt-services.mybluemix.net/referencedata/discussion-topics"; // TODO: use API connect
+        
+        return this.http.get(completeURL, options)
+            .map((res : Response) => this.checkCreateResponse(res))
+            .catch(this.handleError);
     }
     
     /**
      * This method calls the create API on the backend server and returns a model object.
+     * TODO: hook up API connect - going direct at the moment
+     * PUT
      */
     public update(model: RefData): Observable<RefData> {
         this.url = "xxx";
@@ -59,7 +75,7 @@ export class ReferenceDataService {
         let options = new RequestOptions({ headers: headers });
 
         /*
-        return this.http.post(this.url + 'refdata', body, options)
+        return this.http.put(this.url + 'refdata', body, options)
                         .map((res : Response) => this.extractData(res))
                         .catch(this.handleError);
         */
@@ -202,8 +218,8 @@ export class ReferenceDataService {
             "version": 0
         }
      */
-    public getById(id: string): Observable<[ReferenceData]> {
-        console.info('ReferenceDataService::getById(' + id + ')');
+    public getByReferenceType(referenceType: string): Observable<[ReferenceData]> {
+        console.info('ReferenceDataService::getByReferenceType(' + referenceType + ')');
 
         let headers = new Headers({
             'Accept': 'application/json',
@@ -213,7 +229,7 @@ export class ReferenceDataService {
         let options = new RequestOptions({headers: headers});
         
         // via API connect
-        let completeURL = AppSettings.API_REFERENCE_DATA_SPECIFIC + id;
+        let completeURL = AppSettings.API_REFERENCE_DATA_SPECIFIC + referenceType;
         
         return this.http.get(completeURL, options)
             .map((res : Response) => this.extractData(res))
@@ -224,8 +240,8 @@ export class ReferenceDataService {
     /**
      * FIXME this needs to be done with pagination.
      */
-    public getAll(): Observable<[ReferenceData]> {
-        console.info('ReferenceDataService::getAll()');
+    public getTypes(): Observable<[ReferenceData]> {
+        console.info('ReferenceDataService::getTypes()');
 
         let headers = new Headers({
             'Accept': 'application/json',
@@ -238,11 +254,10 @@ export class ReferenceDataService {
         let completeURL = AppSettings.API_REFERENCE_DATA_ALL;
         
         return this.http.get(completeURL, options)
-            .map((res: Response) => this.extractListData(res))
+            .map((res: Response) => this.extractData(res))
             .catch(this.handleError);
     }
 
-    // reference data for a particular id
     protected extractData(res: Response) {
         console.info('ReferenceData::extractData(): ' + res);
         
@@ -256,18 +271,8 @@ export class ReferenceDataService {
         }
     }
 
-    // all reference data
-    protected extractListData(res: Response) {   
-        console.info('ReferenceData::extractListData(): ' + res);
-        
-        if (res.status == 200) {
-            let body = res.json();
-            return body;
-        } 
-        else {
-            console.error('ReferenceDataService: extractListData(): ERROR; Status = ' + res.status);
-            return "";
-        }
+    protected checkCreateResponse(res: Response) {
+
     }
 
     protected handleError( error: any ) {

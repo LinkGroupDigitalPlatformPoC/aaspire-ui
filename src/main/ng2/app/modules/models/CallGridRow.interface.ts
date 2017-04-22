@@ -1,4 +1,3 @@
-import {RefDataValue} from './RefDataValue';
 import {EngagementDetails} from './EngagementDetails.interface';
 
 export class CallGridRow {
