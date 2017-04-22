@@ -1,40 +1,46 @@
 <h1>Reference Data - {{refData.name}} ({{refData.version}})</h1>
 
+<!-- Search dialog - overlays the component -->
 <p-dialog header="Search" [(visible)]="displaySearch" width="800">
 	<div class="ui-g form-group dashboard">
+		<!-- search criteria -->
 		<div class="ui-g-12 ui-md-2">
 			<label for="dropdown">Name</label>
 		</div>
 		<div class="ui-g-12 ui-md-8"><input type="text" pInputText [(ngModel)]="refData.name"></div>
 		<div class="ui-g-12 ui-md-2" style="text-align:right"><button pButton type="button" icon="ui-icon-find-in-page" class="" (click)="search()"></button></div>
-		
+
 		<div class="ui-g-12 ui-md-12">
-			<hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
-		</div>	
-		
+			<hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+		</div>
+
+		<!-- data table for reference data -->
 		<div class="ui-g-12 ui-md-12">
 			<p-dataTable [value]="searchResults" selectionMode="single" [(selection)]="refData" (onRowSelect)="onSelect($event)" [rows]="10">
 				<p-column *ngFor="let col of searchColumns" [field]="col.field" [header]="col.header"></p-column>
-			</p-dataTable>	                		
+			</p-dataTable>
 		</div>
 	</div>
-    <p-footer>
-        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-            <button type="button" pButton icon="fa-close" (click)="displaySearch=false" label="OK"></button>
-        </div>
-    </p-footer>
+
+	<p-footer>
+		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+			<button type="button" pButton icon="fa-close" (click)="displaySearch=false" label="OK"></button>
+		</div>
+	</p-footer>
 </p-dialog>
 
-<hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+<!-- Toolbar along the top -->
+<hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
 <div style="text-align:right">
-	<button pButton type="button" icon="ui-icon-search" class="" (click)="onSearch()"></button>                     
-	<button pButton type="button" icon="ui-icon-save" class="" (click)="onSave()" ></button>
-	<button pButton type="button" icon="ui-icon-refresh" class="" (click)="onRefresh()" ></button>
+	<button pButton type="button" icon="ui-icon-search" class="" (click)="onSearch()"></button>
+	<button pButton type="button" icon="ui-icon-save" class="" (click)="onSave()"></button>
+	<button pButton type="button" icon="ui-icon-refresh" class="" (click)="onRefresh()"></button>
 </div>
 
-<hr	style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+<hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
+<!-- Reference data component -->
 <div class="ui-g form-group">
 	<div class="ui-g-12 ui-md-12"></div>
 
@@ -43,7 +49,6 @@
 			<input type="text" pInputText [(ngModel)]="refData.name" [disabled]="refData.version > 0"><label>Name</label>
 		</span>
 	</div>
-
 	<div class="ui-g-12 ui-md-8"></div>
 
 	<div class="ui-g-12 ui-md-12"></div>
@@ -53,18 +58,14 @@
 			<textarea pInputTextarea rows="3" [(ngModel)]="refData.descr"></textarea>
 		</span>
 	</div>
-
 	<div class="ui-g-12 ui-md-4"></div>
-
 </div>
 
 <div class="ui-g form-group">
-	<div class="ui-g-12" >
-		
+	<div class="ui-g-12">
 		<p-dataTable [value]="refData.values" [editable]="true" resizableColumns="true">
-		    <p-column field="value" header="Value" [editable]="false"></p-column>
-		    <p-column field="descr" header="Description" [editable]="true"></p-column>
-   		</p-dataTable>
-
+			<p-column field="value" header="Value" [editable]="false"></p-column>
+			<p-column field="descr" header="Description" [editable]="true"></p-column>
+		</p-dataTable>
 	</div>
 </div>

@@ -20,51 +20,63 @@ import { ReferenceDataService } from './../services/ReferenceData.service';
 
 export class RefDataComponent implements OnInit {
         
-    refData : RefData;
-    refDataSearchName : string;
-    displaySearch : boolean;
-    searchResults : ReferenceData[];
-    searchColumns : any[];
-    settings : any;
+    refData: RefData;
+    // refDataSearchName: string;
 
-    /**
-     * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
-     */    
+    displaySearch: boolean; // display or hide the search popover dialog
+    searchColumns: any[]; // on the popover dialog
+    searchResults: ReferenceData[]; // popover dialog
+
+    // settings: any;
+
+
     constructor(private route: ActivatedRoute, private referenceDataService: ReferenceDataService) {}
     
-    ngOnInit() {
+    ngOnInit() {  
+        // this.settings = {
+        //                   columns: {
+        //                     value: {
+        //                       title: 'Value'
+        //                     },
+        //                     descr: {
+        //                       title: 'Description'
+        //                     },
+        //                   }
+        //                  };
         
-        this.settings = {
-                          columns: {
-                            value: {
-                              title: 'Value'
-                            },
-                            descr: {
-                              title: 'Description'
-                            },
-                          }
-                         };
-        
+        // refData is used by html template
         this.refData = new RefData();
-        this.searchResults = new Array<ReferenceData>();
+
+        this.searchResults = new Array<ReferenceData>(); // for popover dialog
         
-        this.searchColumns = [
+        this.searchColumns = [ // for popover dialog
             {field: 'name', header: 'Name'},
             {field: 'descr', header: 'Description'},
             {field: 'version', header: 'Version'}
         ];
+
+                this.referenceDataService.getByReferenceType('discussion-topics').subscribe(refDataArray => this.consumeCallReasons(refDataArray));
+    }
+
+    // the API has returned some call reasons
+    consumeCallReasons(refDataArray: [ReferenceData]) {
+        console.log("CallComponent::consumeCallReasons(): " + JSON.stringify(refDataArray));
+
+       for (let refData of refDataArray) {
+           this.searchResults.push({id: refData.id, description: refData.description, longDescription: refData.longDescription});
+       }
     }
 
     onSearch() {
-        this.displaySearch = true;
+        // this.displaySearch = true; // show popover dialog
     }
     
     search() {
-        this.referenceDataService.getAll().subscribe(results => this.searched(results), error => this.displayError(error));
+        this.referenceDataService.getTypes().subscribe(results => this.searched(results), error => this.displayError(error));
     }
 
     onSelect($event) {
-        this.displaySearch = false;
+        // this.displaySearch = false; // hide popover dialog
     }
 
     convertToModel(model) {
@@ -88,13 +100,18 @@ export class RefDataComponent implements OnInit {
     onSave() {  
         // call the service to create or update the object in the backend
         if (this.refData.version > 0) {
-            this.referenceDataService.update(this.refData).subscribe(refData => this.saved(refData), error => this.displayError(error));                                
+            // already exists: update it
+            // this.referenceDataService.update(this.refData).subscribe(refData => this.saved(refData), error => this.displayError(error));                                
         } else {
-            this.referenceDataService.create(this.refData).subscribe(refData => this.saved(refData), error => this.displayError(error));                    
+            // does not exist yet: create it
+            // this.referenceDataService.create(this.refData).subscribe(refData => this.saved(refData), error => this.displayError(error));                    
         }
     }
 
+    /**
+     * This method reacts to a user clicking the "refresh" button in the toolbar.
+     */
     onRefresh() {
-        // TODO: this.referenceDataService.getById(this.refData.name).subscribe(refDataArray => this.saved(refDataArray), error => this.displayError(error));
+        // TODO: this.referenceDataService.getByReferenceType(this.refData.name).subscribe(refDataArray => this.saved(refDataArray), error => this.displayError(error));
     }
 }
