@@ -21,54 +21,44 @@ import { ReferenceDataService } from './../services/ReferenceData.service';
 export class RefDataComponent implements OnInit {
         
     refData: RefData;
-    // refDataSearchName: string;
+    referenceDataType: string;
 
     displaySearch: boolean; // display or hide the search popover dialog
     searchColumns: any[]; // on the popover dialog
     searchResults: ReferenceData[]; // popover dialog
 
-    // settings: any;
-
 
     constructor(private route: ActivatedRoute, private referenceDataService: ReferenceDataService) {}
     
     ngOnInit() {  
-        // this.settings = {
-        //                   columns: {
-        //                     value: {
-        //                       title: 'Value'
-        //                     },
-        //                     descr: {
-        //                       title: 'Description'
-        //                     },
-        //                   }
-        //                  };
-        
         // refData is used by html template
         this.refData = new RefData();
 
         this.searchResults = new Array<ReferenceData>(); // for popover dialog
         
-        this.searchColumns = [ // for popover dialog
-            {field: 'name', header: 'Name'},
-            {field: 'descr', header: 'Description'},
-            {field: 'version', header: 'Version'}
-        ];
+        // this.searchColumns = [ // for popover dialog
+        //     {field: 'name', header: 'Name'},
+        //     {field: 'descr', header: 'Description'},
+        //     {field: 'version', header: 'Version'}
+        // ];
 
-                this.referenceDataService.getByReferenceType('discussion-topics').subscribe(refDataArray => this.consumeCallReasons(refDataArray));
+        this.referenceDataType = "discussion-topics"; // TODO: allow different types
+        this.referenceDataService.getByReferenceType(this.referenceDataType).subscribe(refDataArray => this.consumeReferenceData(refDataArray));
     }
 
     // the API has returned some call reasons
-    consumeCallReasons(refDataArray: [ReferenceData]) {
-        console.log("CallComponent::consumeCallReasons(): " + JSON.stringify(refDataArray));
+    consumeReferenceData(refDataArray: [ReferenceData]) {
+        console.log("RefDataComponent::consumeReferenceData(): " + JSON.stringify(refDataArray));
 
        for (let refData of refDataArray) {
            this.searchResults.push({id: refData.id, description: refData.description, longDescription: refData.longDescription});
        }
+
+        console.log("RefDataComponent::searchResults: " + JSON.stringify(this.searchResults));
     }
 
     onSearch() {
-        // this.displaySearch = true; // show popover dialog
+        this.displaySearch = true; // show popover dialog
     }
     
     search() {
@@ -76,7 +66,7 @@ export class RefDataComponent implements OnInit {
     }
 
     onSelect($event) {
-        // this.displaySearch = false; // hide popover dialog
+        this.displaySearch = false; // hide popover dialog
     }
 
     convertToModel(model) {
@@ -106,6 +96,10 @@ export class RefDataComponent implements OnInit {
             // does not exist yet: create it
             // this.referenceDataService.create(this.refData).subscribe(refData => this.saved(refData), error => this.displayError(error));                    
         }
+    }
+
+    onAdd() {
+
     }
 
     /**

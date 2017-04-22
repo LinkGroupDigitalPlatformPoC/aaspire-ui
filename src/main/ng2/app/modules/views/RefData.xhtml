@@ -34,6 +34,7 @@
 
 <div style="text-align:right">
 	<button pButton type="button" icon="ui-icon-search" class="" (click)="onSearch()"></button>
+	<button pButton type="button" icon="ui-icon-add" class="" (click)="onAdd()"></button>
 	<button pButton type="button" icon="ui-icon-save" class="" (click)="onSave()"></button>
 	<button pButton type="button" icon="ui-icon-refresh" class="" (click)="onRefresh()"></button>
 </div>
@@ -63,9 +64,10 @@
 
 <div class="ui-g form-group">
 	<div class="ui-g-12">
-		<p-dataTable [value]="refData.values" [editable]="true" resizableColumns="true">
-			<p-column field="value" header="Value" [editable]="false"></p-column>
-			<p-column field="descr" header="Description" [editable]="true"></p-column>
+		<p-dataTable [value]="searchResults" [editable]="true" resizableColumns="true" 
+					 [paginator]="true" [rows]="10" [responsive]="true" >
+			<p-column field="description" header="Value" [editable]="false"></p-column>
+			<p-column field="longDescription" header="Description" [editable]="true"></p-column>
 		</p-dataTable>
 	</div>
 </div>
