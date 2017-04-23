@@ -39,7 +39,7 @@ export class ReferenceDataComponent implements OnInit {
         // refData is used by html template
         this.refData = new RefData();
 
-        this.referenceDataForDisplay = new Array<ReferenceData>(); // for popover dialog
+        this.referenceDataForDisplay = new Array<ReferenceData>();
         
         // this.searchColumns = [ // for popover dialog
         //     {field: 'name', header: 'Name'},
@@ -59,9 +59,10 @@ export class ReferenceDataComponent implements OnInit {
                 this.selectedReferenceDataType = referenceDataType;
 
                 // get reference data values for the selected reference data type
-        this.referenceDataService.getByReferenceType(referenceDataType).subscribe(refDataArray => this.consumeReferenceData(refDataArray));
-
+                this.referenceDataService.getByReferenceType(referenceDataType).subscribe(refDataArray => this.consumeReferenceData(refDataArray));
             }
+
+            // populate the dropdown list
             this.referenceDataTypeSelectItems.push({label: referenceDataType, value: referenceDataType});
         }
     }
@@ -70,7 +71,11 @@ export class ReferenceDataComponent implements OnInit {
     consumeReferenceData(referenceDataArray: [ReferenceData]) {
         console.log("ReferenceDataComponent::consumeReferenceData(): " + JSON.stringify(referenceDataArray));
 
-       for (let referenceData of referenceDataArray) {
+        // empty the grid
+        this.referenceDataForDisplay = new Array<ReferenceData>();
+
+        // repopulate the grid
+        for (let referenceData of referenceDataArray) {
            this.referenceDataForDisplay.push({
                id: referenceData.id, 
                description: referenceData.description, 
@@ -82,6 +87,8 @@ export class ReferenceDataComponent implements OnInit {
     onReferenceDataTypeSelect() {
         console.log("ReferenceDataComponent::onReferenceDataTypeSelect(): " + this.selectedReferenceDataType);
         
+        // get reference data values for the selected reference data type
+        this.referenceDataService.getByReferenceType(this.selectedReferenceDataType).subscribe(refDataArray => this.consumeReferenceData(refDataArray));
     }
 
     onSearch() {
@@ -134,5 +141,7 @@ export class ReferenceDataComponent implements OnInit {
      */
     onRefresh() {
         // TODO: this.referenceDataService.getByReferenceType(this.refData.name).subscribe(refDataArray => this.saved(refDataArray), error => this.displayError(error));
+        // get reference data values for the selected reference data type
+        this.referenceDataService.getByReferenceType(this.selectedReferenceDataType).subscribe(refDataArray => this.consumeReferenceData(refDataArray));
     }
 }
