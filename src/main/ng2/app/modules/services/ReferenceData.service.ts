@@ -240,7 +240,7 @@ export class ReferenceDataService {
     /**
      * FIXME this needs to be done with pagination.
      */
-    public getTypes(): Observable<[ReferenceData]> {
+    public getTypes(): Observable<[string]> {
         console.info('ReferenceDataService::getTypes()');
 
         let headers = new Headers({

@@ -33,7 +33,7 @@ import { appRouting }  from './AppRoutes';
 // components
 import { MemberCentralComponent }  from './modules/views/MemberCentralComponent';
 import { VerifyIdentityComponent }  from './modules/views/VerifyIdentityComponent';
-import { RefDataComponent }  from './modules/views/RefDataComponent';
+import { ReferenceDataComponent }  from './modules/views/ReferenceDataComponent';
 import { MemberTabsComponent }  from './modules/views/MemberTabsComponent';
 import { MemberMainComponent } from './modules/views/MemberMainComponent';
 import { MemberCallsComponent } from './modules/views/MemberCallsComponent';
@@ -95,7 +95,7 @@ import { SharedService } from './modules/services/Shared.service';
     	AppProfileComponent,
     	MemberCentralComponent,
         VerifyIdentityComponent,
-        RefDataComponent,
+        ReferenceDataComponent,
         MemberTabsComponent,
         MemberMainComponent,
         MemberCallsComponent,

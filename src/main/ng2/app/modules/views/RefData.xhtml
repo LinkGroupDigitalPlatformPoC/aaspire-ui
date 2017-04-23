@@ -1,7 +1,7 @@
-<h1>Reference Data - {{refData.name}} ({{refData.version}})</h1>
+<h1>Reference Data</h1>
 
 <!-- Search dialog - overlays the component -->
-<p-dialog header="Search" [(visible)]="displaySearch" width="800">
+<p-dialog header="Search" [(visible)]="displaySearchDialog" width="800">
 	<div class="ui-g form-group dashboard">
 		<!-- search criteria -->
 		<div class="ui-g-12 ui-md-2">
@@ -16,7 +16,7 @@
 
 		<!-- data table for reference data -->
 		<div class="ui-g-12 ui-md-12">
-			<p-dataTable [value]="searchResults" selectionMode="single" [(selection)]="refData" (onRowSelect)="onSelect($event)" [rows]="10">
+			<p-dataTable [value]="referenceDataForDisplay" selectionMode="single" [(selection)]="refData" (onRowSelect)="onSelect($event)" [rows]="10">
 				<p-column *ngFor="let col of searchColumns" [field]="col.field" [header]="col.header"></p-column>
 			</p-dataTable>
 		</div>
@@ -24,14 +24,58 @@
 
 	<p-footer>
 		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-			<button type="button" pButton icon="fa-close" (click)="displaySearch=false" label="OK"></button>
+			<button type="button" pButton icon="fa-close" (click)="displaySearchDialog=false" label="OK"></button>
 		</div>
 	</p-footer>
 </p-dialog>
 
-<!-- Toolbar along the top -->
+<!-- Add reference data dialog - overlays the component -->
+<p-dialog header="Create new reference data entry - Discussion Topics" [(visible)]="displayAddDialog" width="800">
+	<div class="ui-g form-group dashboard">
+		<!-- search criteria -->
+		<div class="ui-g-12 ui-md-2">
+			<label for="dropdown">Description</label>
+		</div>
+		<div class="ui-g-12 ui-md-8"><input type="text" pInputText [(ngModel)]="refData.name"></div>
+		<div class="ui-g-12 ui-md-2" style="text-align:right"><button pButton type="button" icon="ui-icon-find-in-page" class="" (click)="search()"></button></div>
+
+		<div class="ui-g-12 ui-md-12">
+			<hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+		</div>
+	</div>
+
+	<p-footer>
+		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+			<button type="button" pButton icon="fa-close" (click)="displayAddDialog=false" label="OK"></button>
+		</div>
+	</p-footer>
+</p-dialog>
+
 <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
+<!-- Reference data component -->
+
+<!-- Select reference data type -->
+<div class="ui-g form-group">
+	<div class="ui-g-12 ui-md-6">
+		<span class="ui-dropdown"> 
+			<p-dropdown id="dropdown" [autoWidth]="false" placeholder="Reference data type" 
+				[options]="referenceDataTypeSelectItems" [(ngModel)]="selectedReferenceDataType"
+				(onChange)="onReferenceDataTypeSelect()">
+			</p-dropdown>
+		</span>
+	</div>
+	<div class="ui-g-12 ui-md-6"></div>
+
+	<div class="ui-g-12 ui-md-12"></div>
+</div>
+
+<hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
+
+<!-- Selected reference data type -->
+<h2>{{selectedReferenceDataType}}</h2>
+
+<!-- Toolbar along the top -->
 <div style="text-align:right">
 	<button pButton type="button" icon="ui-icon-search" class="" (click)="onSearch()"></button>
 	<button pButton type="button" icon="ui-icon-add" class="" (click)="onAdd()"></button>
@@ -41,8 +85,8 @@
 
 <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;" />
 
-<!-- Reference data component -->
 <div class="ui-g form-group">
+
 	<div class="ui-g-12 ui-md-12"></div>
 
 	<div class="ui-g-12 ui-md-4">
@@ -56,7 +100,7 @@
 
 	<div class="ui-g-12 ui-md-8">
 		<span class="md-inputfield"> 
-			<textarea pInputTextarea rows="3" [(ngModel)]="refData.descr"></textarea>
+			<textarea pInputTextarea rows="3" [(ngModel)]="refData.descr"></textarea><label>Description</label>
 		</span>
 	</div>
 	<div class="ui-g-12 ui-md-4"></div>
@@ -64,8 +108,7 @@
 
 <div class="ui-g form-group">
 	<div class="ui-g-12">
-		<p-dataTable [value]="searchResults" [editable]="true" resizableColumns="true" 
-					 [paginator]="true" [rows]="10" [responsive]="true" >
+		<p-dataTable [value]="referenceDataForDisplay" [editable]="true" resizableColumns="true" [paginator]="true" [rows]="10" [responsive]="true">
 			<p-column field="description" header="Value" [editable]="false"></p-column>
 			<p-column field="longDescription" header="Description" [editable]="true"></p-column>
 		</p-dataTable>

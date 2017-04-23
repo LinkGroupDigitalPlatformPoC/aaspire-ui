@@ -1,5 +1,5 @@
 import { EventEmitter, Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/primeng';
+import { TreeNode, SelectItem } from 'primeng/primeng';
 
 import { ActivatedRoute } from '@angular/router';
 import './../common/RxJsOperators';
@@ -18,14 +18,19 @@ import { ReferenceDataService } from './../services/ReferenceData.service';
     providers: [ReferenceDataService]
 })
 
-export class RefDataComponent implements OnInit {
+export class ReferenceDataComponent implements OnInit {
         
     refData: RefData;
-    referenceDataType: string;
+    // referenceDataType: string;
 
-    displaySearch: boolean; // display or hide the search popover dialog
+    displaySearchDialog: boolean; // display or hide the search popover dialog
     searchColumns: any[]; // on the popover dialog
-    searchResults: ReferenceData[]; // popover dialog
+    referenceDataForDisplay: ReferenceData[]; // popover dialog
+
+    displayAddDialog: boolean; // display or hide the "create new entry" dialog
+
+    private referenceDataTypeSelectItems: SelectItem[];
+    private selectedReferenceDataType: string; // used by html
 
 
     constructor(private route: ActivatedRoute, private referenceDataService: ReferenceDataService) {}
@@ -34,7 +39,7 @@ export class RefDataComponent implements OnInit {
         // refData is used by html template
         this.refData = new RefData();
 
-        this.searchResults = new Array<ReferenceData>(); // for popover dialog
+        this.referenceDataForDisplay = new Array<ReferenceData>(); // for popover dialog
         
         // this.searchColumns = [ // for popover dialog
         //     {field: 'name', header: 'Name'},
@@ -42,31 +47,53 @@ export class RefDataComponent implements OnInit {
         //     {field: 'version', header: 'Version'}
         // ];
 
-        this.referenceDataType = "discussion-topics"; // TODO: allow different types
-        this.referenceDataService.getByReferenceType(this.referenceDataType).subscribe(refDataArray => this.consumeReferenceData(refDataArray));
+        this.referenceDataTypeSelectItems = new Array<SelectItem>();
+        this.referenceDataService.getTypes().subscribe(resultArray => this.consumeReferenceDataTypes(resultArray));
+    }
+
+    consumeReferenceDataTypes(typesArray: [string]) {
+        console.log("ReferenceDataComponent::consumeReferenceDataTypes(): " + JSON.stringify(typesArray));
+
+        for (let referenceDataType of typesArray) {
+            if (this.selectedReferenceDataType == undefined) { // selected in the dropdown
+                this.selectedReferenceDataType = referenceDataType;
+
+                // get reference data values for the selected reference data type
+        this.referenceDataService.getByReferenceType(referenceDataType).subscribe(refDataArray => this.consumeReferenceData(refDataArray));
+
+            }
+            this.referenceDataTypeSelectItems.push({label: referenceDataType, value: referenceDataType});
+        }
     }
 
     // the API has returned some call reasons
-    consumeReferenceData(refDataArray: [ReferenceData]) {
-        console.log("RefDataComponent::consumeReferenceData(): " + JSON.stringify(refDataArray));
+    consumeReferenceData(referenceDataArray: [ReferenceData]) {
+        console.log("ReferenceDataComponent::consumeReferenceData(): " + JSON.stringify(referenceDataArray));
 
-       for (let refData of refDataArray) {
-           this.searchResults.push({id: refData.id, description: refData.description, longDescription: refData.longDescription});
+       for (let referenceData of referenceDataArray) {
+           this.referenceDataForDisplay.push({
+               id: referenceData.id, 
+               description: referenceData.description, 
+               longDescription: referenceData.longDescription
+            });
        }
+    }
 
-        console.log("RefDataComponent::searchResults: " + JSON.stringify(this.searchResults));
+    onReferenceDataTypeSelect() {
+        console.log("ReferenceDataComponent::onReferenceDataTypeSelect(): " + this.selectedReferenceDataType);
+        
     }
 
     onSearch() {
-        this.displaySearch = true; // show popover dialog
+        this.displaySearchDialog = true; // show popover dialog
     }
     
     search() {
-        this.referenceDataService.getTypes().subscribe(results => this.searched(results), error => this.displayError(error));
+        // this.referenceDataService.getTypes().subscribe(results => this.searched(results), error => this.displayError(error));
     }
 
     onSelect($event) {
-        this.displaySearch = false; // hide popover dialog
+        this.displaySearchDialog = false; // hide popover dialog
     }
 
     convertToModel(model) {
@@ -78,7 +105,7 @@ export class RefDataComponent implements OnInit {
     }
 
     searched(results : [ReferenceData]) {
-        this.searchResults = results;
+        this.referenceDataForDisplay = results;
     }
 
     displayError(errorMsg : string) {
@@ -99,7 +126,7 @@ export class RefDataComponent implements OnInit {
     }
 
     onAdd() {
-
+        this.displayAddDialog = true;
     }
 
     /**
