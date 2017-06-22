@@ -141,10 +141,23 @@ export class CallComponent implements OnInit {
         this.displaySearch = true;
     }
     
+    /**
+     * End Call pressed
+     */
     onWrapUp() {
         // call "save" api and then display call with the updated call object
         // the status should change to "closed" which should then disable all toolbar buttons except for "search"
-        this.call.status = 'closed';
+        console.log("CallComponent::onWrapUp()");
+
+        let engagement: EngagementBody = this.sharedService.currentEngagementBody;
+        engagement.status = "closed";
+        console.log("CallComponent::onWrapUp(): current engagement = " + JSON.stringify(engagement));
+
+        // update the engagement status
+        this.subscriptionToModifyEngagement = 
+            this.engagementService.modifyEngagementForMember(engagement).subscribe(
+                memberObj => this.consumeModifyEngagementWrapUpResult(memberObj),
+                error => console.error("ERROR: CallComponent: onWrapUp(): " + <any>error)); 
     }
     
     /**
@@ -185,6 +198,15 @@ export class CallComponent implements OnInit {
         // let resJson = result.json();
         if (result.ok == 1) {
             this.sharedService.currentEngagementBody.status = "In Progress";
+        }
+    }
+
+    consumeModifyEngagementWrapUpResult(result: any) {
+        console.log("CallComponent: consumeModifyEngagementResult(): "+ JSON.stringify(result));
+
+        // let resJson = result.json();
+        if (result.ok == 1) {
+            this.sharedService.currentEngagementBody.status = "closed";
         }
     }
 }

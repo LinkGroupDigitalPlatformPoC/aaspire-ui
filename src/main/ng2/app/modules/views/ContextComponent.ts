@@ -34,6 +34,7 @@ import { EmotionChartModel} from '../models/EmotionChartModel';
 })
 
 export class ContextComponent {
+
     private currentCall: CallDetails;
 
     _onStartCall$: Subscription;
@@ -66,7 +67,7 @@ export class ContextComponent {
     // from the "wrap up"" button
     // onWrapUp() {
     //     console.log("ContextComponent::onWrapUp()");
-    //     this.endCall(this.currentCall);
+    //     this.endCall(call);
     // }
 
     // triggered by an event (eg: "Start Call" button on member central grid - for a particular member)
@@ -79,14 +80,16 @@ export class ContextComponent {
 
         this.chartModel = new EmotionChartModel(emo);
 
-        this.currentCall = call; // shows the whole context panel (see the HTML)
+        this.sharedService.currentCall = call;
+        this.currentCall = this.sharedService.currentCall;
     }
 
     // (can be) triggered by an event
     endCall(call: CallDetails) {
         console.log('ContextComponent::endCall()');
 
-        this.currentCall = null; // hides the whole context panel (see the HTML)
+        this.sharedService.currentCall = null;
+        this.currentCall = this.sharedService.currentCall;
         this.chartModel = null;
     }
 

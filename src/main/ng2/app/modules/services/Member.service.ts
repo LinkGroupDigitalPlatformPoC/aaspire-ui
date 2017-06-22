@@ -57,6 +57,13 @@ export class MemberService {
         return this.http.get(completeURL, options).map(this.extractData).map(a => this.memberWithAnalysis(member, a)).catch(this.handleError);
     }
 
+    /**
+     * This is for sentiment
+     * 
+     * @param member 
+     * 
+     * @param analysis 
+     */
     private memberWithAnalysis(member, analysis){
         // debugger
         // TODO move this logic to the server
@@ -70,6 +77,11 @@ export class MemberService {
         return member;
     }
 
+    /**
+     * This is for sentiment
+     * 
+     * @param members 
+     */
     private addAnalysis(members) {
         var that = this;
         let memberWithAnalysesObservables = members.map(this.getAnalysisForMember.bind(that))

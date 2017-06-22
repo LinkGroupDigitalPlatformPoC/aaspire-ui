@@ -15,11 +15,14 @@ import { AppSettings } from '../../AppSettings';
 // models
 import { EngagementBody } from '../models/EngagementBody.interface';
 
+// services
+import { SharedService } from '../services/Shared.service';
+
 @Injectable()
 
 export class EngagementService {
 
-    constructor(private http: Http) {}
+    constructor(private http: Http, private sharedService: SharedService ) {}
 
     /*
     GET
@@ -142,7 +145,9 @@ export class EngagementService {
     /**
      * PUT
      */
-    modifyEngagementForMember(modifiedEngagementBody) {
+    modifyEngagementForMember(modifiedEngagementBody: EngagementBody) {
+        console.log("Engagement.service: modifyEngagementForMember()");
+
         let headers = new Headers({
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -152,8 +157,10 @@ export class EngagementService {
         let options = new RequestOptions({headers: headers});
 
         // via API connect
-        let completeURL = AppSettings.API_ENGAGEMENT_ADD;
+        // https://api.us.apiconnect.ibmcloud.com/mangluibmorg-linkgrouppoc-dev/sb/engagements/594b588558534a003feff67f
+        let completeURL = AppSettings.API_ENGAGEMENT_ADD + "/" + this.sharedService.currentCall.callId;
 
+        console.log("Engagement.service: modifyEngagementForMember(): url=" + completeURL);
         return this.http.put(completeURL, modifiedEngagementBody, options).map(this.extractData).catch(this.handleError);
     }
 
@@ -164,6 +171,7 @@ export class EngagementService {
      *      Response - object to parse
      */
     private extractData(res: Response) {
+        console.log("Engagement.service: extractData(): status = " + res.status);
 
         if (res.status == 200) {
             let body = res.json(); // parse into a JavaScript object

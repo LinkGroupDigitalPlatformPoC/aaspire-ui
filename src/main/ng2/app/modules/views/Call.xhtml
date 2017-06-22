@@ -88,31 +88,40 @@
 
 			<div class="ui-g-12 ui-md-12"></div>
 
-			<div class="ui-g-12 ui-md-12">
-				<p-dataTable [value]="identityChecks" [(selection)]="selectedIdentifiers" dataKey="identifier" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
-					<p-column [style]="{'width':'38px'}" selectionMode="multiple" ></p-column>
-					<p-column field="identifier" header="Identity Type"></p-column>
-					<p-column field="value" header="Cross Reference Value"></p-column>
-					<p-column field="points" header="Points" [style]="{'width':'90px'}"></p-column>
-				</p-dataTable>	
-			</div>
 
-			<div class="ui-g-12 ui-md-8"></div>
-			<div class="ui-g-12 ui-md-4">
-				<div class="ui-g card colorbox colorbox-2">
-					<div class="ui-g-12">
-						<span class="colorbox-name">Total Points</span>
-						<span class="colorbox-count">{{points}}</span>
+			<div *ngIf="call.status=='verification'">
+				<div class="ui-g-12 ui-md-12">
+					<p-dataTable [value]="identityChecks" [(selection)]="selectedIdentifiers" dataKey="identifier" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+						<p-column [style]="{'width':'38px'}" selectionMode="multiple" ></p-column>
+						<p-column field="identifier" header="Identity Type"></p-column>
+						<p-column field="value" header="Cross Reference Value"></p-column>
+						<p-column field="points" header="Points" [style]="{'width':'90px'}"></p-column>
+					</p-dataTable>	
+				</div>
+
+				<div class="ui-g-12 ui-md-8"></div>
+				<div class="ui-g-12 ui-md-4">
+					<div class="ui-g card colorbox colorbox-2">
+						<div class="ui-g-12">
+							<span class="colorbox-name">Total Points</span>
+							<span class="colorbox-count">{{points}}</span>
+						</div>
 					</div>
+				</div>
+
+				<div class="ui-g-12 ui-md-8"></div>
+				<div class="ui-g-12 ui-md-2">
+					<button pButton type="button" label="Cancel" (click)="onCancel()"></button>
+				</div>	
+				<div class="ui-g-12 ui-md-2">
+					<button pButton type="button" label="Verified" (click)="onVerified()" [disabled]="false"></button>
 				</div>
 			</div>
 
-			<div class="ui-g-12 ui-md-8"></div>
-			<div class="ui-g-12 ui-md-2">
-				<button pButton type="button" label="Cancel" (click)="onCancel()"></button>
-			</div>	
-			<div class="ui-g-12 ui-md-2">
-				<button pButton type="button" label="Verified" (click)="onVerified()" [disabled]="false"></button>
+			<div class="ui-g-12 ui-md-12" *ngIf="call.status!='verification'">
+				<div class="ui-g-12 ui-md-4">
+					<button pButton type="button" label="End Call" (click)="onWrapUp()" [disabled]="false"></button>
+				</div>				
 			</div>
 
 		</div>    	
