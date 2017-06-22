@@ -29,9 +29,9 @@ export class CallComponent implements OnInit {
 
     private call: CallDetails;
     private callReasonsSelectItems: SelectItem[];
-    private identityChecks: IdentityCheckGridRow[];
+    private identityChecks: IdentityCheckGridRow[]; // all possible forms of ID check
     private points: number; // id verification
-    private selectedIdentifiers: IdentityCheckGridRow[];
+    private selectedIdentifiers: IdentityCheckGridRow[]; // selected ID checks
 
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
@@ -61,9 +61,9 @@ export class CallComponent implements OnInit {
             this.call.startTime = engagement.dateTimeInitiated;
             this.call.memberName = this.sharedService.currentMember.title + " " + this.sharedService.currentMember.givenName + " " + this.sharedService.currentMember.surname;
 
-            // checks in the identities array
+            // populate the identity checks array
             for (let identity of this.sharedService.currentMember.identities) {
-                this.identityChecks.push(new IdentityCheckGridRow(identity.type, 30, identity.documentNumber));
+                this.identityChecks.push(new IdentityCheckGridRow(identity.type, 30, identity.documentNumber)); // TODO: put points in the database
             }
     
             // this.sharedService.currentMember - contains member info (including identity check)
@@ -82,7 +82,9 @@ export class CallComponent implements OnInit {
         this.getCallReasons();
     }
 
-    // Retrieve call reasons from the API
+    /**
+     * Retrieve call reasons from the API
+     */ 
     getCallReasons() {
         this.referenceDataService.getByReferenceType('discussion-topics').subscribe(refDataArray => this.consumeCallReasons(refDataArray));
     }
@@ -96,12 +98,18 @@ export class CallComponent implements OnInit {
        }
     }
     
+    /**
+     * Add points based in identifier type
+     */ 
     onRowSelect(event) {
-        // add points based in identifier type
-        let currentTotal = 0;
+        console.log("CallComponent::onRowSelect(): event = " + JSON.stringify(event));
+
+        let currentTotal = 0; // TODO
         
+        this.selectedIdentifiers.push(event.data);
         console.log("CallComponent::onRowSelect(): selectedIdentifiers = " + JSON.stringify(this.selectedIdentifiers));
 
+        // recalculate based on all selected ID types
         for (let identifier of this.selectedIdentifiers) {
             currentTotal = currentTotal + identifier.points;
         }
@@ -111,9 +119,29 @@ export class CallComponent implements OnInit {
         this.points = currentTotal;
     }
 
+    /**
+     * Subtract points based on identifier type
+     * 
+     * @param event 
+     */
     onRowUnselect(event) {
-        // subtract points based on identifier type
-        this.onRowSelect(event);
+        console.log("CallComponent::onRowUnselect(): event = " + JSON.stringify(event));
+
+        let currentTotal = 0;
+
+        let itemToRemove = event.data;
+
+        this.selectedIdentifiers = this.selectedIdentifiers.filter(obj => obj !== itemToRemove);
+        console.log("CallComponent::onRowUnselect(): selectedIdentifiers = " + JSON.stringify(this.selectedIdentifiers));
+
+        // recalculate based on all selected ID types
+        for (let identifier of this.selectedIdentifiers) {
+            currentTotal = currentTotal + identifier.points;
+        }
+
+        console.log("CallComponent::onRowUnselect(): total = " + currentTotal);
+        
+        this.points = currentTotal;
     }
     
     onSearch() {
