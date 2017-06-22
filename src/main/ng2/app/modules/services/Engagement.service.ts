@@ -139,9 +139,22 @@ export class EngagementService {
         return this.http.post(completeURL, engagementBody, options).map(this.extractData).catch(this.handleError);
     }
 
-    // PUT
-    modifyEngagement() {
+    /**
+     * PUT
+     */
+    modifyEngagementForMember(modifiedEngagementBody) {
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-IBM-Client-Id': '01493a98-9ab1-47f8-8943-afee23978816' // @ICtodo: security: inject this during the build process, as an environment variable
+        });
 
+        let options = new RequestOptions({headers: headers});
+
+        // via API connect
+        let completeURL = AppSettings.API_ENGAGEMENT_ADD;
+
+        return this.http.put(completeURL, modifiedEngagementBody, options).map(this.extractData).catch(this.handleError);
     }
 
     /**

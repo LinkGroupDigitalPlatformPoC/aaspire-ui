@@ -89,12 +89,15 @@ export class MemberCentralComponent {
         this.storeSelectedMember(memberRow.id);
 
         // create the call in the database via the API
-        let dateTimeNow = new Date().toString();
+        let dateToday = new Date();
+
+        // let dateTimeNow = Moment(currDate.toString()).format('yyyy-MM-dd hh:mm');
+        // let dateTimeNow = new Date().toString();
 
         // this matches the body of the API request
         this.engagementBody = {
             "memberId": memberRow.id.toString(),
-            "dateTimeInitiated": dateTimeNow,
+            "dateTimeInitiated": this.formatDate(dateToday),
             "dateTimeCompleted": "",
             "notes": "",
             "primaryTopic": "",
@@ -107,6 +110,20 @@ export class MemberCentralComponent {
             this.engagementService.createEngagementForMember(this.engagementBody).subscribe(
                 memberObj => this.consumeAddEngagementResult(memberObj),
                 error => console.error("ERROR: MemberCentralComponent: " + <any>error));  
+    }
+
+    formatDate(date: Date) {
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        let displayMonth = (monthIndex + 1).toString();
+        var year = date.getFullYear();
+        var minutes = date.getMinutes();
+        var hours = date.getHours();
+        var dateTimeNow = year + "-" + "0" + displayMonth + "-" + day + " " +  hours + ":" + minutes; // TODO: format month
+
+        console.log("MemberCentralComponent::formatDate(): " + dateTimeNow);
+
+        return dateTimeNow;
     }
 
     onCloseModal() {

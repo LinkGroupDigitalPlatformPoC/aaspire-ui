@@ -16,11 +16,12 @@ import { EngagementBody } from './../models/EngagementBody.interface';
 import { ContextMediatorService } from './../common/ContextMediatorService'; // singleton
 import { SharedService } from './../services/Shared.service'; // singleton
 import { ReferenceDataService } from './../services/ReferenceData.service';
+import { EngagementService } from '../services/Engagement.service'; // engagements / calls
 
 @Component({
     moduleId: module.id,
     templateUrl: 'Call.xhtml',
-    providers: [ReferenceDataService]
+    providers: [EngagementService, ReferenceDataService]
 })
 
 export class CallComponent implements OnInit {
@@ -33,13 +34,16 @@ export class CallComponent implements OnInit {
     private points: number; // id verification
     private selectedIdentifiers: IdentityCheckGridRow[]; // selected ID checks
 
+    private subscriptionToModifyEngagement: any;
+
     /**
      * TODO: Generic Type should be updated to only be extensions of an Entity interface.  
      */    
     constructor(private route: ActivatedRoute,
                 private router: Router,
                 public referenceDataService: ReferenceDataService,
-                protected contextMediatorService : ContextMediatorService,
+                protected contextMediatorService: ContextMediatorService,
+                private engagementService: EngagementService,
                 private sharedService: SharedService) {}
     
     ngOnInit() {
@@ -65,18 +69,7 @@ export class CallComponent implements OnInit {
             for (let identity of this.sharedService.currentMember.identities) {
                 this.identityChecks.push(new IdentityCheckGridRow(identity.type, 30, identity.documentNumber)); // TODO: put points in the database
             }
-    
-            // this.sharedService.currentMember - contains member info (including identity check)
-
-            // name
-            // this.identityChecks.push(new IdentityCheckGridRow('Name', 40, this.sharedService.currentMember.title + " " + 
-            //             this.sharedService.currentMember.givenName + " " + this.sharedService.currentMember.surname));
-    
-            // DOB
-            // this.identityChecks.push(new IdentityCheckGridRow('DOB', 40, this.sharedService.currentMember.dateOfBirth));
-    
-            // last employer
-            // this.identityChecks.push(new IdentityCheckGridRow('Last Employer', 40, this.sharedService.currentMember.lastEmployer));     
+   
         }
 
         this.getCallReasons();
@@ -154,8 +147,24 @@ export class CallComponent implements OnInit {
         this.call.status = 'closed';
     }
     
+    /**
+     * Sufficient ID check points have been achieved.
+     * Updatre the call status and go to the member screen.
+     */
     onVerified() {
-        // go to member screen
+        console.log("CallComponent::onVerified()");
+
+        let engagement: EngagementBody = this.sharedService.currentEngagementBody;
+        engagement.status = "In Progress";
+        console.log("CallComponent::onVerified(): current engagement = " + JSON.stringify(engagement));
+
+        // update the engagement status
+        this.subscriptionToModifyEngagement = 
+            this.engagementService.modifyEngagementForMember(engagement).subscribe(
+                memberObj => this.consumeModifyEngagementResult(memberObj),
+                error => console.error("ERROR: CallComponent: onVerified(): " + <any>error));  
+
+        // move to member screen
         this.router.navigateByUrl('/member/' + this.call.memberId);  
     }
     
@@ -164,5 +173,18 @@ export class CallComponent implements OnInit {
         
         // go (back) to member central
         this.router.navigateByUrl('/membercentral');  
+    }
+
+    /**
+     * Result from update call status
+     * @param result 
+     */
+    consumeModifyEngagementResult(result: any) {
+        console.log("CallComponent: consumeModifyEngagementResult(): "+ JSON.stringify(result));
+
+        // let resJson = result.json();
+        if (result.ok == 1) {
+            this.sharedService.currentEngagementBody.status = "In Progress";
+        }
     }
 }
