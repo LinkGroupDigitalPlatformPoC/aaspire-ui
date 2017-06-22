@@ -84,10 +84,11 @@ export class MemberService {
      *      Response - object to parse
      */
     private extractData(res: Response) {
+        console.log('MemberSearch service: extractData: status = ' + res.status);
+        // console.log('MemberSearch service: extractData: json = ' + res.json());
 
         if (res.status == 200) {
             let body = res.json(); // parse into a JavaScript object
-            // console.log('MemberSearch service: success: body = ' + JSON.stringify(body));
             return body;
         }
         else {
@@ -97,6 +98,8 @@ export class MemberService {
     }
 
     private handleError(error: any) {
+        console.log('MemberSearch service: handleError: ' + error);
+
         let errMsg = (error.message) ? error.message : error.status ? `${ error.status } - ${ error.statusText}` : 'Member service: ERROR';
         console.error(errMsg);
         return Observable.throw(errMsg);

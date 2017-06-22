@@ -56,14 +56,27 @@ export class MemberCentralComponent {
                 private engagementService: EngagementService) {}
     
     /**
-     * From the "Search"" button on this component
+     * From the "Search" button on this component
      */
     onSearch() {
-        // console.log('MemberCentralComponent::onSearch(): param = ' + this.userEnteredSearchCriteria);
+        console.log('MemberCentralComponent::onSearch(): param = ' + this.userEnteredSearchCriteria);
         this.subscriptionToMemberSearch = 
             this.memberService.getMembers(this.userEnteredSearchCriteria).subscribe(
                 memberObj => this.consumeMemberDetails(memberObj),
-                error => console.error("ERROR: " + <any>error));
+                error => this.handleMemberSearchError(error)
+                );
+    }
+
+    handleMemberSearchError(error: any) {
+        console.error("ERROR: MemberCentralComponent: handleMemberSearchError: " + <any>error);
+        // if (error.status == 404) {
+        //    this.modalMessage = "No members were found for the search criteria entered. Please try again with new search criteria";
+        //    this.displayModal = true;
+        // }
+        // clear the grid
+        var emptyGridArr = [] as [MemberDetails];
+        this.matchingMemberDetails = emptyGridArr; // array of matching members
+        this.searchResults = emptyGridArr.map(m => new MemberGridRow(m));
     }
 
     /**
@@ -93,7 +106,7 @@ export class MemberCentralComponent {
         this.subscriptionToAddEngagement = 
             this.engagementService.createEngagementForMember(this.engagementBody).subscribe(
                 memberObj => this.consumeAddEngagementResult(memberObj),
-                error => console.error("ERROR: " + <any>error));  
+                error => console.error("ERROR: MemberCentralComponent: " + <any>error));  
     }
 
     onCloseModal() {
